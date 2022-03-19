@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import DailyExpenses from './components/DailyExpensesList';
+import DailyExpenseHeader from "./components/Layout/DailyExpenseHeader";
 
-function App() {
+const DUMMY_EXPENSES = [
+  { id: "a1", amount: 36.16, date: new Date(2022, 3, 18), isPaid: false, merchant: "Wawa" },
+  { id: "a2", amount: 19.55, date: new Date(2022, 3, 12), isPaid: false, merchant: "Mobil" },
+  { id: "a3", amount: 5.82, date: new Date(2022, 2, 28), isPaid: false, merchant: "Taco Bell" }
+];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          FUCK THE WORLD
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <DailyExpenseHeader />
+      
+      <DailyExpenses items={DUMMY_EXPENSES}/>
+      {console.log('after DailyExpenseHeader AND DailyExpenses')}
     </div>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,11 @@
+.titles {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 20px auto;
+}
+
+.titles span {
+    display: table-cell;
+    text-align: center;
+}
