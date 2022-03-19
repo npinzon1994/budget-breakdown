@@ -1,8 +1,10 @@
 .titles {
     display: table;
-    width: 100%;
+    width: 91.5%;
     table-layout: fixed;
     margin: 20px auto;
+    
+    
 }
 
 .titles span {

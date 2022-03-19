@@ -1,0 +1,16 @@
+.header-bar {
+    background: red;
+    height: 100px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.header-bar h3 {
+    margin-left: 36px;
+    color: #fff;
+    float: left;
+    
+    
+}

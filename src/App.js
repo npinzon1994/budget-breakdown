@@ -1,6 +1,8 @@
 import "./App.css";
 import DailyExpenses from './components/DailyExpensesList';
 import DailyExpenseHeader from "./components/Layout/DailyExpenseHeader";
+import MenuHeader from "./components/Layout/MenuHeader";
+import RemainingBalanceHeader from "./components/Layout/RemainingBalanceHeader";
 
 const DUMMY_EXPENSES = [
   { id: "a1", amount: 36.16, date: new Date(2022, 3, 18), isPaid: false, merchant: "Wawa" },
@@ -11,6 +13,8 @@ const DUMMY_EXPENSES = [
 const App = () => {
   return (
     <div>
+      <MenuHeader />
+      <RemainingBalanceHeader />
       <DailyExpenseHeader />
       
       <DailyExpenses items={DUMMY_EXPENSES}/>

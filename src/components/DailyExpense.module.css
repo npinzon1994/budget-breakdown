@@ -6,6 +6,8 @@
     display: table;
     width: 100%;
     table-layout: fixed;
+    margin: 20px 0;
+    padding: 15px 0;
 }
 
 .dailyExpense span {

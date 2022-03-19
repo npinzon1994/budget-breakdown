@@ -1,6 +1,7 @@
 import React from "react";
 import DailyExpense from "./DailyExpense";
 import DailyExpenseHeader from "./Layout/DailyExpenseHeader";
+import classes from './DailyExpensesList.module.css';
 
 const DailyExpensesList = (props) => {
   //PROPS are still DUMMY_EXPENSES originating from App.js
@@ -10,6 +11,7 @@ const DailyExpensesList = (props) => {
   //Daily Expense takes KEY, AMOUNT, DATE, ISPAID, MERCHANT as Props
   
   return (
+    <div className={classes.dailyExpensesList}>
     <ul>
       <DailyExpense
         key={props.items[0].id}
@@ -33,6 +35,7 @@ const DailyExpensesList = (props) => {
         merchant={props.items[2].merchant}
       />
     </ul>
+    </div>
   );
 };
 
