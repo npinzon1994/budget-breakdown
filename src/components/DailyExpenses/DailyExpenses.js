@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
-import Card from "./UI/Card";
-import DailyExpense from "./DailyExpense";
-import DailyExpenseHeader from "./Layout/DailyExpenseHeader";
+import Card from "../UI/Card";
+import DailyExpense from "../DailyExpenses/DailyExpense";
+import DailyExpenseHeader from "../Layout/DailyExpenseHeader";
 import classes from './DailyExpenses.module.css';
 
 const DailyExpenses = (props) => {
@@ -9,21 +9,21 @@ const DailyExpenses = (props) => {
     {
       id: "a1",
       amount: 36.16,
-      date: new Date(2022, 3, 18),
+      date: new Date(2022, 2, 18),
       isPaid: false,
       merchant: "Wawa",
     },
     {
       id: "a2",
       amount: 19.55,
-      date: new Date(2022, 3, 12),
+      date: new Date(2022, 2, 12),
       isPaid: false,
       merchant: "Mobil",
     },
     {
       id: "a3",
       amount: 5.82,
-      date: new Date(2022, 2, 28),
+      date: new Date(2022, 1, 28),
       isPaid: false,
       merchant: "Taco Bell",
     },

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./MenuHeader.module.css";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 const MenuHeader = (props) => {
   return (
@@ -10,7 +10,7 @@ const MenuHeader = (props) => {
         <br /> Expense Tracker
       </h3>
       
-        <Button label={"+ Add New Expense"} />
+        <Button onClick={props.onShow}>+ Add New Expense</Button>
     </div>
   );
 };
