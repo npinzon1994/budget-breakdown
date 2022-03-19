@@ -1,8 +1,7 @@
 .titles {
     display: table;
-    width: 91.5%;
+    width: 100%;
     table-layout: fixed;
-    margin: 20px auto;
     
     
 }

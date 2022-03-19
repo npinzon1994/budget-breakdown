@@ -1,24 +1,18 @@
 import "./App.css";
-import DailyExpenses from './components/DailyExpensesList';
-import DailyExpenseHeader from "./components/Layout/DailyExpenseHeader";
+import DailyExpenses from "./components/DailyExpenses";
 import MenuHeader from "./components/Layout/MenuHeader";
 import RemainingBalanceHeader from "./components/Layout/RemainingBalanceHeader";
-
-const DUMMY_EXPENSES = [
-  { id: "a1", amount: 36.16, date: new Date(2022, 3, 18), isPaid: false, merchant: "Wawa" },
-  { id: "a2", amount: 19.55, date: new Date(2022, 3, 12), isPaid: false, merchant: "Mobil" },
-  { id: "a3", amount: 5.82, date: new Date(2022, 2, 28), isPaid: false, merchant: "Taco Bell" }
-];
+import DailyExpense from "./components/DailyExpense";
 
 const App = () => {
   return (
     <div>
       <MenuHeader />
       <RemainingBalanceHeader />
-      <DailyExpenseHeader />
       
-      <DailyExpenses items={DUMMY_EXPENSES}/>
-      {console.log('after DailyExpenseHeader AND DailyExpenses')}
+
+      <DailyExpenses />
+      {console.log("after DailyExpenseHeader AND DailyExpenses")}
     </div>
   );
 };
