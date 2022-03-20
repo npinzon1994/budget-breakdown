@@ -9,9 +9,12 @@ const DailyExpense = (props) => {
   const day = props.date.toLocaleString("en-US", {day: '2-digit'}) + '/';
   const year = props.date.getFullYear();
 
+  const a = props.amount.toFixed
+  const formattedTotal = `$${props.amount}`;
+
   return (
     <li className={classes.dailyExpense}>
-        <span>{props.amount}</span>
+        <span>{formattedTotal}</span>
         <span>{month + day + year}</span>
         <span>{props.isPaid === true ? 'Y' : 'N'}</span>
         <span>{props.merchant}</span>

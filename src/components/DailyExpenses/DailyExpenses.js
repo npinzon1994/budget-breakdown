@@ -1,8 +1,9 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import Card from "../UI/Card";
 import DailyExpense from "../DailyExpenses/DailyExpense";
 import DailyExpenseHeader from "../Layout/DailyExpenseHeader";
-import classes from './DailyExpenses.module.css';
+import classes from "./DailyExpenses.module.css";
+import RemainingBalanceHeader from "../Layout/RemainingBalanceHeader";
 
 const DailyExpenses = (props) => {
   const DUMMY_EXPENSES = [
@@ -41,11 +42,18 @@ const DailyExpenses = (props) => {
     />
   ));
 
+  const totalBalance = `$${(
+    DUMMY_EXPENSES[0].amount +
+    DUMMY_EXPENSES[1].amount +
+    DUMMY_EXPENSES[2].amount
+  ).toFixed(2)}`;
+
   return (
     <Fragment>
+      <RemainingBalanceHeader total={totalBalance} />
       <Card>
         <DailyExpenseHeader />
-        <ul className={classes['daily-expenses']}>{expenses}</ul>
+        <ul className={classes["daily-expenses"]}>{expenses}</ul>
       </Card>
     </Fragment>
   );

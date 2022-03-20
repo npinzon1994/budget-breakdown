@@ -13,6 +13,7 @@
     top: 20vh;
     left: 5%;
     width: 60%;
+    max-width: 320px;
     background-color: white;
     padding: 1rem;
     border-radius: 14px;
@@ -24,7 +25,7 @@
   @media (min-width: 768px) {
     .modal {
       width: 30rem;
-      left: calc(50% - 15.5rem);
+      left: calc(50% - 10rem);
     }
   }
   

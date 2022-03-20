@@ -4,7 +4,7 @@ import classes from "./RemainingBalanceHeader.module.css";
 const RemainingBalanceHeader = (props) => {
   return (
     <div>
-      <h3>Total: $61.53</h3>
+      <h3>{'Total: ' + props.total}</h3>
     </div>
   );
 };
