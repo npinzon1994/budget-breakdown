@@ -40,7 +40,16 @@
     border: 1px solid red;
 }
 
+.add-expense-form.invalid input[type="date"] {
+    background: #f1959b;
+    border: 1px solid red;
+}
+
 .add-expense-form.invalid input[type="number"]::placeholder {
+    color: red;
+}
+
+.add-expense-form.invalid input[type="date"] {
     color: red;
 }
 

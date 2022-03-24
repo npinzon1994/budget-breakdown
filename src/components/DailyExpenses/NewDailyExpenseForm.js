@@ -23,7 +23,9 @@ const NewDailyExpenseForm = (props) => {
   const amountChangeHandler = (event) => {
     if (+event.target.value > 0 && event.target.value.trim().length > 0) {
       setIsEnteredAmountValid(true);
+      
     }
+    
     setEnteredAmount(event.target.value);
   };
 
@@ -31,7 +33,9 @@ const NewDailyExpenseForm = (props) => {
   const dateChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
       setIsPickedDateValid(true);
+      
     }
+    
     setPickedDate(event.target.value);
   };
 
@@ -50,14 +54,20 @@ const NewDailyExpenseForm = (props) => {
     //checking if entered amount is <= 0 OR if field is empty
     if (+enteredAmount <= 0 || enteredAmount.trim().length === 0) {
       setIsEnteredAmountValid(false);
+      console.log('Is Entered Amount Valid? - ' + isEnteredAmountValid);
       return;
     }
+
+    console.log('Is Entered Amount Valid? - ' + isEnteredAmountValid);
 
     //checking if picked date is empty
     if (pickedDate.trim().length === 0) {
       setIsPickedDateValid(false);
+      console.log('Is Date Valid? - ' + isPickedDateValid);
       return;
     }
+
+    console.log('Is Date Valid? - ' + isPickedDateValid);
 
     //current state snapshots
     console.log("AMOUNT: " + enteredAmount);
@@ -87,8 +97,8 @@ const NewDailyExpenseForm = (props) => {
       <form
         onSubmit={addNewDailyExpenseHandler}
         className={`${classes["add-expense-form"]} ${
-          (!isEnteredAmountValid) && classes.invalid
-        }`}
+          !isEnteredAmountValid && classes.invalid
+        } ${!isPickedDateValid && classes.invalid}`}
       >
         <input
           id="amountField"
