@@ -10,7 +10,13 @@
 .header-bar h3 {
     margin-left: 36px;
     color: #fff;
-    float: left;
-    
-    
+    float: left; 
+}
+
+.remaining-balance {
+    text-align: center;
+}
+
+.remaining-balance h3 {
+    margin: 30px 0;
 }

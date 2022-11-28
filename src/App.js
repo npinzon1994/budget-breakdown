@@ -1,9 +1,9 @@
 import "./App.css";
 import DailyExpenses from "./components/DailyExpenses/DailyExpenses";
-import MenuHeader from "./components/Layout/MenuHeader";
-import DailyExpense from "./components/DailyExpenses/DailyExpense";
+import Header from "./components/Layout/Header";
 import NewDailyExpenseForm from "./components/DailyExpenses/NewDailyExpenseForm";
 import { useState } from "react";
+import ExpensesProvider from "./context/ExpensesProvider";
 
 const App = () => {
   const [expenseFormIsShown, setExpenseFormIsShown] = useState(false);
@@ -17,11 +17,11 @@ const App = () => {
   }
   
   return (
-    <div>
+    <ExpensesProvider>
       {expenseFormIsShown && <NewDailyExpenseForm onClose={hideExpenseFormHandler}/>}
-      <MenuHeader onShow={showExpenseFormHandler}/>
-      <DailyExpenses />
-    </div>
+      <Header onShow={showExpenseFormHandler}/>
+      <DailyExpenses/>
+    </ExpensesProvider>
   );
 };
 

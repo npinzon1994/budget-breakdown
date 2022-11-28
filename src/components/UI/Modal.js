@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import classes from "./Modal.module.css";
-import Button from "../UI/Button";
 import ReactDOM from "react-dom";
 
 const Backdrop = (props) => {

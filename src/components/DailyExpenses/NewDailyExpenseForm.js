@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
-import Button from "../UI/Button";
+import Button from "../Layout/HeaderButton";
 import classes from "./NewDailyExpenseForm.module.css";
+import ExpensesContext from "../../context/expenses-context";
 
 const NewDailyExpenseForm = (props) => {
-  //need to manage states for AMOUNT, DATE, isPaidOff, and MERCHANT
+  const expensesContext = useContext(ExpensesContext);
+  
+  //need to manage states for AMOUNT, DATE, isPaid, and MERCHANT
   const [enteredAmount, setEnteredAmount] = useState("");
   const [isEnteredAmountValid, setIsEnteredAmountValid] = useState(true);
 
   const [pickedDate, setPickedDate] = useState("");
   const [isPickedDateValid, setIsPickedDateValid] = useState(true);
 
-  const [isPaidOff, setIsPaidOff] = useState("");
-  const [isPaidOffValid, setisPaidOffValid] = useState(true);
+  const [isPaid, setIsPaid] = useState("");
+  const [isPaidValid, setisPaidValid] = useState(true);
 
   const [enteredMerchant, setEnteredMerchant] = useState("");
   const [isEnteredMerchantValid, setIsEnteredMerchantValid] = useState(true);
@@ -39,8 +42,8 @@ const NewDailyExpenseForm = (props) => {
     setPickedDate(event.target.value);
   };
 
-  const isPaidOffChangeHandler = (event) => {
-    setIsPaidOff(event.target.value);
+  const isPaidChangeHandler = (event) => {
+    setIsPaid(event.target.value);
   };
 
   const merchantChangeHandler = (event) => {
@@ -69,6 +72,14 @@ const NewDailyExpenseForm = (props) => {
 
     console.log('Is Date Valid? - ' + isPickedDateValid);
 
+    expensesContext.onAddExpense({
+      id: 'E-' + Math.random(),
+      date: new Date(pickedDate),
+      amount: enteredAmount,
+      isPaid: isPaid,
+      merchant: enteredMerchant
+    });
+    
     //current state snapshots
     console.log("AMOUNT: " + enteredAmount);
     setEnteredAmount("");
@@ -78,17 +89,11 @@ const NewDailyExpenseForm = (props) => {
     console.log("DATE: " + pickedDate);
     setPickedDate("");
 
-    console.log("PAID OFF?: " + isPaidOff);
-    setIsPaidOff(false);
+    console.log("PAID OFF?: " + isPaid);
+    setIsPaid(false);
 
     console.log("MERCHANT: " + enteredMerchant);
     setEnteredMerchant("");
-
-    //FORM VALIDATION - (might need a formIsValid state)
-
-    //Merchant can't be blank
-
-    //Entered Amount needs to be greater than $0.00 AND field CANNOT be empty
   };
 
   return (
@@ -120,8 +125,8 @@ const NewDailyExpenseForm = (props) => {
         <select
           id="isPaidDropdown"
           name="isPaidDropdown"
-          onChange={isPaidOffChangeHandler}
-          value={isPaidOff}
+          onChange={isPaidChangeHandler}
+          value={isPaid}
         >
           <option value="">Paid Off?</option>
           <option value={true}>Yes</option>
