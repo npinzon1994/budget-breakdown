@@ -5,30 +5,6 @@ import DailyExpenseHeader from "../Layout/DailyExpenseHeader";
 import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
 
-// const DUMMY_EXPENSES = [
-//   {
-//     id: "a1",
-//     amount: 36.16,
-//     date: new Date(2022, 2, 18),
-//     isPaid: false,
-//     merchant: "Wawa",
-//   },
-//   {
-//     id: "a2",
-//     amount: 19.55,
-//     date: new Date(2022, 2, 12),
-//     isPaid: false,
-//     merchant: "Mobil",
-//   },
-//   {
-//     id: "a3",
-//     amount: 5.82,
-//     date: new Date(2022, 1, 28),
-//     isPaid: false,
-//     merchant: "Taco Bell",
-//   },
-// ];
-
 const DailyExpenses = (props) => {
   const expensesContext = useContext(ExpensesContext);
   
@@ -48,7 +24,7 @@ const DailyExpenses = (props) => {
   return (
       <Card>
         <DailyExpenseHeader />
-        <ul className={classes["daily-expenses"]}>{expenses}</ul>
+        <ul className={classes["daily-expenses"]}>{expenses.length > 0 ? expenses : <p className={classes['empty-message']}>WOW! So much empty :0</p>}</ul>
       </Card>
   );
 };

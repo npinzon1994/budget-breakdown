@@ -11,7 +11,7 @@ const DailyExpenseItem = (props) => {
   const formattedTotal = `$${(+props.amount).toFixed(2)}`;
 
   return (
-    <li className={classes.dailyExpense} key={props.key}>
+    <li className={classes.dailyExpense}>
         <span>{formattedTotal}</span>
         <span>{month + day + year}</span>
         <span>{props.isPaid === true ? 'Y' : 'N'}</span>

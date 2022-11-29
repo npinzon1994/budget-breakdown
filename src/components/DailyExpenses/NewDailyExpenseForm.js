@@ -73,27 +73,12 @@ const NewDailyExpenseForm = (props) => {
     console.log('Is Date Valid? - ' + isPickedDateValid);
 
     expensesContext.onAddExpense({
-      id: 'E-' + Math.random(),
+      id: 'E-' + Math.random()*10,
       date: new Date(pickedDate),
       amount: enteredAmount,
       isPaid: isPaid,
       merchant: enteredMerchant
     });
-    
-    //current state snapshots
-    console.log("AMOUNT: " + enteredAmount);
-    setEnteredAmount("");
-
-    console.log('Is Picked Date Valid? - ' + isPickedDateValid);
-
-    console.log("DATE: " + pickedDate);
-    setPickedDate("");
-
-    console.log("PAID OFF?: " + isPaid);
-    setIsPaid(false);
-
-    console.log("MERCHANT: " + enteredMerchant);
-    setEnteredMerchant("");
   };
 
   return (
