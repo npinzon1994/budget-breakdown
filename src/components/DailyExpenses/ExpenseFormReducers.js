@@ -1,20 +1,19 @@
 //default states for reducers
-const defaultAmountState = { value: "", isValid: true };
-const defaultDateState = { value: "", isValid: true };
-const defaultIsPaidState = { value: "", isValid: true };
-const defaultMerchantState = { value: "", isValid: true };
+const defaultAmountState = { value: "", isValid: null };
+const defaultDateState = { value: "", isValid: null };
+const defaultIsPaidState = { value: "", isValid: null };
+const defaultMerchantState = { value: "", isValid: null };
 
 //reducer functions
 const amountReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     const inputIsValid = action.val > 0 && action.val.trim().length > 0;
-    if (inputIsValid) {
-      return { value: action.val, isValid: true };
-    } else {
-      //if amount input is not valid...
-      //add .invalid styling and return
-      return { value: action.val, isValid: false };
-    }
+    return { value: action.val, isValid: inputIsValid };
+  }
+
+  const latestStateIsValid = state.value > 0 && state.value.trim().length > 0;
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: latestStateIsValid };
   }
   return defaultAmountState;
 };
@@ -22,27 +21,26 @@ const amountReducer = (state, action) => {
 const dateReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     const inputIsValid = action.val.trim().length > 0;
-    if (inputIsValid) {
-      return { value: action.val, isValid: true };
-    } else {
-      //if amount input is not valid...
-      //add .invalid styling and return
-      return { value: action.val, isValid: false };
-    }
+    return { value: action.val, isValid: inputIsValid };
   }
+
+  const latestStateIsValid = state.value.trim().length > 0;
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: latestStateIsValid };
+  }
+
   return defaultDateState;
 };
 
 const isPaidReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
-    const inputIsValid = action.val !== "Paid Off?";
-    if (inputIsValid) {
-      return { value: action.val, isValid: true };
-    } else {
-      //if amount input is not valid...
-      //add .invalid styling and return
-      return { value: action.val, isValid: false };
-    }
+    // const inputIsValid = action.val !== 'default';
+
+    return { value: action.val, isValid: action.val !== 'default' };
+  }
+  // const latestStateIsValid = state.val !== 'default';
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.val, isValid: state.val !== 'default' };
   }
   return defaultIsPaidState;
 };
@@ -50,26 +48,27 @@ const isPaidReducer = (state, action) => {
 const merchantReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     const inputIsValid = action.val.trim().length > 0;
-    if (inputIsValid) {
-      return { value: action.val, isValid: true };
-    } else {
-      //if amount input is not valid...
-      //add .invalid styling and return
-      return { value: action.val, isValid: false };
-    }
+
+    return { value: action.val, isValid: inputIsValid };
   }
+
+  const latestStateIsValid = state.value.trim().length > 0;
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: latestStateIsValid };
+  }
+
   return defaultMerchantState;
 };
 
 const ExpenseFormReducers = {
-    defaultAmountState: defaultAmountState,
-    defaultDateState: defaultDateState,
-    defaultIsPaidState: defaultIsPaidState,
-    defaultMerchantState: defaultMerchantState,
-    amountReducer: amountReducer,
-    dateReducer: dateReducer,
-    isPaidReducer: isPaidReducer,
-    merchantReducer: merchantReducer
+  defaultAmountState: defaultAmountState,
+  defaultDateState: defaultDateState,
+  defaultIsPaidState: defaultIsPaidState,
+  defaultMerchantState: defaultMerchantState,
+  amountReducer: amountReducer,
+  dateReducer: dateReducer,
+  isPaidReducer: isPaidReducer,
+  merchantReducer: merchantReducer,
 };
 
 export default ExpenseFormReducers;

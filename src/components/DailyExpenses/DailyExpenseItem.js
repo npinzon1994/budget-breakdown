@@ -14,7 +14,7 @@ const DailyExpenseItem = (props) => {
     <li className={classes.dailyExpense}>
         <span>{formattedTotal}</span>
         <span>{month + day + year}</span>
-        <span>{props.isPaid === true ? 'Y' : 'N'}</span>
+        <span>{props.isPaid}</span>
         <span>{props.merchant}</span>
     </li>
   );

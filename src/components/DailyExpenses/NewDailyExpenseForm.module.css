@@ -6,7 +6,7 @@
 }
 
 /*Input*/
-.add-expense-form input {
+.input {
     margin: 12px 0;
     border-radius: 12px;
     border: 1px solid #d3d3d3;
@@ -16,13 +16,13 @@
     box-sizing: border-box;
 }
 
-.add-expense-form input:focus {
+.input:focus {
     background: cyan;
     border-color: blue;
 }
 
 /*When input is invalid*/
-.add-expense-form.invalid input {
+.input.invalid {
     background: #f1959b;
     border: 1px solid red;
 }

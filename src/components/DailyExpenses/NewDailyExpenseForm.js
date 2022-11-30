@@ -1,4 +1,10 @@
-import React, { useContext, useReducer} from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+  useRef,
+} from "react";
 import Modal from "../UI/Modal";
 import classes from "./NewDailyExpenseForm.module.css";
 import ExpensesContext from "../../context/expenses-context";
@@ -18,12 +24,47 @@ const merchantReducer = ExpenseFormReducers.merchantReducer;
 
 const NewDailyExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
+  const [formIsValid, setFormIsValid] = useState(false); //FALSE before 1st render --> NULL after 1st render (and before user input)
+
+  //input refs
+  const amountInputRef = useRef();
+  const dateInputRef = useRef();
+  const isPaidInputRef = useRef();
+  const merchantInputRef = useRef();
 
   //reducers
-  const [amountState, dispatchAmount] = useReducer(amountReducer, defaultAmountState);
+  const [amountState, dispatchAmount] = useReducer( //HERE (before render) <-- formIsValid = false
+    amountReducer,
+    defaultAmountState
+  );
   const [dateState, dispatchDate] = useReducer(dateReducer, defaultDateState);
-  const [isPaidState, dispatchIsPaid] = useReducer(isPaidReducer, defaultIsPaidState);
-  const [merchantState, dispatchMerchant] = useReducer(merchantReducer, defaultMerchantState);
+  const [isPaidState, dispatchIsPaid] = useReducer(
+    isPaidReducer,
+    defaultIsPaidState
+  );
+  const [merchantState, dispatchMerchant] = useReducer(
+    merchantReducer,
+    defaultMerchantState
+  );
+
+  const { isValid: amountIsValid } = amountState;
+  const { isValid: dateIsValid } = dateState;
+  const { isValid: isPaidIsValid } = isPaidState;
+  const { isValid: merchantIsValid } = merchantState;
+
+  //need useEffect to only update formValidity when validity changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("Checking form validity!");
+      setFormIsValid(
+        amountIsValid && merchantIsValid
+      );
+    }, 500);
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(timer);
+    };
+  }, [amountIsValid, merchantIsValid]);
 
   //Gathering info from inputs
   const amountChangeHandler = (event) => {
@@ -39,64 +80,112 @@ const NewDailyExpenseForm = (props) => {
   };
 
   const merchantChangeHandler = (event) => {
-    dispatchMerchant({type: "USER_INPUT", val: event.target.value});
+    dispatchMerchant({ type: "USER_INPUT", val: event.target.value });
+  };
+
+  //Determining validation on blur
+  const validateAmountHandler = () => {
+    dispatchAmount({ type: "INPUT_BLUR" });
+  };
+
+  const validateDateHandler = () => {
+    dispatchDate({ type: "INPUT_BLUR" });
+  };
+
+  const validateIsPaidHandler = () => {
+    dispatchIsPaid({ type: "INPUT_BLUR" });
+  };
+
+  const validateMerchantHandler = () => {
+    dispatchMerchant({ type: "INPUT_BLUR" });
   };
 
   //now we have the current state snapshots
-  const submitHandler = (event) => {
-    event.preventDefault(); //preventing re-rendering of DOM
+  const submitHandler = (event) => { //HERE (before render) <-- formisValid = false // ALL reducers are {value: '', isValid: null}
+    event.preventDefault();
 
-    expensesContext.onAddExpense({
-      id: "E-" + Math.random() * 10,
-      date: new Date(dateState.value),
-      amount: amountState.value,
-      isPaid: isPaidState.value,
-      merchant: merchantState.value,
-    });
+    console.log("Is form valid??? - " + formIsValid);
+    if (formIsValid) {
+      expensesContext.onAddExpense({
+        id: "E-" + Math.random() * 10,
+        date: new Date(dateState.value),
+        amount: amountState.value,
+        isPaid: isPaidState.value,
+        merchant: merchantState.value,
+      });
+    } else if (!amountIsValid) {
+      amountInputRef.current.focus();
+    } 
+    else if (!dateIsValid) {
+      dateInputRef.current.focus();
+    } 
+    else if (!isPaidIsValid) {
+      isPaidInputRef.current.focus();
+    } 
+    else if (!merchantIsValid) {
+      merchantInputRef.current.focus();
+    }
 
-    amountState.value = "";
-    dateState.value = "mm/dd/yyyy";
-    isPaidState.value = "Paid Off?";
-    merchantState.value = "";
+    // amountState.value = "";
+    // dateState.value = "mm/dd/yyyy";
+    // isPaidState.value = "Paid Off?";
+    // merchantState.value = "";
   };
 
   return (
     <Modal onClose={props.onClose}>
-      {console.log('Amount State Validity: ' + amountState.isValid)}
-      <form onSubmit={submitHandler} className={`${classes["add-expense-form"]} ${!amountState.isValid ? classes.invalid : ''}`}>
+      <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
         <h3>New Daily Expense</h3>
         <input
+          ref={amountInputRef}
           id="amountField"
           type="number"
           placeholder="Enter Amount"
           onChange={amountChangeHandler}
+          onBlur={validateAmountHandler}
           value={amountState.value}
-          
-          
+          className={`${classes.input} ${
+            amountIsValid === false ? classes.invalid : ""
+          }`}
         />
         <input
+          ref={dateInputRef}
           id="datePicker"
           type="date"
           onChange={dateChangeHandler}
+          onBlur={validateDateHandler}
           value={dateState.value}
+          className={`${classes.input} ${
+            dateIsValid === false ? classes.invalid : ""
+          }`}
         />
         <select
+          ref={isPaidInputRef}
           id="isPaidDropdown"
           name="isPaidDropdown"
           onChange={isPaidChangeHandler}
+          onBlur={validateIsPaidHandler}
           value={isPaidState.value}
+          className={`${classes.input} ${
+            isPaidIsValid === false ? classes.invalid : ""
+          }`}
         >
-          <option value="Paid Off?">Paid Off?</option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
+          <option value="default">Paid Off?</option>
+          <option value="Y">Yes</option>
+          <option value="N">No</option>
         </select>
 
         <input
+          ref={merchantInputRef}
           id="merchantField"
           type="text"
           placeholder="Merchant"
           onChange={merchantChangeHandler}
+          onBlur={validateMerchantHandler}
           value={merchantState.value}
+          className={`${classes.input} ${
+            merchantIsValid === false ? classes.invalid : ""
+          }`}
         />
 
         <div className={classes["button-div"]}>
