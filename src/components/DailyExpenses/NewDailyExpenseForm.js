@@ -1,130 +1,103 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useReducer} from "react";
 import Modal from "../UI/Modal";
-import Button from "../Layout/HeaderButton";
 import classes from "./NewDailyExpenseForm.module.css";
 import ExpensesContext from "../../context/expenses-context";
+import ExpenseFormReducers from "./ExpenseFormReducers";
+
+//default states for reducers
+const defaultAmountState = ExpenseFormReducers.defaultAmountState;
+const defaultDateState = ExpenseFormReducers.defaultDateState;
+const defaultIsPaidState = ExpenseFormReducers.defaultIsPaidState;
+const defaultMerchantState = ExpenseFormReducers.defaultMerchantState;
+
+//reducer functions
+const amountReducer = ExpenseFormReducers.amountReducer;
+const dateReducer = ExpenseFormReducers.dateReducer;
+const isPaidReducer = ExpenseFormReducers.isPaidReducer;
+const merchantReducer = ExpenseFormReducers.merchantReducer;
 
 const NewDailyExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
-  
-  //need to manage states for AMOUNT, DATE, isPaid, and MERCHANT
-  const [enteredAmount, setEnteredAmount] = useState("");
-  const [isEnteredAmountValid, setIsEnteredAmountValid] = useState(true);
 
-  const [pickedDate, setPickedDate] = useState("");
-  const [isPickedDateValid, setIsPickedDateValid] = useState(true);
+  //reducers
+  const [amountState, dispatchAmount] = useReducer(amountReducer, defaultAmountState);
+  const [dateState, dispatchDate] = useReducer(dateReducer, defaultDateState);
+  const [isPaidState, dispatchIsPaid] = useReducer(isPaidReducer, defaultIsPaidState);
+  const [merchantState, dispatchMerchant] = useReducer(merchantReducer, defaultMerchantState);
 
-  const [isPaid, setIsPaid] = useState("");
-  const [isPaidValid, setisPaidValid] = useState(true);
-
-  const [enteredMerchant, setEnteredMerchant] = useState("");
-  const [isEnteredMerchantValid, setIsEnteredMerchantValid] = useState(true);
-
-  //Gathering info from form
-
-  //checking if amount > 0 OR if Entered Amount contains a value
+  //Gathering info from inputs
   const amountChangeHandler = (event) => {
-    if (+event.target.value > 0 && event.target.value.trim().length > 0) {
-      setIsEnteredAmountValid(true);
-      
-    }
-    
-    setEnteredAmount(event.target.value);
+    dispatchAmount({ type: "USER_INPUT", val: event.target.value });
   };
 
-  //checking if Picked Date contains a value
   const dateChangeHandler = (event) => {
-    if (event.target.value.trim().length > 0) {
-      setIsPickedDateValid(true);
-      
-    }
-    
-    setPickedDate(event.target.value);
+    dispatchDate({ type: "USER_INPUT", val: event.target.value });
   };
 
   const isPaidChangeHandler = (event) => {
-    setIsPaid(event.target.value);
+    dispatchIsPaid({ type: "USER_INPUT", val: event.target.value });
   };
 
   const merchantChangeHandler = (event) => {
-    setEnteredMerchant(event.target.value);
+    dispatchMerchant({type: "USER_INPUT", val: event.target.value});
   };
 
   //now we have the current state snapshots
-  const addNewDailyExpenseHandler = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault(); //preventing re-rendering of DOM
 
-    //checking if entered amount is <= 0 OR if field is empty
-    if (+enteredAmount <= 0 || enteredAmount.trim().length === 0) {
-      setIsEnteredAmountValid(false);
-      console.log('Is Entered Amount Valid? - ' + isEnteredAmountValid);
-      return;
-    }
-
-    console.log('Is Entered Amount Valid? - ' + isEnteredAmountValid);
-
-    //checking if picked date is empty
-    if (pickedDate.trim().length === 0) {
-      setIsPickedDateValid(false);
-      console.log('Is Date Valid? - ' + isPickedDateValid);
-      return;
-    }
-
-    console.log('Is Date Valid? - ' + isPickedDateValid);
-
     expensesContext.onAddExpense({
-      id: 'E-' + Math.random()*10,
-      date: new Date(pickedDate),
-      amount: enteredAmount,
-      isPaid: isPaid,
-      merchant: enteredMerchant
+      id: "E-" + Math.random() * 10,
+      date: new Date(dateState.value),
+      amount: amountState.value,
+      isPaid: isPaidState.value,
+      merchant: merchantState.value,
     });
+
+    amountState.value = "";
+    dateState.value = "mm/dd/yyyy";
+    isPaidState.value = "Paid Off?";
+    merchantState.value = "";
   };
 
   return (
     <Modal onClose={props.onClose}>
-      <h3>New Daily Expense</h3>
-      <form
-        onSubmit={addNewDailyExpenseHandler}
-        className={`${classes["add-expense-form"]} ${
-          !isEnteredAmountValid && classes.invalid
-        } ${!isPickedDateValid && classes.invalid}`}
-      >
+      {console.log('Amount State Validity: ' + amountState.isValid)}
+      <form onSubmit={submitHandler} className={`${classes["add-expense-form"]} ${!amountState.isValid ? classes.invalid : ''}`}>
+        <h3>New Daily Expense</h3>
         <input
           id="amountField"
           type="number"
           placeholder="Enter Amount"
           onChange={amountChangeHandler}
-          value={enteredAmount}
+          value={amountState.value}
           
-        ></input>
-        <br />
+          
+        />
         <input
           id="datePicker"
           type="date"
-          placeholder="Date"
           onChange={dateChangeHandler}
-          value={pickedDate}
-        ></input>
-        <br />
+          value={dateState.value}
+        />
         <select
           id="isPaidDropdown"
           name="isPaidDropdown"
           onChange={isPaidChangeHandler}
-          value={isPaid}
+          value={isPaidState.value}
         >
-          <option value="">Paid Off?</option>
+          <option value="Paid Off?">Paid Off?</option>
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </select>
+
         <input
           id="merchantField"
           type="text"
           placeholder="Merchant"
           onChange={merchantChangeHandler}
-          value={enteredMerchant}
-        ></input>
-        <br />
+          value={merchantState.value}
+        />
 
         <div className={classes["button-div"]}>
           <button type="submit" className={classes["add-expense-button"]}>
