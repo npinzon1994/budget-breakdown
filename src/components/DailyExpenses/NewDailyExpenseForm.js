@@ -33,7 +33,8 @@ const NewDailyExpenseForm = (props) => {
   const merchantInputRef = useRef();
 
   //reducers
-  const [amountState, dispatchAmount] = useReducer( //HERE (before render) <-- formIsValid = false
+  const [amountState, dispatchAmount] = useReducer(
+    //HERE (before render) <-- formIsValid = false
     amountReducer,
     defaultAmountState
   );
@@ -56,15 +57,13 @@ const NewDailyExpenseForm = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       console.log("Checking form validity!");
-      setFormIsValid(
-        amountIsValid && merchantIsValid
-      );
+      setFormIsValid(amountIsValid && dateIsValid && isPaidIsValid && merchantIsValid);
     }, 500);
     return () => {
       console.log("CLEANUP");
       clearTimeout(timer);
     };
-  }, [amountIsValid, merchantIsValid]);
+  }, [amountIsValid, dateIsValid, isPaidIsValid, merchantIsValid]);
 
   //Gathering info from inputs
   const amountChangeHandler = (event) => {
@@ -101,7 +100,8 @@ const NewDailyExpenseForm = (props) => {
   };
 
   //now we have the current state snapshots
-  const submitHandler = (event) => { //HERE (before render) <-- formisValid = false // ALL reducers are {value: '', isValid: null}
+  const submitHandler = (event) => {
+    //HERE (before render) <-- formisValid = false // ALL reducers are {value: '', isValid: null}
     event.preventDefault();
 
     console.log("Is form valid??? - " + formIsValid);
@@ -113,17 +113,16 @@ const NewDailyExpenseForm = (props) => {
         isPaid: isPaidState.value,
         merchant: merchantState.value,
       });
-    } else if (!amountIsValid) {
-      amountInputRef.current.focus();
-    } 
-    else if (!dateIsValid) {
-      dateInputRef.current.focus();
-    } 
-    else if (!isPaidIsValid) {
-      isPaidInputRef.current.focus();
-    } 
-    else if (!merchantIsValid) {
-      merchantInputRef.current.focus();
+    } else {
+      if (!amountIsValid) {
+        amountInputRef.current.focus();
+      } else if (!dateIsValid) {
+        dateInputRef.current.focus();
+      } else if (!isPaidIsValid) {
+        isPaidInputRef.current.focus();
+      } else if (!merchantIsValid) {
+        merchantInputRef.current.focus();
+      }
     }
 
     // amountState.value = "";
@@ -166,6 +165,7 @@ const NewDailyExpenseForm = (props) => {
           onChange={isPaidChangeHandler}
           onBlur={validateIsPaidHandler}
           value={isPaidState.value}
+          defaultValue="default"
           className={`${classes.input} ${
             isPaidIsValid === false ? classes.invalid : ""
           }`}

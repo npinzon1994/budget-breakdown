@@ -11,8 +11,8 @@ const amountReducer = (state, action) => {
     return { value: action.val, isValid: inputIsValid };
   }
 
-  const latestStateIsValid = state.value > 0 && state.value.trim().length > 0;
   if (action.type === "INPUT_BLUR") {
+    const latestStateIsValid = state.value > 0 && state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
   }
   return defaultAmountState;
@@ -24,8 +24,8 @@ const dateReducer = (state, action) => {
     return { value: action.val, isValid: inputIsValid };
   }
 
-  const latestStateIsValid = state.value.trim().length > 0;
   if (action.type === "INPUT_BLUR") {
+    const latestStateIsValid = state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
   }
 
@@ -34,13 +34,13 @@ const dateReducer = (state, action) => {
 
 const isPaidReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
-    // const inputIsValid = action.val !== 'default';
-
-    return { value: action.val, isValid: action.val !== 'default' };
+    const inputIsValid = action.val === 'Y' || action.val === 'N';
+    return { value: action.val, isValid: inputIsValid };
   }
-  // const latestStateIsValid = state.val !== 'default';
+
   if (action.type === "INPUT_BLUR") {
-    return { value: state.val, isValid: state.val !== 'default' };
+    const latestStateIsValid = state.value === 'Y' || state.value === 'N';
+    return { value: state.value, isValid: latestStateIsValid };
   }
   return defaultIsPaidState;
 };
@@ -52,8 +52,8 @@ const merchantReducer = (state, action) => {
     return { value: action.val, isValid: inputIsValid };
   }
 
-  const latestStateIsValid = state.value.trim().length > 0;
   if (action.type === "INPUT_BLUR") {
+    const latestStateIsValid = state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
   }
 
