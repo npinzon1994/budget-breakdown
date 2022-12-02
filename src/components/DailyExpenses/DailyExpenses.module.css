@@ -1,5 +1,6 @@
 .daily-expenses {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
     

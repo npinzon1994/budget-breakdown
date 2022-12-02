@@ -1,13 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import classes from './DailyExpenseHeader.module.css';
 
 const DailyExpenseHeader = () => {
-    return <div className={classes.titles}>
+    return <Fragment>
+        <header className={classes.titles}>
         <span>Amount</span>
         <span>Date</span>
         <span>Paid Off?</span>
         <span>Merchant</span>
-    </div>
+    </header>
+    <hr />
+    </Fragment>
 }
 
 export default DailyExpenseHeader;

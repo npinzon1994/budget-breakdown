@@ -1,11 +1,16 @@
 .titles {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+    display: flex;
+    justify-content: center;
+    /* margin-right: 1.57em; */
+    margin: 0 3.7em 0 2em;
 }
 
 .titles span {
-    display: table-cell;
-    text-align: center;
     font-weight: bold;
+    margin: 0 auto;
+    flex: 1;
+}
+
+hr {
+    border-color: #e8e8e8;
 }

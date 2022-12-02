@@ -13,7 +13,7 @@ const DailyExpenseItem = (props) => {
 
   return (
     <Fragment>
-      <li className={classes.dailyExpense}>
+      <li className={classes['daily-expense']}>
         <span>{formattedTotal}</span>
         <span>{month + day + year}</span>
         <span>{props.isPaid}</span>

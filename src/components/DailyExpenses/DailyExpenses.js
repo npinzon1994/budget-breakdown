@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import Card from "../UI/Card";
 import DailyExpenseItem from "./DailyExpenseItem";
 import DailyExpenseHeader from "../Layout/DailyExpenseHeader";
@@ -22,6 +22,7 @@ const DailyExpenses = (props) => {
 
   return (
     <Card>
+      
       <DailyExpenseHeader />
       <ul className={classes["daily-expenses"]}>
         {expenses.length > 0 ? (
