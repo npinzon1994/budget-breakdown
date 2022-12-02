@@ -1,0 +1,9 @@
+.remove-button {
+    background-image: url('../../assets/remove-icon.png');
+    background-color: transparent;
+    background-position: center;
+    height: 1.6rem;
+    width: 1.6rem;
+    border: none;
+    display: inline-block;
+}
