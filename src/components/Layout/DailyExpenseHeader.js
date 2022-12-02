@@ -9,7 +9,7 @@ const DailyExpenseHeader = () => {
         <span>Paid Off?</span>
         <span>Merchant</span>
     </header>
-    <hr />
+    
     </Fragment>
 }
 

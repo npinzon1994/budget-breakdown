@@ -20,7 +20,7 @@ const DailyExpenseItem = (props) => {
         <span>{props.merchant}</span>
       </li>
 
-      <RemoveButton />
+      
     </Fragment>
   );
 };
