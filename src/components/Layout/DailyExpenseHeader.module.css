@@ -1,20 +1,13 @@
 .titles {
   display: flex;
-  justify-content: center;
-  /* margin-right: 1.57em; */
-  margin: 0 2em;
-  border-bottom: 1px solid #d3d3d3;
+  width: 95%;
+  text-align: center;
+  /* margin-right: 5em; */
 }
 
 .titles span {
   font-weight: bold;
   margin: 0 auto 0.5em auto;
   flex: 1;
-}
-
-hr {
-  height: 1px;
-  background-color: #d3d3d3;
-  border: none;
-  margin: 0.5em 3em;
+  
 }

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import EditButton from "../UI/EditButton";
 import RemoveButton from "../UI/RemoveButton";
 import classes from "./DailyExpenseItem.module.css";
 
@@ -13,14 +14,18 @@ const DailyExpenseItem = (props) => {
 
   return (
     <Fragment>
-      <li className={classes['daily-expense']}>
-        <span>{formattedTotal}</span>
-        <span>{month + day + year}</span>
-        <span>{props.isPaid}</span>
-        <span>{props.merchant}</span>
+      <li className={classes["daily-expense"]}>
+        <div className={classes["list-item-content"]}>
+          <span>{formattedTotal}</span>
+          <span>{month + day + year}</span>
+          <span>{props.isPaid}</span>
+          <span>{props.merchant}</span>
+        </div>
+        <div className={classes.buttons}>
+          <RemoveButton />
+          <EditButton />
+        </div>
       </li>
-
-      
     </Fragment>
   );
 };

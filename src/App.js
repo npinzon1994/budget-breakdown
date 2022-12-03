@@ -4,6 +4,7 @@ import Header from "./components/Layout/Header";
 import NewDailyExpenseForm from "./components/DailyExpenses/NewDailyExpenseForm";
 import { useState } from "react";
 import ExpensesProvider from "./context/ExpensesProvider";
+import DailyExpenseHeader from "./components/Layout/DailyExpenseHeader";
 
 const App = () => {
   const [expenseFormIsShown, setExpenseFormIsShown] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
     <ExpensesProvider>
       {expenseFormIsShown && <NewDailyExpenseForm onClose={hideExpenseFormHandler}/>}
       <Header onShow={showExpenseFormHandler}/>
+      <DailyExpenseHeader />
       <DailyExpenses/>
     </ExpensesProvider>
   );

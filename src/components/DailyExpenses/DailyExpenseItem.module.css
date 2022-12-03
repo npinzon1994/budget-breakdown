@@ -1,15 +1,24 @@
 .daily-expense {
-    border-radius: 14px;
-    background-color: #d3d3d3;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 1.2em 2em;
-    padding: 1em 0;
-    
+  display: flex;
+  list-style-type: none;
 }
 
 .daily-expense span {
-    margin: 0 auto;
-    flex: 1;
+  flex: 1;
+}
+
+.list-item-content {
+  display: flex;
+  width: 95%;
+  border-radius: 14px;
+  background-color: #d3d3d3;
+  margin: 1.2em 1.2em 1.2em 0;
+  padding: 1em 0;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
 }

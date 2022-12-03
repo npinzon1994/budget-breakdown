@@ -2,8 +2,12 @@
     background-image: url('../../assets/remove-icon.png');
     background-color: transparent;
     background-position: center;
-    height: 1.4rem;
-    width: 1.4rem;
+    background-repeat: no-repeat;
+    height: 1.4em;
+    width: 1.4em;
     border: none;
-    margin-right: 1.5em;
+    margin: 0 5px 0 0;
+    /* margin-left: auto; */
+    /* padding-right: 50px; */
+    /* flex: 0 1 0%; */
 }

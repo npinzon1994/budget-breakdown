@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import Card from "../UI/Card";
 import DailyExpenseItem from "./DailyExpenseItem";
-import DailyExpenseHeader from "../Layout/DailyExpenseHeader";
 import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
 
@@ -22,16 +21,11 @@ const DailyExpenses = (props) => {
 
   return (
     <Card>
-      <div>
-      <DailyExpenseHeader />
       <ul className={classes["daily-expenses"]}>
-        {expenses.length > 0 ? (
-          expenses
-        ) : (
+        {expenses.length > 0 ? (expenses) : (
           <li className={classes["empty-message"]}>WOW! So much empty :0</li>
         )}
       </ul>
-      </div>
     </Card>
   );
 };

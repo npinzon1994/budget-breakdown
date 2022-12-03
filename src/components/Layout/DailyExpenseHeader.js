@@ -1,16 +1,18 @@
-import React, { Fragment } from "react";
-import classes from './DailyExpenseHeader.module.css';
+import React from "react";
+import classes from "./DailyExpenseHeader.module.css";
+import Card from "../UI/Card";
 
 const DailyExpenseHeader = () => {
-    return <Fragment>
-        <header className={classes.titles}>
-        <span>Amount</span>
-        <span>Date</span>
-        <span>Paid Off?</span>
-        <span>Merchant</span>
+  return (
+    <Card>
+    <header className={classes.titles}>
+      <span>Amount</span>
+      <span>Date</span>
+      <span>Paid Off?</span>
+      <span>Merchant</span>
     </header>
-    
-    </Fragment>
-}
+    </Card>
+  );
+};
 
 export default DailyExpenseHeader;
