@@ -165,7 +165,6 @@ const NewDailyExpenseForm = (props) => {
           onChange={isPaidChangeHandler}
           onBlur={validateIsPaidHandler}
           value={isPaidState.value}
-          defaultValue="default"
           className={`${classes.input} ${
             isPaidIsValid === false ? classes.invalid : ""
           }`}

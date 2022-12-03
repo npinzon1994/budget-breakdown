@@ -13,6 +13,16 @@ const expensesReducer = (state, action) => {
         return {items: updatedItems, totalBalance: updatedTotalBalance};
     }
 
+    if(action.type === "REMOVE"){
+      const expenseItemIndex = state.items.findIndex(item => item.id === action.id); //index of item we want to remove
+      const existingExpenseItem = state.items[expenseItemIndex];
+
+      const updatedTotalBalance = +state.totalBalance - +existingExpenseItem.amount;
+      const updatedItems = state.items.filter(item => item.id !== action.id);
+      return {items: updatedItems, totalBalance: updatedTotalBalance};
+
+    }
+
     return defaultExpensesState;
 };
 
