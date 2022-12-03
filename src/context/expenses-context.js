@@ -4,7 +4,8 @@ const ExpensesContext = React.createContext({
     items: [],
     totalBalance: 0,
     onAddExpense: () => {},
-    onRemoveExpense: () => {}
+    onRemoveExpense: () => {},
+    onEditExpense: () => {},
 
 });
 

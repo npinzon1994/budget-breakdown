@@ -24,7 +24,7 @@ const merchantReducer = ExpenseFormReducers.merchantReducer;
 
 const NewDailyExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
-  const [formIsValid, setFormIsValid] = useState(false); //FALSE before 1st render --> NULL after 1st render (and before user input)
+  const [formIsValid, setFormIsValid] = useState(false);
 
   //input refs
   const amountInputRef = useRef();

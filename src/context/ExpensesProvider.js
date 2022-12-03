@@ -17,12 +17,26 @@ const expensesReducer = (state, action) => {
     const expenseItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     ); //index of item we want to remove
+
     const existingExpenseItem = state.items[expenseItemIndex];
 
     const updatedTotalBalance =
       +state.totalBalance - +existingExpenseItem.amount;
     const updatedItems = state.items.filter((item) => item.id !== action.id);
     return { items: updatedItems, totalBalance: updatedTotalBalance };
+  }
+
+  if(action.type === "EDIT"){
+    const expenseItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    ); //index of item we want to edit
+
+    //current item we want to edit
+    const existingExpenseItem = state.items[expenseItemIndex];
+
+    /*
+    Now we want to pull up the ExpenseItemForm
+    */
   }
 
   return defaultExpensesState;
@@ -34,24 +48,25 @@ const ExpensesProvider = (props) => {
     defaultExpensesState
   );
 
-  const addExpenseItem = (item) => {
+  const addExpenseItemHandler = (item) => {
     dispatchExpensesAction({ type: "ADD", item: item });
   };
 
-  const removeExpenseItem = (id) => {
+  const removeExpenseItemHandler = (id) => {
     dispatchExpensesAction({ type: "REMOVE", id: id });
   };
 
-  const editExpenseItem = (id) => {
+  const editExpenseItemHandler = (id) => {
     dispatchExpensesAction({type: "EDIT", id: id});
   }
+
 
   const expensesContext = {
     items: expenses.items,
     totalBalance: expenses.totalBalance,
-    onAddExpense: addExpenseItem,
-    onRemoveExpense: removeExpenseItem,
-    onEditExpense: editExpenseItem
+    onAddExpense: addExpenseItemHandler,
+    onRemoveExpense: removeExpenseItemHandler,
+    onEditExpense: editExpenseItemHandler,
   };
 
   return (
