@@ -15,6 +15,11 @@ const amountReducer = (state, action) => {
     const latestStateIsValid = state.value > 0 && state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
   }
+
+  if(action.type === "CLEAR"){
+    return defaultAmountState;
+  }
+
   return defaultAmountState;
 };
 
@@ -27,6 +32,10 @@ const dateReducer = (state, action) => {
   if (action.type === "INPUT_BLUR") {
     const latestStateIsValid = state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
+  }
+
+  if(action.type === "CLEAR"){
+    return defaultDateState;
   }
 
   return defaultDateState;
@@ -42,6 +51,11 @@ const isPaidReducer = (state, action) => {
     const latestStateIsValid = state.value === 'Y' || state.value === 'N';
     return { value: state.value, isValid: latestStateIsValid };
   }
+
+  if(action.type === "CLEAR"){
+    return defaultIsPaidState;
+  }
+
   return defaultIsPaidState;
 };
 
@@ -55,6 +69,10 @@ const merchantReducer = (state, action) => {
   if (action.type === "INPUT_BLUR") {
     const latestStateIsValid = state.value.trim().length > 0;
     return { value: state.value, isValid: latestStateIsValid };
+  }
+
+  if(action.type === "CLEAR"){
+    return defaultMerchantState;
   }
 
   return defaultMerchantState;

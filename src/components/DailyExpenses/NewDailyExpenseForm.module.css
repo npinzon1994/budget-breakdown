@@ -17,8 +17,9 @@
 }
 
 .input:focus {
-    background: cyan;
-    border-color: blue;
+    outline: none;
+    border-color: #4f005f;
+    background: #f6dbfc;
 }
 
 /*When input is invalid*/

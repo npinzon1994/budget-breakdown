@@ -82,6 +82,7 @@ const NewDailyExpenseForm = (props) => {
     dispatchMerchant({ type: "USER_INPUT", val: event.target.value });
   };
 
+
   //Determining validation on blur
   const validateAmountHandler = () => {
     dispatchAmount({ type: "INPUT_BLUR" });
@@ -99,20 +100,54 @@ const NewDailyExpenseForm = (props) => {
     dispatchMerchant({ type: "INPUT_BLUR" });
   };
 
+
+  //functions to clear inputs
+  const clearAmountInput = () => {
+    dispatchAmount({type: "CLEAR"});
+  }
+
+  const clearDateInput = () => {
+    dispatchDate({type: "CLEAR"});
+  }
+
+  const clearIsPaidInput = () => {
+    dispatchIsPaid({type: "CLEAR"});
+  }
+
+  const clearMerchantInput = () => {
+    dispatchMerchant({type: "CLEAR"});
+  }
+  
+  const postDataToServer = async (expense) => {
+    await fetch("https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json", {
+      method: 'POST',
+      body: JSON.stringify(expense),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+  }
+  
   //now we have the current state snapshots
   const submitHandler = (event) => {
     //HERE (before render) <-- formisValid = false // ALL reducers are {value: '', isValid: null}
     event.preventDefault();
 
-    console.log("Is form valid??? - " + formIsValid);
+    const newExpenseObject = {
+      id: "E-" + Math.random() * 10,
+      date: new Date(dateState.value),
+      amount: amountState.value,
+      isPaid: isPaidState.value,
+      merchant: merchantState.value,
+    };
+
     if (formIsValid) {
-      expensesContext.onAddExpense({
-        id: "E-" + Math.random() * 10,
-        date: new Date(dateState.value),
-        amount: amountState.value,
-        isPaid: isPaidState.value,
-        merchant: merchantState.value,
-      });
+      expensesContext.onAddExpense(newExpenseObject);
+      clearAmountInput();
+      clearDateInput();
+      clearIsPaidInput();
+      clearMerchantInput();
     } else {
       if (!amountIsValid) {
         amountInputRef.current.focus();
@@ -125,10 +160,8 @@ const NewDailyExpenseForm = (props) => {
       }
     }
 
-    // amountState.value = "";
-    // dateState.value = "mm/dd/yyyy";
-    // isPaidState.value = "Paid Off?";
-    // merchantState.value = "";
+    //now that we have the expense in our context, we send the http request
+    postDataToServer(newExpenseObject);
   };
 
   return (

@@ -6,6 +6,7 @@ const ExpensesContext = React.createContext({
     onAddExpense: () => {},
     onRemoveExpense: () => {},
     onEditExpense: () => {},
+    setExpenses: (expenses) => {}
 
 });
 

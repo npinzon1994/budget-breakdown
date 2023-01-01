@@ -39,6 +39,10 @@ const expensesReducer = (state, action) => {
     */
   }
 
+  if(action.type === "SET_EXPENSES"){
+    return {items: action.expenses, totalBalance: state.totalBalance};
+  }
+
   return defaultExpensesState;
 };
 
@@ -60,6 +64,10 @@ const ExpensesProvider = (props) => {
     dispatchExpensesAction({type: "EDIT", id: id});
   }
 
+  const setExpenses = (expenses) => {
+    dispatchExpensesAction({type: "SET_EXPENSES", expenses: expenses});
+  }
+
 
   const expensesContext = {
     items: expenses.items,
@@ -67,6 +75,7 @@ const ExpensesProvider = (props) => {
     onAddExpense: addExpenseItemHandler,
     onRemoveExpense: removeExpenseItemHandler,
     onEditExpense: editExpenseItemHandler,
+    setExpenses
   };
 
   return (

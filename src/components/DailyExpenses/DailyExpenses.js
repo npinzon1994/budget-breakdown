@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "../UI/Card";
 import DailyExpenseItem from "./DailyExpenseItem";
 import classes from "./DailyExpenses.module.css";
@@ -10,6 +10,29 @@ const DailyExpenses = (props) => {
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
   };
+
+  useEffect(() => {
+    const fetchDataFromServer = async () => {
+      const response = await fetch("https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json");
+      const data = await response.json();
+  
+      //now we have the JSON object (data) which contains expense objects
+      //need to convert object to array first so we can add it to our context
+      let loadedExpenses = [];
+      for(const key in data) {
+        loadedExpenses.push({
+          id: key,
+          date: new Date(data[key].date),
+          amount: data[key].amount,
+          isPaid: data[key].isPaid,
+          merchant: data[key].merchant
+        });
+      }
+      expensesContext.setExpenses(loadedExpenses);
+  
+    }
+    fetchDataFromServer();
+  }, [expensesContext]);
 
   //creates a new array of DailyExpenseItem(s)
   const expenses = expensesContext.items.map((expense) => (
@@ -27,11 +50,7 @@ const DailyExpenses = (props) => {
   return (
     <Card>
       <ul className={classes["daily-expenses"]}>
-        {expenses.length > 0 ? (
-          expenses
-        ) : (
-          <li className={classes["empty-message"]}>WOW! So much empty :0</li>
-        )}
+        {expenses}
       </ul>
     </Card>
   );
