@@ -33,6 +33,7 @@ const expensesReducer = (state, action) => {
 
     //current item we want to edit
     const existingExpenseItem = state.items[expenseItemIndex];
+    console.log(existingExpenseItem);
 
     /*
     Now we want to pull up the ExpenseItemForm
@@ -40,7 +41,14 @@ const expensesReducer = (state, action) => {
   }
 
   if(action.type === "SET_EXPENSES"){
-    return {items: action.expenses, totalBalance: state.totalBalance};
+    //compute balance here
+    let currentBalance = 0;
+    const expenses = [...action.expenses];
+    for(const key in expenses){
+      const expenseAmount = +expenses[key].amount;
+      currentBalance = currentBalance + expenseAmount;
+    }
+    return {items: expenses, totalBalance: currentBalance};
   }
 
   return defaultExpensesState;
@@ -75,7 +83,7 @@ const ExpensesProvider = (props) => {
     onAddExpense: addExpenseItemHandler,
     onRemoveExpense: removeExpenseItemHandler,
     onEditExpense: editExpenseItemHandler,
-    setExpenses
+    setExpenses: setExpenses
   };
 
   return (

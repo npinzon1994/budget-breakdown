@@ -144,6 +144,7 @@ const NewDailyExpenseForm = (props) => {
 
     if (formIsValid) {
       expensesContext.onAddExpense(newExpenseObject);
+      postDataToServer(newExpenseObject);
       clearAmountInput();
       clearDateInput();
       clearIsPaidInput();
@@ -160,8 +161,6 @@ const NewDailyExpenseForm = (props) => {
       }
     }
 
-    //now that we have the expense in our context, we send the http request
-    postDataToServer(newExpenseObject);
   };
 
   return (
