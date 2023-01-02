@@ -83,7 +83,7 @@ const ExpensesProvider = (props) => {
     onAddExpense: addExpenseItemHandler,
     onRemoveExpense: removeExpenseItemHandler,
     onEditExpense: editExpenseItemHandler,
-    setExpenses: setExpenses
+    setExpenses,
   };
 
   return (

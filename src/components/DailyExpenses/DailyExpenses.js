@@ -1,53 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "../UI/Card";
 import DailyExpenseItem from "./DailyExpenseItem";
 import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
+import useHttp from "../../hooks/use-http";
 
 const DailyExpenses = (props) => {
   const expensesContext = useContext(ExpensesContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest: fetchExpenses } = useHttp();
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
   };
 
   useEffect(() => {
-    const fetchDataFromServer = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch("https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json");
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const data = await response.json();
-
-      //now we have the JSON object (data) which contains expense objects
-      //need to convert object to array first so we can add it to our context
+    const transformExpenses = (expenseObject) => {
       let loadedExpenses = [];
-      for (const key in data) {
+      for (const key in expenseObject) {
         loadedExpenses.push({
           id: key,
-          date: new Date(data[key].date),
-          amount: data[key].amount,
-          isPaid: data[key].isPaid,
-          merchant: data[key].merchant,
+          date: new Date(expenseObject[key].date),
+          amount: expenseObject[key].amount,
+          isPaid: expenseObject[key].isPaid,
+          merchant: expenseObject[key].merchant,
         });
       }
       expensesContext.setExpenses(loadedExpenses);
-
-      setIsLoading(false);
     };
 
-    fetchDataFromServer().catch((err) => {
-      setIsLoading(false);
-      setError(err.message);
-    });
-  }, []);
+    fetchExpenses(
+      {
+        url: "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json",
+      },
+      transformExpenses
+    );
+  }, [fetchExpenses]);
 
   //creates a new array of DailyExpenseItem(s)
   const expenses = expensesContext.items.map((expense) => (
@@ -62,14 +49,18 @@ const DailyExpenses = (props) => {
     />
   ));
 
-  const transitionText = classes['transition-text'];
+  const transitionText = classes["transition-text"];
   const expenseListIsEmpty = expensesContext.items.length === 0;
 
   return (
     <Card>
-      {expenseListIsEmpty && !isLoading && <p className={transitionText}>So much empty :0</p>}
+      {expenseListIsEmpty && !isLoading && (
+        <p className={transitionText}>So much empty :0</p>
+      )}
       {error && <p className={transitionText}>{error}</p>}
-      {isLoading && !error && <p className={transitionText}>Loading expenses...</p>}
+      {isLoading && !error && (
+        <p className={transitionText}>Loading expenses...</p>
+      )}
       {!isLoading && <ul className={classes["daily-expenses"]}>{expenses}</ul>}
     </Card>
   );
