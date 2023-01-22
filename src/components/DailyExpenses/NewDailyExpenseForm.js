@@ -10,6 +10,11 @@ const isNotEmpty = (value) => value !== "";
 const isValidAmount = (value) => value !== "" && value > 0;
 const selectionIsPicked = (value) => value === "Y" || value === "N";
 
+/**
+ * This component is responsible for rendering the new daily expense form.
+ * 
+ * @visibleName New Daily Expense Form
+ */
 const NewDailyExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
 
@@ -58,7 +63,17 @@ const NewDailyExpenseForm = (props) => {
   const isPaidInputRef = useRef();
   const merchantInputRef = useRef();
 
-  //expense to be transformed and added to server
+  /**
+   * 
+   * @param {Object} newExpenseObject - Expense to be transformed and added to server
+   * 
+   * @param {string} id - unique character sequence that identifies the expense
+   * @param {Object} date - A new Date object which gets created when the new expense object is created. Accepts the entered date as a parameter.
+   * @param {string} enteredDate - the date which is picked by the user. This value is passed to the Date constructor.
+   * @param {number} amount - The amount of money the user spent on their expense.
+   * @param {boolean} isPaid - true or false value indicating whether or not the user paid off their expense (i.e. if they used credit).
+   * @param {string} merchant - The merchant with whom the transaction took place.
+   */
   const newExpenseObject = {
     id: null,
     date: new Date(enteredDate),

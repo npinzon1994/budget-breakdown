@@ -5,6 +5,12 @@ import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
 import useHttp from "../../hooks/use-http";
 
+/**
+ * This component creates a list of expense items
+ * 
+ * @visibleName Daily Expenses
+ */
+
 const DailyExpenses = (props) => {
   const expensesContext = useContext(ExpensesContext);
   const { isLoading, error, sendRequest: fetchExpenses } = useHttp();
