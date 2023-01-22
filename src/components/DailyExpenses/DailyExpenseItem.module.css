@@ -1,3 +1,4 @@
+/*actual list item*/
 .daily-expense {
   display: flex;
   list-style-type: none;
@@ -7,18 +8,65 @@
   flex: 1;
 }
 
+/*inner div*/
 .list-item-content {
   display: flex;
   width: 95%;
-  border-radius: 14px;
-  background-color: #d3d3d3;
+  border-radius: 1rem;
   margin: 1.2em 1.2em 1.2em 0;
   padding: 1em 0;
   text-align: center;
+  align-items: center;
 }
 
-.buttons {
+.money-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.money-container span {
   display: flex;
   align-items: center;
-  margin-right: 1em;
+  text-align: left;
+}
+
+.money-container span img {
+  height: 20px;
+  width: 20px;
+  margin-left: 8px;
+}
+
+.price {
+  font-size: 1.7rem;
+  color: #c50;
+}
+
+.paid-off {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.merchant {
+  font-size: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: left;
+  margin: 0 3rem;
+  
+}
+.remove-button {
+  background-image: url("../../assets/remove-icon.png");
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.4em;
+  width: 1.4em;
+  border: none;
+  margin: 0 5px 0 0;
+}
+
+hr {
+  width: 95%;
 }

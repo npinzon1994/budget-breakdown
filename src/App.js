@@ -53,7 +53,6 @@ const App = () => {
         <NewDailyExpenseForm onClose={hideExpenseFormHandler} />
       )}
       <Header onShow={showExpenseFormHandler} />
-      <DailyExpenseHeader />
       <DailyExpenses />
     </ExpensesProvider>
   );

@@ -1,6 +1,15 @@
 .new-expense-button {
-    border-radius: 22px;
-    padding: 10px;
+    border-radius: 2rem;
+    padding: 1rem 2rem;
     margin-left: auto;
     margin-right: 37px;
+    background-color: #0d3466;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.new-expense-button:hover {
+    background-color: #072246;
 }

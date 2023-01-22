@@ -18,7 +18,8 @@ const Header = (props) => {
       </div>
 
       <div className={classes["remaining-balance"]}>
-        <h3>{"Total: " + totalBalance}</h3>
+        <span>{"Total"}</span>
+        <span>{totalBalance}</span>
       </div>
     </Fragment>
   );
