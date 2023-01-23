@@ -26,7 +26,7 @@ This app may be simple, but there are a lot of features I plan to implement such
 
 ## How to Install and Run the Application
 
-Download the zip from here and uncompress into your workspace directory (or any directory where you'll remember). Then go into your IDE or Text Editor (I used VS Code) and open a terminal. **Also make sure you have Node.js installed!** Once you've navigated to the project directory on your local drive, run: 
+Download the zip from here and uncompress into your workspace directory (or any directory where you'll remember). Then go into your IDE or Text Editor (I used VS Code) and open a terminal. **Also make sure you have Node.js installed!** Once you're in the terminal, navigate to the project directory on your local drive and run: 
 <br>
 
 `npm install`  
