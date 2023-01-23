@@ -22,6 +22,7 @@ This app may be simple, but there are a lot of features I plan to implement such
 - Implementing a page system with a maximum of about 10 or 20 expenses per page
 - Support for multiple accounts and account types (i.e. checking, savings, credit, etc.)
 - Support for users and authentication
+- More filter options
 
 <br>
 
