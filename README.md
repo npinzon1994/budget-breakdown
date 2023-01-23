@@ -1,74 +1,46 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# Budget Breakdown
+Budget Breakdown is an application that lets users log their expenses and keep track of them.  
+<br> 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description  
+<hr>
+View and manage all of your expenses the easy way with Budget Breakdown! This app will better help you keep track of your credit card balance while also making it easier to begin paying it off.<br>
+This app lets you enter your expenses specifying the date of the transaction, the amount you charged, the merchant with whom the transaction took place, and whether or not you paid off the expense yet. Your total credit balance is shown at the top. There is also a dropdown menu that lets you filter between paid and unpaid expenses.
+<br>  
+<br>
 
-## Available Scripts
+### Motivation
+I don't know about you, but I use my credit card for most things I pay for nowadays. But the more expenses I've began picking up, the more I've found myself needing to know EXACTLY what my current balance is. I grew tired of constantly checking my online statement, seeing charges, but not exactly knowing whether or not I actually PAID for the (you know, with money).  
 
-In the project directory, you can run:
+#### *But not only that!*  
+  
+I would also find myself paying multiple bills the same day and, as you know, a lot of banking apps don't update your balance until a day or two later -- which is why I needed a way to see what my balance would be after paying a bill just in case I needed to pay another one right afterwards!  
+<br>
 
-### `npm start`
+### Plans for the Future
+This app may be simple, but there are a lot of features I plan to implement such as:
+- Removing expenses
+- Editing expenses
+- Calculating and displaying paid vs. unpaid balance
+- Implementing a page system with a maximum of about 10 or 20 expenses per page.
+- Support for multiple accounts and account types (i.e. checking, savings, credit, etc.)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How to Install and Run the Application
+<hr>
 
-### `npm test`
+Download the zip from here and uncompress into your workspace directory (or any directory where you'll remember). Then go into your IDE or Text Editor (I used VS Code) and open a terminal. **Also make sure you have Node.js installed!** Once you've navigated to the project directory on your local drive, run: 
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm install`  
+<br>
+to install all dependencies, and then run:  
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm start`
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+to start the development server. This will open localhost:3000 in your web browser and *voila!* You're up and running!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# budget-breakdown
->>>>>>> a46fc41a69c82834fede9544f67341184366e218
