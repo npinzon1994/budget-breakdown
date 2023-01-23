@@ -13,7 +13,6 @@ I don't know about you, but I use my credit card for most things I pay for nowad
 #### *But not only that!*  
   
 I would also find myself paying multiple bills the same day and, as you know, a lot of banking apps don't update your balance until a day or two later -- which is why I needed a way to see what my balance would be after paying a bill just in case I needed to pay another one right afterwards!  
-<br>
 
 ### Plans for the Future
 This app may be simple, but there are a lot of features I plan to implement such as:
