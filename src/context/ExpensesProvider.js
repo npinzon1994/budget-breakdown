@@ -10,6 +10,10 @@ const expensesReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalBalance = +state.totalBalance + +action.item.amount;
     const updatedItems = state.items.concat(action.item);
+    updatedItems.sort(function(a, b) {
+      return a.date - b.date;
+    });
+    updatedItems.reverse();
     return { items: updatedItems, totalBalance: updatedTotalBalance };
   }
 

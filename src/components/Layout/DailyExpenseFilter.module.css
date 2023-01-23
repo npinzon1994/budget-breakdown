@@ -1,0 +1,47 @@
+.container{
+  display: flex;
+  margin: 1rem auto;
+  max-width: 60rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.invisible{
+  opacity: 0;
+}
+
+.remaining-balance {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-left: 4rem;
+}
+
+.remaining-balance span {
+  font-weight: 700;
+  font-size: 1.5rem;
+  
+}
+
+.remaining-balance .total-balance {
+  color: #1167b1;
+  font-size: 2rem;
+}
+
+.filter-container{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.filter-container label {
+  margin-left: 7px;
+  margin-bottom: 7px;
+  font-weight: 600;
+  color: #072246;
+}
+
+.filter-container select {
+  border-radius: 12px;
+  padding: 10px;
+}

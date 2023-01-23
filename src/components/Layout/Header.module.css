@@ -1,26 +1,14 @@
 .header-bar {
-    background: #1167b1;
-    height: 100px;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  background: #1167b1;
+  height: 100px;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .header-bar h3 {
-    margin-left: 36px;
-    color: #fff;
-    float: left; 
-}
-
-.remaining-balance {
-    text-align: center;
-    margin: 30px 0;
-}
-
-.remaining-balance span {
-    display: block;
-    font-weight: 700;
-    font-size: 1.5rem;
-    
+  margin-left: 36px;
+  color: #fff;
+  float: left;
 }

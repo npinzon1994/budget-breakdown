@@ -19,6 +19,25 @@
   align-items: center;
 }
 
+.date-container {
+  margin: 0 1rem;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #2286dd;
+  border-radius: 1rem;
+  font-weight: 500;
+  color: gray;
+}
+
+.date-container span{
+  display: block;
+}
+
+.day-text {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: #c50;
+}
+
 .money-container {
   display: flex;
   flex-direction: column;
