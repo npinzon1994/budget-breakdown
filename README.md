@@ -6,7 +6,6 @@ Budget Breakdown is an application that lets users log their expenses and keep t
 View and manage all of your expenses the easy way with Budget Breakdown! This app will better help you keep track of your credit card balance while also making it easier to begin paying it off.<br>
 This app lets you enter your expenses specifying the date of the transaction, the amount you charged, the merchant with whom the transaction took place, and whether or not you paid off the expense yet. Your total credit balance is shown at the top. There is also a dropdown menu that lets you filter between paid and unpaid expenses.
 <br>  
-<br>
 
 ### Motivation
 I don't know about you, but I use my credit card for most things I pay for nowadays. But the more expenses I've began picking up, the more I've found myself needing to know EXACTLY what my current balance is. I grew tired of constantly checking my online statement, seeing charges, but not exactly knowing whether or not I actually PAID for the (you know, with money).  
