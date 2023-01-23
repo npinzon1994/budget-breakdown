@@ -3,7 +3,6 @@ Budget Breakdown is an application that lets users log their expenses and keep t
 <br> 
 
 ## Description  
-<hr>
 View and manage all of your expenses the easy way with Budget Breakdown! This app will better help you keep track of your credit card balance while also making it easier to begin paying it off.<br>
 This app lets you enter your expenses specifying the date of the transaction, the amount you charged, the merchant with whom the transaction took place, and whether or not you paid off the expense yet. Your total credit balance is shown at the top. There is also a dropdown menu that lets you filter between paid and unpaid expenses.
 <br>  
@@ -28,7 +27,6 @@ This app may be simple, but there are a lot of features I plan to implement such
 <br>
 
 ## How to Install and Run the Application
-<hr>
 
 Download the zip from here and uncompress into your workspace directory (or any directory where you'll remember). Then go into your IDE or Text Editor (I used VS Code) and open a terminal. **Also make sure you have Node.js installed!** Once you've navigated to the project directory on your local drive, run: 
 <br>
