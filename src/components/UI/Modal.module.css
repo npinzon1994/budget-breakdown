@@ -28,6 +28,27 @@
       left: calc(50% - 10rem);
     }
   }
+
+  @media (max-width: 767px) {
+    .modal{
+      left: calc(50% - 10rem);
+      width: 67%;
+    }
+  }
+
+  @media (max-width: 424px) {
+    .modal{
+      left: calc(50% - 9.5rem);
+      width: 72%;
+    }
+  }
+
+  @media (max-width: 374px) {
+    .modal{
+      left: calc(50% - 8.8rem);
+      width: 78%;
+    }
+  }
   
   @keyframes slide-down {
     from {

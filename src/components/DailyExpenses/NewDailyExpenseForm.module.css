@@ -77,3 +77,19 @@
 .add-expense-button:hover {
     background-color: #072246;
 }
+
+@media (max-width: 767px){
+  .button-div{
+    display: block;
+  }
+
+  .add-expense-button{
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+
+  .close-button{
+    width: 100%;
+    margin: 0;
+  }
+}

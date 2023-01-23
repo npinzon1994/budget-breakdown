@@ -11,4 +11,31 @@
   margin-left: 36px;
   color: #fff;
   float: left;
+  font-size: large;
 }
+
+@media screen and (min-width: 1440px){
+  .header-bar h3{
+    font-size: x-large;
+  }
+
+  .header-bar{
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 1023px){
+  .header-bar h3{
+    font-size: medium;
+  }
+}
+
+@media (max-width: 424px){
+  .header-bar h3{
+    font-size: small;
+    margin-left: 28px;
+  }
+
+}
+
+

@@ -13,7 +13,8 @@
   display: flex;
   width: 95%;
   border-radius: 1rem;
-  margin: 1.2em 1.2em 1.2em 0;
+  /* margin: 1.2em 1.2em 1.2em 0; */
+  margin-right: 1.2em;
   padding: 1em 0;
   text-align: center;
   align-items: center;
@@ -72,9 +73,9 @@
   flex-wrap: wrap;
   justify-content: center;
   text-align: left;
-  margin: 0 3rem;
-  
+  margin: 0 48px;
 }
+
 .remove-button {
   background-image: url("../../assets/remove-icon.png");
   background-color: transparent;
@@ -88,4 +89,93 @@
 
 hr {
   width: 95%;
+}
+
+@media screen and (max-width: 1439px) {
+  .merchant {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .merchant {
+    font-size: 1.05rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .merchant {
+    font-size: 0.8rem;
+    margin: 0 20px;
+  }
+
+  .price {
+    font-size: 1.2rem;
+  }
+
+  .paid-off{
+    font-size: small;
+    word-wrap: normal;
+  }
+
+  .money-container {
+    margin-left: 1.5rem;
+  }
+
+  .money-container span img {
+    height: 14px;
+    width: 14px;
+    margin-left: 4px;
+  }
+
+}
+
+@media (max-width: 424px){
+  .merchant{
+    margin: 0 20px 0 15px;
+  }
+
+  .price {
+    font-size: 1.1rem;
+  }
+
+  .paid-off{
+    font-size: small;
+    word-wrap: normal;
+  }
+
+  .money-container {
+    margin-left: 1.2rem;
+  }
+
+  .money-container span img {
+    height: 14px;
+    width: 14px;
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 374px) {
+  .money-container {
+    margin-left: 0.8rem;
+  }
+  
+  .merchant{
+    font-size: 0.7rem;
+    margin: 0 20px 0 10px;
+  }
+  
+  .price{
+    font-size: 1rem;
+  }
+
+  .paid-off{
+    font-size: x-small;
+  }
+
+  .money-container span img {
+    height: 10px;
+    width: 10px;
+    margin-left: 4px;
+  }
 }

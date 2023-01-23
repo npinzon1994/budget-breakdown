@@ -1,8 +1,9 @@
 .daily-expenses {
     max-width: 60rem;
     width: 90%;
-    margin: 2rem auto;
+    margin: 0 auto;
     animation: meals-appear 1s ease-out forwards;
+    padding-left: 0;
     
 }
 

@@ -14,18 +14,21 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-left: 4rem;
+  margin-left: 7rem;
 }
 
 .remaining-balance span {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2.3rem;
+  /* border-bottom: 1px solid gray; */
   
 }
 
 .remaining-balance .total-balance {
   color: #1167b1;
-  font-size: 2rem;
+  font-size: 2.8rem;
+  /* border-bottom: none; */
+  padding-top: 5px;
 }
 
 .filter-container{
@@ -44,4 +47,71 @@
 .filter-container select {
   border-radius: 12px;
   padding: 10px;
+  font-size: medium;
+}
+
+@media screen and (max-width: 1439px) {
+  .container {
+    width: 63%;
+  }
+
+  .filter-container select {
+    font-size: small;
+  }
+
+  .remaining-balance {
+    margin-left: 5rem;
+  }
+
+  .remaining-balance span {
+    font-size: 1.5rem;
+  }
+
+  .remaining-balance .total-balance {
+    font-size: 2rem;
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .container {
+    width: 85%;
+  }
+
+  .remaining-balance{
+    margin-left: 5.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .invisible{
+    display: none;
+  }
+  
+  .container{
+    flex-direction: column;
+    align-items: unset;
+  }
+  
+  .remaining-balance{
+    margin: 0 0 10px 0;
+  }
+  
+  .remaining-balance span {
+    font-size: 1.15rem;
+  }
+
+  .remaining-balance .total-balance{
+    font-size: 1.35rem;
+  }
+
+  .filter-container label{
+    display: none;
+  }
+
+  .filter-container select{
+    font-size: small;
+    width: 100%;
+  }
 }
