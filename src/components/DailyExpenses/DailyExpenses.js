@@ -6,50 +6,101 @@ import ExpensesContext from "../../context/expenses-context";
 import useHttp from "../../hooks/use-http";
 import DailyExpenseFilter from "../Layout/DailyExpenseFilter";
 
+let isInitial = true;
+
 const DailyExpenses = (props) => {
   const expensesContext = useContext(ExpensesContext);
-  const { isLoading, error, sendRequest: fetchExpenses } = useHttp();
   const [filteredState, setFilteredState] = useState("Show All");
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
   };
 
+  //gets all expenses on startup
   useEffect(() => {
-    const transformExpenses = (expenseObject) => {
-      let loadedExpenses = [];
-      for (const key in expenseObject) {
-        loadedExpenses.push({
-          id: key,
-          date: new Date(expenseObject[key].date),
-          amount: expenseObject[key].amount,
-          isPaid: expenseObject[key].isPaid,
-          merchant: expenseObject[key].merchant,
-        });
+    const getExpenseData = async () => {
+      setIsLoading(true);
 
-        loadedExpenses.sort(function (a, b) {
-          return a.date.valueOf() - b.date.valueOf();
-        });
-
-        loadedExpenses.reverse();
+      const response = await fetch(
+        "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
       }
+
+      //data is good EXCEPT for the date
+      //need to convert to JS Date objects
+      const data = await response.json();
+
+      let loadedExpenses = [];
+      for (let i = 0; i < data.items.length; i++) {
+        loadedExpenses.push({
+          id: data.items[i].id,
+          date: new Date(data.items[i].date.substring(0, 10)),
+          amount: data.items[i].amount,
+          isPaid: data.items[i].isPaid,
+          merchant: data.items[i].merchant,
+        });
+      }
+
       expensesContext.setExpenses(loadedExpenses);
+
+      setIsLoading(false);
     };
 
-    fetchExpenses(
-      {
-        url: "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json",
-      },
-      transformExpenses
-    );
-  }, [fetchExpenses]);
+    getExpenseData().catch((error) => {
+      setIsLoading(false);
+      setError(error.message);
+    });
+  }, []);
+
+  //sends cart data to the server
+  useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
+    const sendExpenseData = async () => {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json",
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            items: expensesContext.items,
+            totalBalance: expensesContext.totalBalance,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      setIsLoading(false);
+    };
+
+    sendExpenseData().catch((error) => {
+      setIsLoading(false);
+      setError(error.message);
+    });
+  }, [expensesContext]);
 
   let filteredExpenses = [...expensesContext.items];
   if (filteredState === "Paid Expenses") {
-    filteredExpenses = filteredExpenses.filter((expense) => expense.isPaid === "Y");
+    filteredExpenses = filteredExpenses.filter(
+      (expense) => expense.isPaid === "Y"
+    );
   }
   if (filteredState === "Unpaid Expenses") {
-    filteredExpenses = filteredExpenses.filter((expense) => expense.isPaid === "N");
+    filteredExpenses = filteredExpenses.filter(
+      (expense) => expense.isPaid === "N"
+    );
   }
 
   //creates a new array of DailyExpenseItem(s)
@@ -64,8 +115,6 @@ const DailyExpenses = (props) => {
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
   ));
-
-  
 
   const filterExpenses = (state) => {
     setFilteredState(state);

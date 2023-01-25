@@ -34,10 +34,10 @@ const DailyExpenseItem = (props) => {
             </span>
           </div>
           <span className={classes.merchant}>{props.merchant}</span>
-          {/* <button
+          <button
             onClick={props.onRemove}
             className={classes["remove-button"]}
-          ></button> */}
+          ></button>
         </div>
       </li>
       <hr />

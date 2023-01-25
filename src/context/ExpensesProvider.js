@@ -47,7 +47,7 @@ const expensesReducer = (state, action) => {
   if(action.type === "SET_EXPENSES"){
     //compute balance here
     let currentBalance = 0;
-    const expenses = [...action.expenses];
+    const expenses = [...action.items];
     for(const key in expenses){
       const expenseAmount = +expenses[key].amount;
       currentBalance = currentBalance + expenseAmount;
@@ -76,8 +76,8 @@ const ExpensesProvider = (props) => {
     dispatchExpensesAction({type: "EDIT", id: id});
   }
 
-  const setExpenses = (expenses) => {
-    dispatchExpensesAction({type: "SET_EXPENSES", expenses: expenses});
+  const setExpenses = (items) => {
+    dispatchExpensesAction({type: "SET_EXPENSES", items: items});
   }
 
 
