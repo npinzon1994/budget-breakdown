@@ -1,0 +1,59 @@
+.container {
+    text-align: center;
+    background: linear-gradient(180deg, #e8e8e8 25%, #FFF 25%);
+    padding: 1rem;
+    border-radius: 14px;
+}
+
+.icon {
+    height: 81px;
+    width: 76px;
+}
+
+
+.title {
+    font-size: x-large;
+    font-weight: 500;
+}
+
+.message {
+    font-size: large;
+    margin-top: 7px;
+}
+
+.buttons {
+    margin-top: 15px;
+}
+
+.close-button {
+    border-radius: 12px;
+    height: 44px;
+    width: 46%;
+    font-weight: bold;
+    border: none;
+    
+    cursor: pointer;
+    margin-right: 7px;
+    
+  }
+  
+  .close-button:hover {
+      background-color: rgb(214, 214, 214);
+  }
+  
+  .delete-button {
+      background-color: #ef3737;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 12px;
+      border: none;
+      height: 44px;
+      width: 46%;
+      
+      cursor: pointer;
+      
+  }
+  
+  .delete-button:hover {
+      background-color: #d83434;
+  }

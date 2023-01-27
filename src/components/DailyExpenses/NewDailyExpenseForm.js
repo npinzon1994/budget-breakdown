@@ -57,11 +57,9 @@ const NewDailyExpenseForm = (props) => {
   const isPaidInputRef = useRef();
   const merchantInputRef = useRef();
 
-
-  
   //object to be added -- contains all values captured from the form
   const newExpenseObject = {
-    id: 'E' + uniqueId++,
+    id: "E" + uniqueId++,
     date: new Date(enteredDate),
     amount: enteredAmount,
     isPaid: isPaidValue,
@@ -162,15 +160,15 @@ const NewDailyExpenseForm = (props) => {
         />
 
         <div className={classes["button-div"]}>
-          <button type="submit" className={classes["add-expense-button"]}>
-            Add Expense
-          </button>
           <button
             type="button"
             className={classes["close-button"]}
             onClick={props.onClose}
           >
             Close
+          </button>
+          <button type="submit" className={classes["add-expense-button"]}>
+            Add Expense
           </button>
         </div>
       </form>

@@ -5,8 +5,11 @@ import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
 import DailyExpenseFilter from "../Layout/DailyExpenseFilter";
 import NotificationBanner from "../UI/NotificationBanner";
+import DeleteModal from "../UI/DeleteModal";
 
 let isInitial = true;
+
+let deleteModal;
 
 const DailyExpenses = (props) => {
   const expensesContext = useContext(ExpensesContext);
@@ -18,8 +21,26 @@ const DailyExpenses = (props) => {
   const [isSending, setIsSending] = useState(false);
   const [sendError, setSendError] = useState();
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
+    setShowDeleteModal(false);
+  };
+
+  const showDeleteModalHandler = (id) => {
+    setShowDeleteModal(true);
+
+    deleteModal = (
+      <DeleteModal
+        onRemove={removeItemHandler.bind(null, id)}
+        onClose={hideDeleteModalHandler}
+      />
+    );
+  };
+
+  const hideDeleteModalHandler = () => {
+    setShowDeleteModal(false);
   };
 
   //gets all expenses on startup
@@ -119,7 +140,7 @@ const DailyExpenses = (props) => {
       date={expense.date}
       isPaid={expense.isPaid}
       merchant={expense.merchant}
-      onRemove={removeItemHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
+      onRemove={showDeleteModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
   ));
@@ -133,11 +154,12 @@ const DailyExpenses = (props) => {
 
   return (
     <Fragment>
+      {showDeleteModal && deleteModal}
       {/* {(isSending && !sendError) && <NotificationBanner status={''} title={'Sending'} message={'Sending...'}/>} */}
       <DailyExpenseFilter onFilter={filterExpenses} />
       <Card>
         {expenseListIsEmpty && !isLoading && (
-          <p className={transitionText}>So much empty :0</p>
+          <p className={transitionText}>No expenses found.</p>
         )}
         {loadError && <p className={transitionText}>{loadError}</p>}
         {sendError && <p className={transitionText}>{sendError}</p>}

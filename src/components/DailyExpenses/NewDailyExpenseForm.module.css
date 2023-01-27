@@ -3,6 +3,7 @@
   max-width: 300px;
   text-align: center;
   margin: 0 auto;
+  padding: 1rem;
 }
 
 /*Input*/
@@ -51,15 +52,14 @@
   border-radius: 12px;
   height: 44px;
   width: 48%;
-  margin-left: 6px;
   font-weight: bold;
   border: none;
-  background-color: rgb(200, 200, 200);
   cursor: pointer;
+  margin-right: 6px;
 }
 
 .close-button:hover {
-    background-color: rgb(185, 185, 185);
+    background-color: rgb(214, 214, 214);
 }
 
 .add-expense-button {
@@ -70,7 +70,6 @@
     border: none;
     height: 44px;
     width: 48%;
-    margin-right: 6px;
     cursor: pointer;
 }
 
