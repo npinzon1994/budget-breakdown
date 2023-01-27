@@ -3,8 +3,8 @@ import Card from "../UI/Card";
 import DailyExpenseItem from "./DailyExpenseItem";
 import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
-import useHttp from "../../hooks/use-http";
 import DailyExpenseFilter from "../Layout/DailyExpenseFilter";
+import NotificationBanner from "../UI/NotificationBanner";
 
 let isInitial = true;
 
@@ -13,7 +13,10 @@ const DailyExpenses = (props) => {
   const [filteredState, setFilteredState] = useState("Show All");
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [loadError, setLoadError] = useState();
+
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState();
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
@@ -21,6 +24,7 @@ const DailyExpenses = (props) => {
 
   //gets all expenses on startup
   useEffect(() => {
+    console.log("EFFECT RUNNING -- GET");
     const getExpenseData = async () => {
       setIsLoading(true);
 
@@ -31,19 +35,21 @@ const DailyExpenses = (props) => {
         throw new Error("Something went wrong!");
       }
 
-      //data is good EXCEPT for the date
+      //data is good EXCEPT for the dates
       //need to convert to JS Date objects
       const data = await response.json();
 
       let loadedExpenses = [];
-      for (let i = 0; i < data.items.length; i++) {
-        loadedExpenses.push({
-          id: data.items[i].id,
-          date: new Date(data.items[i].date.substring(0, 10)),
-          amount: data.items[i].amount,
-          isPaid: data.items[i].isPaid,
-          merchant: data.items[i].merchant,
-        });
+      if (data.items) {
+        for (let i = 0; i < data.items.length; i++) {
+          loadedExpenses.push({
+            id: data.items[i].id,
+            date: new Date(data.items[i].date.substring(0, 10)),
+            amount: data.items[i].amount,
+            isPaid: data.items[i].isPaid,
+            merchant: data.items[i].merchant,
+          });
+        }
       }
 
       expensesContext.setExpenses(loadedExpenses);
@@ -53,7 +59,7 @@ const DailyExpenses = (props) => {
 
     getExpenseData().catch((error) => {
       setIsLoading(false);
-      setError(error.message);
+      setLoadError(error.message);
     });
   }, []);
 
@@ -64,8 +70,9 @@ const DailyExpenses = (props) => {
       return;
     }
 
+    console.log("EFFECT RUNNING -- PUT");
     const sendExpenseData = async () => {
-      setIsLoading(true);
+      setIsSending(true);
       const response = await fetch(
         "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json",
         {
@@ -82,13 +89,14 @@ const DailyExpenses = (props) => {
         throw new Error("Something went wrong!");
       }
 
-      setIsLoading(false);
+      setIsSending(false);
     };
-
-    sendExpenseData().catch((error) => {
-      setIsLoading(false);
-      setError(error.message);
-    });
+    if (expensesContext.changed) {
+      sendExpenseData().catch((error) => {
+        setIsSending(false);
+        setSendError(error.message);
+      });
+    }
   }, [expensesContext]);
 
   let filteredExpenses = [...expensesContext.items];
@@ -125,14 +133,15 @@ const DailyExpenses = (props) => {
 
   return (
     <Fragment>
-      {console.log(filteredState)}
+      {/* {(isSending && !sendError) && <NotificationBanner status={''} title={'Sending'} message={'Sending...'}/>} */}
       <DailyExpenseFilter onFilter={filterExpenses} />
       <Card>
         {expenseListIsEmpty && !isLoading && (
           <p className={transitionText}>So much empty :0</p>
         )}
-        {error && <p className={transitionText}>{error}</p>}
-        {isLoading && !error && (
+        {loadError && <p className={transitionText}>{loadError}</p>}
+        {sendError && <p className={transitionText}>{sendError}</p>}
+        {isLoading && !loadError && (
           <p className={transitionText}>Loading expenses...</p>
         )}
         {!isLoading && (

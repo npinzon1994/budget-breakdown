@@ -4,6 +4,7 @@ import ExpensesContext from "./expenses-context";
 const defaultExpensesState = {
   items: [],
   totalBalance: 0,
+  changed: false
 };
 
 const expensesReducer = (state, action) => {
@@ -14,7 +15,7 @@ const expensesReducer = (state, action) => {
       return a.date - b.date;
     });
     updatedItems.reverse();
-    return { items: updatedItems, totalBalance: updatedTotalBalance };
+    return { items: updatedItems, totalBalance: updatedTotalBalance, changed: true };
   }
 
   if (action.type === "REMOVE") {
@@ -27,7 +28,7 @@ const expensesReducer = (state, action) => {
     const updatedTotalBalance =
       +state.totalBalance - +existingExpenseItem.amount;
     const updatedItems = state.items.filter((item) => item.id !== action.id);
-    return { items: updatedItems, totalBalance: updatedTotalBalance };
+    return { items: updatedItems, totalBalance: updatedTotalBalance, changed: true };
   }
 
   if(action.type === "EDIT"){
@@ -52,7 +53,7 @@ const expensesReducer = (state, action) => {
       const expenseAmount = +expenses[key].amount;
       currentBalance = currentBalance + expenseAmount;
     }
-    return {items: expenses, totalBalance: currentBalance};
+    return {items: expenses, totalBalance: currentBalance, changed: false};
   }
 
   return defaultExpensesState;
@@ -84,6 +85,7 @@ const ExpensesProvider = (props) => {
   const expensesContext = {
     items: expenses.items,
     totalBalance: expenses.totalBalance,
+    changed: expenses.changed,
     onAddExpense: addExpenseItemHandler,
     onRemoveExpense: removeExpenseItemHandler,
     onEditExpense: editExpenseItemHandler,
