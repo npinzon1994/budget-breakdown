@@ -151,6 +151,7 @@ const DailyExpenses = (props) => {
 
   const transitionText = classes["transition-text"];
   const expenseListIsEmpty = expensesContext.items.length === 0;
+  const filteredListIsEmpty = expenses.length === 0;
 
   return (
     <Fragment>
@@ -158,7 +159,7 @@ const DailyExpenses = (props) => {
       {/* {(isSending && !sendError) && <NotificationBanner status={''} title={'Sending'} message={'Sending...'}/>} */}
       <DailyExpenseFilter onFilter={filterExpenses} />
       <Card>
-        {expenseListIsEmpty && !isLoading && (
+        {((expenseListIsEmpty || filteredListIsEmpty) && !isLoading) && (
           <p className={transitionText}>No expenses found.</p>
         )}
         {loadError && <p className={transitionText}>{loadError}</p>}
