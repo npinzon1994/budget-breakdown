@@ -1,5 +1,5 @@
 # Budget Breakdown
-Budget Breakdown is an application that lets users log their expenses and keep track of them.  
+Budget Breakdown is a money management application that lets users log their expenses and keep track of them.  
 <br> 
 <img src="https://user-images.githubusercontent.com/22157316/215879694-05dfdd65-3e49-43f8-b2a4-97e809aa5f21.PNG" alt="Budget Breakdown screenshot"/>
 
