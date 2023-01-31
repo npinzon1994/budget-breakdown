@@ -1,6 +1,7 @@
 # Budget Breakdown
 Budget Breakdown is an application that lets users log their expenses and keep track of them.  
 <br> 
+<img src="https://user-images.githubusercontent.com/22157316/215879694-05dfdd65-3e49-43f8-b2a4-97e809aa5f21.PNG" alt="Budget Breakdown screenshot"/>
 
 ## Description  
 View and manage all of your expenses the easy way with Budget Breakdown! This app will better help you keep track of your credit card balance while also making it easier to begin paying it off.<br>
