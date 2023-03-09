@@ -1,18 +1,22 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.0e77f780.css",
-    "main.js": "/budget-breakdown/static/js/main.4b38dd97.js",
+    "main.css": "/budget-breakdown/static/css/main.2d4cc366.css",
+    "main.js": "/budget-breakdown/static/js/main.6d639b09.js",
     "static/js/787.d544195f.chunk.js": "/budget-breakdown/static/js/787.d544195f.chunk.js",
+    "static/media/roboto.thin.ttf": "/budget-breakdown/static/media/roboto.thin.bc405e852883934268b5.ttf",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
     "static/media/red-x-circle.png": "/budget-breakdown/static/media/red-x-circle.f8215fe87eb837868f6f.png",
     "static/media/checkmark-circle.png": "/budget-breakdown/static/media/checkmark-circle.e27570979a2dc61a6221.png",
+    "static/media/Aileron-ThinItalic.otf": "/budget-breakdown/static/media/Aileron-ThinItalic.bf68b5f9bd21bfb99691.otf",
     "index.html": "/budget-breakdown/index.html",
-    "main.0e77f780.css.map": "/budget-breakdown/static/css/main.0e77f780.css.map",
-    "main.4b38dd97.js.map": "/budget-breakdown/static/js/main.4b38dd97.js.map",
+    "static/media/delete-circle.svg": "/budget-breakdown/static/media/delete-circle.ad1aec0da163cd8cca2e.svg",
+    "static/media/down-arrow.svg": "/budget-breakdown/static/media/down-arrow.b310562ce02fc7aacedc.svg",
+    "main.2d4cc366.css.map": "/budget-breakdown/static/css/main.2d4cc366.css.map",
+    "main.6d639b09.js.map": "/budget-breakdown/static/js/main.6d639b09.js.map",
     "787.d544195f.chunk.js.map": "/budget-breakdown/static/js/787.d544195f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e77f780.css",
-    "static/js/main.4b38dd97.js"
+    "static/css/main.2d4cc366.css",
+    "static/js/main.6d639b09.js"
   ]
 }
