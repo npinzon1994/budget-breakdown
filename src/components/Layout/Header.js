@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import classes from "./Header.module.css";
-import HeaderButton from "./HeaderButton";
+import NewExpenseButton from "../UI/NewExpenseButton";
 
 const Header = (props) => {
   return (
@@ -10,7 +10,7 @@ const Header = (props) => {
           Budget Breakdown
           <br /> Expense Tracker
         </h3>
-        <HeaderButton onClick={props.onShow}>New Expense</HeaderButton>
+        <NewExpenseButton onClick={props.onShow}>New Expense</NewExpenseButton>
       </div>
     </Fragment>
   );

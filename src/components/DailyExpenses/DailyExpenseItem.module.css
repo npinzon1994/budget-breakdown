@@ -1,22 +1,22 @@
-/*actual list item*/
-.daily-expense {
-  display: flex;
-  list-style-type: none;
+@font-face {
+  font-family: "Aileron-thinitalic";
+  src: url("../../fonts/Aileron-ThinItalic.otf");
 }
 
-.daily-expense span {
-  flex: 1;
+/*actual list item*/
+.daily-expense {
+  list-style-type: none;
+  display: flex;
+  border-bottom: 1px #e8e8e8 solid;
 }
 
 /*inner div*/
 .list-item-content {
   display: flex;
   width: 95%;
-  border-radius: 1rem;
-  /* margin: 1.2em 1.2em 1.2em 0; */
   margin-right: 1.2em;
   padding: 1em 0;
-  text-align: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -29,9 +29,9 @@
   color: gray;
 }
 
-.date-container span{
+/* .date-container span{
   display: block;
-}
+} */
 
 .day-text {
   font-size: 1.7rem;
@@ -42,13 +42,10 @@
 .money-container {
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
 }
 
 .money-container span {
   display: flex;
-  align-items: center;
-  text-align: left;
 }
 
 .money-container span img {
@@ -58,43 +55,48 @@
 }
 
 .price {
-  font-size: 1.7rem;
+  font-size: 1.3rem;
   color: #c50;
+  font-family: 'Golos Text', sans-serif;
 }
 
 .paid-off {
-  font-weight: 300;
-  font-style: italic;
+  color: rgb(189, 188, 188);
+  font-family: 'Aileron-thinitalic';
+}
+
+.merchant-container {
+  width: 100%;
+  max-width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  
 }
 
 .merchant {
-  font-size: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: left;
-  margin: 0 48px;
+  font-size: 1rem;
+  width: 100%;
+  word-wrap: break-word;
+  font-family: 'Mulish', sans-serif;
+
 }
 
 .remove-button {
-  background-image: url("../../assets/remove-icon.png");
+  background-image: url("../../assets/delete-circle.svg");
   background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
-  height: 1.4em;
-  width: 1.4em;
+  height: 3em;
+  width: 3em;
   border: none;
-  margin: 0 5px 0 0;
   cursor: pointer;
-  opacity: 70%;
+  opacity: 80%;
+  transition: 0.2s;
 }
 
 .remove-button:hover {
   opacity: 100%;
-}
-
-hr {
-  width: 95%;
+  /* color: #f33d3d; */
 }
 
 @media screen and (max-width: 1439px) {

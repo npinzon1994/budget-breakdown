@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./HeaderButton.module.css";
+import classes from "./NewExpenseButton.module.css";
 
-const HeaderButton = (props) => {
+const NewExpenseButton = (props) => {
   return (
     <button
       type={props.type}
@@ -13,4 +13,4 @@ const HeaderButton = (props) => {
   );
 };
 
-export default HeaderButton;
+export default NewExpenseButton;

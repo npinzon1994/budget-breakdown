@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import DailyExpenses from "./components/DailyExpenses/DailyExpenses";
 import Header from "./components/Layout/Header";
 import NewDailyExpenseForm from "./components/DailyExpenses/NewDailyExpenseForm";
-
 import ExpensesProvider from "./context/ExpensesProvider";
+import Footer from "./components/Layout/Footer";
 
 const App = () => {
   const [expenseFormIsVisible, setExpenseFormIsVisible] = useState(false);
@@ -22,8 +22,8 @@ const App = () => {
       {expenseFormIsVisible && (
         <NewDailyExpenseForm onClose={hideExpenseFormHandler} />
       )}
-      <Header onShow={showExpenseFormHandler} />
-      <DailyExpenses />
+      <DailyExpenses onShow={showExpenseFormHandler}/>
+      <Footer />
     </ExpensesProvider>
   );
 };

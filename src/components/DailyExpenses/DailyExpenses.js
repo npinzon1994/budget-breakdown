@@ -156,9 +156,8 @@ const DailyExpenses = (props) => {
   return (
     <Fragment>
       {showDeleteModal && deleteModal}
-      {/* {(isSending && !sendError) && <NotificationBanner status={''} title={'Sending'} message={'Sending...'}/>} */}
-      <DailyExpenseFilter onFilter={filterExpenses} />
-      <Card>
+      <DailyExpenseFilter onFilter={filterExpenses} onShow={props.onShow} />
+      <Card className={classes.card}>
         {((expenseListIsEmpty || filteredListIsEmpty) && !isLoading) && (
           <p className={transitionText}>No expenses found.</p>
         )}

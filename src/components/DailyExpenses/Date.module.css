@@ -1,21 +1,23 @@
 .container {
-    margin: 0 2rem;
+    margin-left: 2rem;
     padding: 0.5rem 1.5rem;
-    /* border: 2px solid #2286dd; */
     border-radius: 1rem;
     font-weight: 500;
     color: gray;
-    background-color: #e8e8e8;
+    background-color: #f3f3f3;
+    text-align: center;
 }
 
 .container span{
     display: block;
+    font-family: 'Golos Text', sans-serif;
 }
 
 .container .day-text {
     font-size: 1.7rem;
     font-weight: 500;
     color: #1167b1;
+    font-family: 'Golos Text', sans-serif;
 }
 
 @media screen and (max-width: 767px) {

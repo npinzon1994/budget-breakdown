@@ -8,7 +8,7 @@ let uniqueId = 0;
 
 //USEINPUT VALIDATION FUNCTIONS
 const isNotEmpty = (value) => value !== "";
-const isValidAmount = (value) => value !== "" && value > 0;
+const isValidNumber = (value) => value > 0 && value < 1000000;
 const selectionIsPicked = (value) => value === "Y" || value === "N";
 
 const NewDailyExpenseForm = (props) => {
@@ -22,7 +22,7 @@ const NewDailyExpenseForm = (props) => {
     inputChangeHandler: amountInputChangeHandler,
     inputOnBlurHandler: amountOnBlurHandler,
     reset: resetAmount,
-  } = useInput(isValidAmount);
+  } = useInput(isNotEmpty && isValidNumber);
 
   const {
     enteredValue: enteredDate,
@@ -101,7 +101,8 @@ const NewDailyExpenseForm = (props) => {
     <Modal onClose={props.onClose}>
       {console.log(enteredDate)}
       <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
-        <h3>New Daily Expense</h3>
+        <h3 className={classes['form-heading']}>New Daily Expense</h3>
+        {amountHasError && <span className={classes['error-text']}>*Please enter an amount between $0 and $1,000,000</span>}
         <input
           ref={amountInputRef}
           id="amountField"
@@ -121,6 +122,7 @@ const NewDailyExpenseForm = (props) => {
           onChange={dateInputChangeHandler}
           onBlur={dateOnBlurHandler}
           value={enteredDate}
+          max="9999-12-13"
           className={`${classes.input} ${dateHasError ? classes.invalid : ""}`}
         />
         <select
@@ -146,6 +148,7 @@ const NewDailyExpenseForm = (props) => {
           placeholder="Merchant"
           onChange={merchantInputChangeHandler}
           onBlur={merchantOnBlurHandler}
+          maxLength="100"
           value={enteredMerchant}
           className={`${classes.input} ${
             merchantHasError ? classes.invalid : ""

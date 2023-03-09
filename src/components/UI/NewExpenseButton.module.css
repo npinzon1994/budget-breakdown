@@ -1,20 +1,32 @@
+@font-face {
+    font-family: "Roboto-thin";
+    src: url("../../fonts/roboto.thin.ttf");
+  }
+
 .new-expense-button {
-    border-radius: 2rem;
-    padding: 1rem 2rem;
-    margin-left: auto;
-    margin-right: 51px;
-    background-color: #0d3466;
+    border-radius: 16px;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(245, 145, 31);
     color: white;
     border: none;
-    font-size: 1.3rem;
+    font-size: 36pt;
     cursor: pointer;
+    margin-right: 1.4rem;
+    font-family: "Roboto-thin";
+    box-sizing: content-box;
+    transition: 0.2s;
 }
 
 .new-expense-button:hover {
-    background-color: #072246;
+    background-color: rgb(231, 136, 27);
 }
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
     .new-expense-button{
         height: 46px;
         width: 158px;
@@ -40,4 +52,4 @@
       font-size: 0.7rem;
       padding: 1rem 1rem 1.8rem 1rem;
     }
-  }
+  } */

@@ -1,0 +1,11 @@
+.footer {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-family: 'Golos Text', sans-serif;
+}
+
+.footer a {
+    color: #949494;
+    text-decoration: none;
+}

@@ -14,11 +14,13 @@
 .title {
     font-size: x-large;
     font-weight: 500;
+    font-family: 'Golos', sans-serif;
 }
 
 .message {
     font-size: large;
     margin-top: 7px;
+    font-family: 'Golos', sans-serif;
 }
 
 .buttons {
@@ -26,14 +28,15 @@
 }
 
 .close-button {
-    border-radius: 12px;
+    border-radius: 22px;
     height: 44px;
     width: 46%;
     font-weight: bold;
     border: none;
-    
+    font-family: 'Mulish', sans-serif;
     cursor: pointer;
     margin-right: 7px;
+    transition: 0.2s;
     
   }
   
@@ -44,13 +47,13 @@
   .delete-button {
       background-color: #ef3737;
       color: #fff;
-      font-weight: bold;
-      border-radius: 12px;
+      border-radius: 22px;
       border: none;
       height: 44px;
       width: 46%;
-      
+      font-family: 'Mulish', sans-serif;
       cursor: pointer;
+      transition: 0.2s;
       
   }
   

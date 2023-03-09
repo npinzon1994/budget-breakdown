@@ -11,7 +11,14 @@ const DailyExpenseItem = (props) => {
   const formattedMonth = dateTable(month);
 
   const year = props.date.getUTCFullYear();
-  const formattedTotal = `$${(+props.amount).toFixed(2)}`;
+
+  const currencyFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
+  // const formattedTotal = `$${(+props.amount).toFixed(2)}`;
+  const formattedTotal = currencyFormatter.format(props.amount);
 
   let isPaidLabel = "Not paid off";
   let isPaidImage = redX;
@@ -26,21 +33,23 @@ const DailyExpenseItem = (props) => {
     <Fragment>
       <li className={classes["daily-expense"]}>
         <div className={classes["list-item-content"]}>
-          <Date month={formattedMonth} day={day} year={year}/>
+          <Date month={formattedMonth} day={day} year={year} />
           <div className={classes["money-container"]}>
             <span className={classes.price}>{formattedTotal}</span>
             <span className={classes["paid-off"]}>
               {isPaidLabel} <img src={isPaidImage} alt={isPaidImageAltText} />
             </span>
           </div>
-          <span className={classes.merchant}>{props.merchant}</span>
+          <div className={classes["merchant-container"]}>
+            <span className={classes.merchant}>{props.merchant}</span>
+          </div>
           <button
             onClick={props.onRemove}
             className={classes["remove-button"]}
           ></button>
         </div>
       </li>
-      <hr />
+      
     </Fragment>
   );
 };

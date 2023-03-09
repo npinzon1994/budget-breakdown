@@ -1,8 +1,6 @@
 .daily-expenses {
     max-width: 60rem;
-    width: 90%;
     margin: 0 auto;
-    animation: meals-appear 1s ease-out forwards;
     padding-left: 0;
     
 }
@@ -12,4 +10,8 @@
     font-weight: bold;
     list-style-type: none;
     text-align: center;
+}
+
+.card {
+    margin-bottom: 4rem;
 }
