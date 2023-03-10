@@ -1,11 +1,11 @@
 .container {
-    margin-left: 2rem;
     padding: 0.5rem 1.5rem;
     border-radius: 1rem;
     font-weight: 500;
     color: gray;
     background-color: #f3f3f3;
     text-align: center;
+    width: 40px;
 }
 
 .container span{
@@ -20,7 +20,7 @@
     font-family: 'Golos Text', sans-serif;
 }
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .container {
         margin: 0;
         padding: 0.3rem 1.1rem;
@@ -61,4 +61,4 @@
     .container .day-text {
         font-size: 0.9rem;
     }
-}
+} */

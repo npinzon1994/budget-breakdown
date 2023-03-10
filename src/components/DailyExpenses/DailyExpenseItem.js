@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import classes from "./DailyExpenseItem.module.css";
-import redX from "../../assets/red-x-circle.png";
-import greenCheck from "../../assets/checkmark-circle.png";
+import redX from "../../assets/unpaid-x.svg";
+import greenCheck from "../../assets/paid-checkmark.svg";
 import dateTable from "./DateTable";
 import Date from "./Date";
 
@@ -33,23 +33,26 @@ const DailyExpenseItem = (props) => {
     <Fragment>
       <li className={classes["daily-expense"]}>
         <div className={classes["list-item-content"]}>
-          <Date month={formattedMonth} day={day} year={year} />
+          <div className={classes["date-outer-container"]}>
+            <Date month={formattedMonth} day={day} year={year} />
+          </div>
           <div className={classes["money-container"]}>
             <span className={classes.price}>{formattedTotal}</span>
             <span className={classes["paid-off"]}>
-              {isPaidLabel} <img src={isPaidImage} alt={isPaidImageAltText} />
+              <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
             </span>
           </div>
           <div className={classes["merchant-container"]}>
             <span className={classes.merchant}>{props.merchant}</span>
           </div>
-          <button
-            onClick={props.onRemove}
-            className={classes["remove-button"]}
-          ></button>
+          <div className={classes['button-container']}>
+            <button
+              onClick={props.onRemove}
+              className={classes["remove-button"]}
+            ></button>
+          </div>
         </div>
       </li>
-      
     </Fragment>
   );
 };

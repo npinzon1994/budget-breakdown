@@ -158,13 +158,13 @@ const DailyExpenses = (props) => {
       {showDeleteModal && deleteModal}
       <DailyExpenseFilter onFilter={filterExpenses} onShow={props.onShow} />
       <Card className={classes.card}>
-        {((expenseListIsEmpty || filteredListIsEmpty) && !isLoading) && (
+        {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}
         {loadError && <p className={transitionText}>{loadError}</p>}
         {sendError && <p className={transitionText}>{sendError}</p>}
         {isLoading && !loadError && (
-          <p className={transitionText}>Loading expenses...</p>
+            <p className={transitionText}>Loading expenses...</p>
         )}
         {!isLoading && (
           <ul className={classes["daily-expenses"]}>{expenses}</ul>

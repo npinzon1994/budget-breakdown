@@ -1,10 +1,63 @@
-.container{
+.container {
   display: flex;
   margin: 1rem auto;
   align-items: center;
   justify-content: space-between;
   background: #1167b1;
 }
+
+.filter-container {
+  margin: 12px;
+  width: 33%;
+}
+
+/* .select-div {
+  margin: 12px;
+  position: relative;
+  background: #1167b1;
+  transition: 200ms;
+  width: 120px;
+  border-radius: 12px;
+}
+
+.select-div::after {
+  content: url("../../assets/down-arrow.svg");
+  position: absolute;
+  right: 18px;
+  top: 15px;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.select-div:hover {
+  background: #3477b1;
+  
+} */
+
+/* .select-div select {
+  -moz-appearance: none; 
+  -webkit-appearance: none; 
+  appearance: none;
+  padding: 10px;
+  font-size: medium;
+  outline: none;
+  width: 100%;
+  font-family: "Mulish", sans-serif;
+  height: 50px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select-div select option {
+  background: #e8e8e8;
+  border-radius: 12px;
+} */
 
 .remaining-balance {
   display: flex;
@@ -17,7 +70,7 @@
 .remaining-balance span {
   font-size: 1.2rem;
   color: #fff;
-  font-family: 'Golos Text', sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .remaining-balance .total-balance {
@@ -25,48 +78,14 @@
   font-size: 2rem;
   padding-top: 3px;
   font-weight: 400;
-  font-family: 'Golos Text', sans-serif;
-}
-
-.filter-container{
-  display: flex;
-  flex-direction: column;
-  margin: 12px;
-  width: 33%;
-  
+  font-family: "Golos Text", sans-serif;
 }
 
 .button-container {
   width: 33%;
   display: flex;
   justify-content: flex-end;
-}
-
-.filter-container label {
-  margin-left: 7px;
-  margin-bottom: 7px;
-  color: #072246;
-  font-family: 'Mulish', sans-serif;
-  color: #fff;
-}
-
-.filter-container select {
-  border-radius: 12px;
-  padding: 10px;
-  font-size: medium;
-  outline: none;
-  border: 1px #fff solid;
-  max-width: 176px;
-  font-family: 'Mulish', sans-serif;
-  height: 50px;
-  margin-left: 0.3rem;
-  background: #1167b1;
-  color: #fff;
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
-  background-image: url('../../assets/down-arrow.svg');
-  
+  margin-right: 1.2rem;
 }
 
 /* @media screen and (max-width: 1439px) {

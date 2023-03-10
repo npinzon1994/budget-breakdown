@@ -90,7 +90,7 @@
     background-color: #072246;
 }
 
-@media (max-width: 767px){
+/* @media (max-width: 767px){
   .button-div{
     display: block;
   }
@@ -104,4 +104,4 @@
     width: 100%;
     margin: 0;
   }
-}
+} */

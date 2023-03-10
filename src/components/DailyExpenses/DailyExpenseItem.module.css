@@ -20,13 +20,9 @@
   align-items: center;
 }
 
-.date-container {
-  margin: 0 1rem;
-  padding: 0.5rem 1.5rem;
-  border: 2px solid #2286dd;
-  border-radius: 1rem;
-  font-weight: 500;
-  color: gray;
+.date-outer-container {
+  margin-left: 1.4rem;
+  width: 25%;
 }
 
 /* .date-container span{
@@ -42,43 +38,50 @@
 .money-container {
   display: flex;
   flex-direction: column;
+  width: 25%;
 }
 
 .money-container span {
   display: flex;
+  align-items: center;
+  margin-top: 3px;
 }
 
 .money-container span img {
-  height: 20px;
-  width: 20px;
-  margin-left: 8px;
+  height: 13px;
+  width: 13px;
+  margin-right: 4px;
 }
 
 .price {
   font-size: 1.3rem;
   color: #c50;
-  font-family: 'Golos Text', sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .paid-off {
   color: rgb(189, 188, 188);
-  font-family: 'Aileron-thinitalic';
+  font-family: "Aileron-thinitalic";
 }
 
 .merchant-container {
   width: 100%;
-  max-width: 30%;
+  width: 35%;
   display: flex;
   flex-wrap: wrap;
-  
 }
 
 .merchant {
   font-size: 1rem;
   width: 100%;
   word-wrap: break-word;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
+}
 
+.button-container {
+  width: 15%;
+  display: flex;
+  justify-content: end;
 }
 
 .remove-button {
@@ -99,7 +102,7 @@
   /* color: #f33d3d; */
 }
 
-@media screen and (max-width: 1439px) {
+/* @media screen and (max-width: 1439px) {
   .merchant {
     font-size: 1.2rem;
   }
@@ -186,4 +189,4 @@
     width: 10px;
     margin-left: 4px;
   }
-}
+} */

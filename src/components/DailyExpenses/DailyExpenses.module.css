@@ -10,6 +10,8 @@
     font-weight: bold;
     list-style-type: none;
     text-align: center;
+    padding: 20px 0;
+    margin-left: 28px;
 }
 
 .card {

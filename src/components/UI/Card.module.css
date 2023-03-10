@@ -3,10 +3,10 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   margin: 0.5em auto;
   max-width: 50rem;
-  width: 100%;
+  width: 90%;
 }
 
-@media screen and (max-width: 1439px) {
+/* @media screen and (max-width: 1439px) {
   .card {
     width: 63%;
   }
@@ -16,4 +16,4 @@
   .card {
     width: 85%;
   }
-}
+} */
