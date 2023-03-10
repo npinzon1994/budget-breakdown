@@ -1,22 +1,21 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.2d4cc366.css",
-    "main.js": "/budget-breakdown/static/js/main.6d639b09.js",
+    "main.css": "/budget-breakdown/static/css/main.e3875161.css",
+    "main.js": "/budget-breakdown/static/js/main.54f934a3.js",
     "static/js/787.d544195f.chunk.js": "/budget-breakdown/static/js/787.d544195f.chunk.js",
     "static/media/roboto.thin.ttf": "/budget-breakdown/static/media/roboto.thin.bc405e852883934268b5.ttf",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
-    "static/media/red-x-circle.png": "/budget-breakdown/static/media/red-x-circle.f8215fe87eb837868f6f.png",
-    "static/media/checkmark-circle.png": "/budget-breakdown/static/media/checkmark-circle.e27570979a2dc61a6221.png",
     "static/media/Aileron-ThinItalic.otf": "/budget-breakdown/static/media/Aileron-ThinItalic.bf68b5f9bd21bfb99691.otf",
+    "static/media/unpaid-x.svg": "/budget-breakdown/static/media/unpaid-x.32916068069ca512215aa78ee45f6061.svg",
+    "static/media/paid-checkmark.svg": "/budget-breakdown/static/media/paid-checkmark.f90e2c1f32a3d6ec2aa5d6b021235ae7.svg",
     "index.html": "/budget-breakdown/index.html",
     "static/media/delete-circle.svg": "/budget-breakdown/static/media/delete-circle.ad1aec0da163cd8cca2e.svg",
-    "static/media/down-arrow.svg": "/budget-breakdown/static/media/down-arrow.b310562ce02fc7aacedc.svg",
-    "main.2d4cc366.css.map": "/budget-breakdown/static/css/main.2d4cc366.css.map",
-    "main.6d639b09.js.map": "/budget-breakdown/static/js/main.6d639b09.js.map",
+    "main.e3875161.css.map": "/budget-breakdown/static/css/main.e3875161.css.map",
+    "main.54f934a3.js.map": "/budget-breakdown/static/js/main.54f934a3.js.map",
     "787.d544195f.chunk.js.map": "/budget-breakdown/static/js/787.d544195f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2d4cc366.css",
-    "static/js/main.6d639b09.js"
+    "static/css/main.e3875161.css",
+    "static/js/main.54f934a3.js"
   ]
 }
