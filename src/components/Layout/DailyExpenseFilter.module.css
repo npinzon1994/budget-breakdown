@@ -11,6 +11,11 @@
   width: 33%;
 }
 
+.filter-icon {
+  height: 40px;
+  width: 40px;
+}
+
 /* .select-div {
   margin: 12px;
   position: relative;
@@ -63,29 +68,32 @@ select::-ms-expand {
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 12px;
+  margin: 12px;
   width: 33%;
 }
 
-.remaining-balance span {
-  font-size: 1.2rem;
+.total-label {
+  font-size: clamp(8pt, 2vw, 1rem);
   color: #fff;
   font-family: "Golos Text", sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
 .remaining-balance .total-balance {
   color: #fff;
-  font-size: 2rem;
+  font-size: clamp(12pt, 4vw, 2rem);
   padding-top: 3px;
   font-weight: 400;
   font-family: "Golos Text", sans-serif;
+  text-overflow: ellipsis;
 }
 
 .button-container {
   width: 33%;
   display: flex;
   justify-content: flex-end;
-  margin-right: 1.2rem;
+  margin-right: 20px;
 }
 
 /* @media screen and (max-width: 1439px) {

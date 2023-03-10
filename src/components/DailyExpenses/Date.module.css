@@ -1,64 +1,23 @@
 .container {
-    padding: 0.5rem 1.5rem;
+    padding: clamp(0.55rem, 0.5vw, 0.65rem) clamp(1.2rem, 2vw, 1.7rem);
+    /* padding: 0.5rem 1.5rem; */
     border-radius: 1rem;
     font-weight: 500;
     color: gray;
     background-color: #f3f3f3;
     text-align: center;
-    width: 40px;
+    width: clamp(2rem, 5vw, 2.5rem);
 }
 
 .container span{
     display: block;
     font-family: 'Golos Text', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
 .container .day-text {
-    font-size: 1.7rem;
+    font-size: clamp(1rem, 3vw, 1.7rem);
     font-weight: 500;
     color: #1167b1;
     font-family: 'Golos Text', sans-serif;
 }
-
-/* @media screen and (max-width: 767px) {
-    .container {
-        margin: 0;
-        padding: 0.3rem 1.1rem;
-    }
-
-    .container .day-text{
-        font-size: 1rem;
-    }
-
-    .container span {
-        font-size: 0.6rem;
-    }
-}
-
-@media (max-width: 424px) {
-    .container{
-        padding: 0.3rem 1rem;
-    }
-
-    .container span {
-        font-size: 0.5rem;
-    }
-
-    .container .day-text {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 374px) {
-    .container{
-        padding: 0.3rem 0.85rem;
-    }
-
-    .container span {
-        font-size: 0.5rem;
-    }
-
-    .container .day-text {
-        font-size: 0.9rem;
-    }
-} */

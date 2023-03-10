@@ -5,12 +5,18 @@ import ExpensesContext from "../../context/expenses-context";
 import Card from "../UI/Card";
 import DailyExpenseButton from "../UI/NewExpenseButton";
 import Select from "react-select";
+import filterIconImg from "../../assets/filter-icon.svg";
+import useWindowSize from "../../hooks/use-window-width";
 
-const options = [
-  { value: "Show All", label: "Show All" },
-  { value: "Paid Expenses", label: "Paid" },
-  { value: "Unpaid Expenses", label: "Unpaid" },
-];
+const filterIcon = (
+  <div>
+    <img
+      src={filterIconImg}
+      alt="filter icon"
+      className={classes["filter-icon"]}
+    />
+  </div>
+);
 
 const dropdownStyles = {
   control: (defaultStyles, state) => ({
@@ -25,6 +31,7 @@ const dropdownStyles = {
     boxShadow: "none",
     transition: "200ms",
     fontFamily: '"Golos Text", sans-serif',
+    fontSize: "clamp(10pt, 2vw, 12pt)",
     "&:hover": {
       background: "#3477b1",
     },
@@ -37,6 +44,7 @@ const dropdownStyles = {
   dropdownIndicator: (defaultStyles) => ({
     ...defaultStyles,
     color: "#fff",
+
     "&:hover": {
       color: "#fff",
     },
@@ -46,7 +54,7 @@ const dropdownStyles = {
     transition: "280ms",
     cursor: "pointer",
     fontWeight: "500",
-    background: state.isSelected && '#1167b1'
+    background: state.isSelected && "#1167b1",
   }),
   menu: (defaultStyles) => ({
     ...defaultStyles,
@@ -62,6 +70,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const DailyExpenseFilter = (props) => {
+  const screenWidth = useWindowSize()[0];
+
+  const options = [
+    { value: "Show All", label: "Show All" },
+    { value: "Paid Expenses", label: "Paid" },
+    { value: "Unpaid Expenses", label: "Unpaid" },
+  ];
+
   const expensesContext = useContext(ExpensesContext);
   const totalBalance = currencyFormatter.format(expensesContext.totalBalance);
 
@@ -72,23 +88,16 @@ const DailyExpenseFilter = (props) => {
   return (
     <Card className={classes.container}>
       <div className={classes["filter-container"]}>
-        {/* <div className={classes['select-div']}>
-          <select onChange={filterExpensesHandler}>
-            <option value="Show All">Show All</option>
-            <option value="Paid Expenses">Paid</option>
-            <option value="Unpaid Expenses">Unpaid</option>
-          </select>
-        </div> */}
         <Select
           options={options}
-          defaultValue={{ value: "Show All", label: "Show All" }}
+          defaultValue={options[0]}
           onChange={filterExpensesHandler}
           isSearchable={false}
           styles={dropdownStyles}
         />
       </div>
       <div className={classes["remaining-balance"]}>
-        <span>{"Total"}</span>
+        <span className={classes["total-label"]}>Total</span>
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>
       <div className={classes["button-container"]}>

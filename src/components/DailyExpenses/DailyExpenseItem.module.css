@@ -13,7 +13,7 @@
 /*inner div*/
 .list-item-content {
   display: flex;
-  width: 95%;
+  width: 100%;
   margin-right: 1.2em;
   padding: 1em 0;
   justify-content: space-between;
@@ -22,12 +22,8 @@
 
 .date-outer-container {
   margin-left: 1.4rem;
-  width: 25%;
+  width: 22%;
 }
-
-/* .date-container span{
-  display: block;
-} */
 
 .day-text {
   font-size: 1.7rem;
@@ -47,21 +43,22 @@
   margin-top: 3px;
 }
 
-.money-container span img {
-  height: 13px;
-  width: 13px;
-  margin-right: 4px;
-}
-
 .price {
-  font-size: 1.3rem;
+  font-size: clamp(0.85rem, 3vw, 1.3rem);
   color: #c50;
   font-family: "Golos Text", sans-serif;
 }
 
 .paid-off {
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
   color: rgb(189, 188, 188);
   font-family: "Aileron-thinitalic";
+}
+
+.paid-off img {
+  height: clamp(10px, 1vw, 13px);
+  width: clamp(10px, 1vw, 13px);
+  margin-right: 4px;
 }
 
 .merchant-container {
@@ -72,7 +69,7 @@
 }
 
 .merchant {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
   width: 100%;
   word-wrap: break-word;
   font-family: "Mulish", sans-serif;
@@ -89,8 +86,8 @@
   background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
-  height: 3em;
-  width: 3em;
+  height: clamp(30px, 5vw, 40px);
+  width: clamp(30px, 5vw, 40px);
   border: none;
   cursor: pointer;
   opacity: 80%;
@@ -99,94 +96,4 @@
 
 .remove-button:hover {
   opacity: 100%;
-  /* color: #f33d3d; */
 }
-
-/* @media screen and (max-width: 1439px) {
-  .merchant {
-    font-size: 1.2rem;
-  }
-}
-
-@media screen and (max-width: 1023px) {
-  .merchant {
-    font-size: 1.05rem;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .merchant {
-    font-size: 0.8rem;
-    margin: 0 20px;
-  }
-
-  .price {
-    font-size: 1.2rem;
-  }
-
-  .paid-off{
-    font-size: small;
-    word-wrap: normal;
-  }
-
-  .money-container {
-    margin-left: 1.5rem;
-  }
-
-  .money-container span img {
-    height: 14px;
-    width: 14px;
-    margin-left: 4px;
-  }
-
-}
-
-@media (max-width: 424px){
-  .merchant{
-    margin: 0 20px 0 15px;
-  }
-
-  .price {
-    font-size: 1.1rem;
-  }
-
-  .paid-off{
-    font-size: small;
-    word-wrap: normal;
-  }
-
-  .money-container {
-    margin-left: 1.2rem;
-  }
-
-  .money-container span img {
-    height: 14px;
-    width: 14px;
-    margin-left: 4px;
-  }
-}
-
-@media (max-width: 374px) {
-  .money-container {
-    margin-left: 0.8rem;
-  }
-  
-  .merchant{
-    font-size: 0.7rem;
-    margin: 0 20px 0 10px;
-  }
-  
-  .price{
-    font-size: 1rem;
-  }
-
-  .paid-off{
-    font-size: x-small;
-  }
-
-  .money-container span img {
-    height: 10px;
-    width: 10px;
-    margin-left: 4px;
-  }
-} */

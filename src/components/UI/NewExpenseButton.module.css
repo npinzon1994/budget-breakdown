@@ -9,14 +9,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    width: 50px;
+    height: clamp(40px, 5vw, 50px);
+    width: clamp(40px, 5vw, 50px);
     background-color: rgb(245, 145, 31);
     color: white;
     border: none;
     font-size: 36pt;
     cursor: pointer;
-    
     font-family: "Roboto-thin";
     box-sizing: content-box;
     transition: 0.2s;
@@ -25,31 +24,3 @@
 .new-expense-button:hover {
     background-color: rgb(231, 136, 27);
 }
-
-/* @media screen and (max-width: 1024px) {
-    .new-expense-button{
-        height: 46px;
-        width: 158px;
-        font-size: 1rem;
-        padding: 1rem;
-    }
-}
-
-@media screen and (max-width: 767px){
-    .new-expense-button{
-        margin-right: 28px;
-        height: 36px;
-        width: 123px;
-        font-size: 0.8rem;
-        padding: 1rem 1rem 1.9rem 1rem;
-    }
-}
-
-@media (max-width: 424px) {
-    .new-expense-button{
-      height: 30px;
-      width: 103px;
-      font-size: 0.7rem;
-      padding: 1rem 1rem 1.8rem 1rem;
-    }
-  } */
