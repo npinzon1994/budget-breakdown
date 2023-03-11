@@ -7,8 +7,13 @@
 }
 
 .filter-container {
-  margin: 12px;
-  width: 33%;
+  padding: 12px;
+  flex: 1 1 0px;
+}
+
+.select-wrapper {
+  /* padding-left: 8px; */
+  /* margin-left: 12px; */
 }
 
 .filter-icon {
@@ -16,60 +21,12 @@
   width: 40px;
 }
 
-/* .select-div {
-  margin: 12px;
-  position: relative;
-  background: #1167b1;
-  transition: 200ms;
-  width: 120px;
-  border-radius: 12px;
-}
-
-.select-div::after {
-  content: url("../../assets/down-arrow.svg");
-  position: absolute;
-  right: 18px;
-  top: 15px;
-  pointer-events: none;
-  cursor: pointer;
-}
-
-.select-div:hover {
-  background: #3477b1;
-  
-} */
-
-/* .select-div select {
-  -moz-appearance: none; 
-  -webkit-appearance: none; 
-  appearance: none;
-  padding: 10px;
-  font-size: medium;
-  outline: none;
-  width: 100%;
-  font-family: "Mulish", sans-serif;
-  height: 50px;
-  border: none;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-.select-div select option {
-  background: #e8e8e8;
-  border-radius: 12px;
-} */
-
 .remaining-balance {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin: 12px;
-  width: 33%;
+  flex: 1 1 0px;
 }
 
 .total-label {
@@ -80,7 +37,7 @@ select::-ms-expand {
   justify-content: center;
 }
 
-.remaining-balance .total-balance {
+.total-balance {
   color: #fff;
   font-size: clamp(12pt, 4vw, 2rem);
   padding-top: 3px;
@@ -90,61 +47,8 @@ select::-ms-expand {
 }
 
 .button-container {
-  width: 33%;
+  flex: 1 1 0px;
   display: flex;
   justify-content: flex-end;
-  margin-right: 20px;
+  padding-right: 20px;
 }
-
-/* @media screen and (max-width: 1439px) {
-  
-
-  .filter-container select {
-    font-size: small;
-  }
-
-  .remaining-balance {
-    margin-left: 5rem;
-  }
-
-
-  .remaining-balance .total-balance {
-    
-    padding-top: 0;
-  }
-}
-
-@media screen and (max-width: 1023px) {
-  
-
-}
-
-@media screen and (max-width: 767px) {
-
-  .invisible{
-    display: none;
-  }
-  
-  .container{
-    flex-direction: column;
-    align-items: unset;
-  }
-  
-  
-  .remaining-balance span {
-    font-size: 1.15rem;
-  }
-
-  .remaining-balance .total-balance{
-    font-size: 1.35rem;
-  }
-
-  .filter-container label{
-    display: none;
-  }
-
-  .filter-container select{
-    font-size: small;
-    width: 100%;
-  }
-} */

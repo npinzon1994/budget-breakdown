@@ -9,12 +9,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: clamp(40px, 5vw, 50px);
-    width: clamp(40px, 5vw, 50px);
+    height: clamp(30px, 5vw, 50px);
+    width: clamp(30px, 5vw, 50px);
     background-color: rgb(245, 145, 31);
     color: white;
     border: none;
-    font-size: 36pt;
+    font-size: clamp(28px, 6vw, 36pt);
     cursor: pointer;
     font-family: "Roboto-thin";
     box-sizing: content-box;

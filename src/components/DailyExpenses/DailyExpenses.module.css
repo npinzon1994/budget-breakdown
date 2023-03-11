@@ -1,19 +1,20 @@
+.card {
+    overflow: hidden;
+}
+
 .daily-expenses {
-    max-width: 60rem;
-    margin: 0 auto;
-    padding-left: 0;
-    
+  max-width: 60rem;
+  max-height: 100vh;
+  margin: 0 auto;
+  padding-left: 0;
+  overflow: auto;
 }
 
 .transition-text {
-    font-size: 1em;
-    font-weight: bold;
-    list-style-type: none;
-    text-align: center;
-    padding: 20px 0;
-    margin-left: 28px;
-}
-
-.card {
-    margin-bottom: 4rem;
+  font-size: 1em;
+  font-weight: bold;
+  list-style-type: none;
+  text-align: center;
+  padding: 20px 0;
+  margin-left: 28px;
 }

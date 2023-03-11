@@ -23,7 +23,7 @@ const App = () => {
         <NewDailyExpenseForm onClose={hideExpenseFormHandler} />
       )}
       <DailyExpenses onShow={showExpenseFormHandler}/>
-      <Footer />
+      {/* <Footer /> */}
     </ExpensesProvider>
   );
 };

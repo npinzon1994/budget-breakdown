@@ -22,7 +22,7 @@ const dropdownStyles = {
   control: (defaultStyles, state) => ({
     ...defaultStyles,
     background: "transparent",
-    width: "124px",
+    width: '100%',
     border: "none",
     outline: "none",
     borderRadius: "12px",
@@ -31,7 +31,8 @@ const dropdownStyles = {
     boxShadow: "none",
     transition: "200ms",
     fontFamily: '"Golos Text", sans-serif',
-    fontSize: "clamp(10pt, 2vw, 12pt)",
+    fontSize: "clamp(0.75rem, 1.75vw, 1rem)",
+    // paddingLeft: '8px',
     "&:hover": {
       background: "#3477b1",
     },
@@ -39,12 +40,23 @@ const dropdownStyles = {
   singleValue: (defaultStyles) => ({
     ...defaultStyles,
     color: "#fff",
+    textOverflow: 'none',
+    width: '100%',
+    paddingLeft: '8px',
+    paddingRight: '8px',
   }),
-  indicatorSeparator: () => null,
-  dropdownIndicator: (defaultStyles) => ({
+  valueContainer: (defaultStyles) => ({
     ...defaultStyles,
-    color: "#fff",
-
+    padding: '0'
+  }),
+  indicatorSeparator: () => ({
+    display: 'none'
+  }),
+  dropdownIndicator: (defaultStyles) => ({
+    // ...defaultStyles,
+    // padding: '0',
+    // color: "#fff",
+    display: 'none',
     "&:hover": {
       color: "#fff",
     },
@@ -88,13 +100,15 @@ const DailyExpenseFilter = (props) => {
   return (
     <Card className={classes.container}>
       <div className={classes["filter-container"]}>
-        <Select
-          options={options}
-          defaultValue={options[0]}
-          onChange={filterExpensesHandler}
-          isSearchable={false}
-          styles={dropdownStyles}
-        />
+        <div className={classes["select-wrapper"]}>
+          <Select
+            options={options}
+            defaultValue={{value: 'filter-icon', label: "Filter"}}
+            onChange={filterExpensesHandler}
+            isSearchable={false}
+            styles={dropdownStyles}
+          />
+        </div>
       </div>
       <div className={classes["remaining-balance"]}>
         <span className={classes["total-label"]}>Total</span>

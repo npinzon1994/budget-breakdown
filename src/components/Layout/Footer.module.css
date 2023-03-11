@@ -1,8 +1,12 @@
 .footer {
     text-align: center;
     font-weight: 500;
-    /* margin-bottom: 10px; */
     font-family: 'Golos Text', sans-serif;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 1.5rem;
 }
 
 .footer a {
