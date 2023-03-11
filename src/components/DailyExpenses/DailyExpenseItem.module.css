@@ -78,7 +78,7 @@
 .button-container {
   width: 15%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .remove-button {
