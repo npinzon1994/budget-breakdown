@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   background: #1167b1;
+  min-height: 85px;
 }
 
 .filter-container {
