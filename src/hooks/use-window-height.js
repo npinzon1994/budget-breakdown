@@ -6,9 +6,9 @@ export default function useWindowHeight() {
     function updateSize() {
       setSize(window.innerHeight);
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener('resizeHeight', updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener('resizeHeight', updateSize);
   }, []);
   return size;
 }

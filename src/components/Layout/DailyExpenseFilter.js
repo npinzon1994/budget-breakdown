@@ -3,7 +3,7 @@ import classes from "./DailyExpenseFilter.module.css";
 import { useContext } from "react";
 import ExpensesContext from "../../context/expenses-context";
 import Card from "../UI/Card";
-import DailyExpenseButton from "../UI/NewExpenseButton";
+import NewExpenseButton from "../UI/NewExpenseButton";
 import Select from "react-select";
 import filterIconImg from "../../assets/filter-icon.svg";
 import useWindowHeight from "../../hooks/use-window-height";
@@ -22,7 +22,7 @@ const dropdownStyles = {
   control: (defaultStyles, state) => ({
     ...defaultStyles,
     background: "transparent",
-    width: '100%',
+    width: "100%",
     border: "none",
     outline: "none",
     borderRadius: "12px",
@@ -40,23 +40,23 @@ const dropdownStyles = {
   singleValue: (defaultStyles) => ({
     ...defaultStyles,
     color: "#fff",
-    textOverflow: 'none',
-    width: '100%',
-    paddingLeft: '8px',
-    paddingRight: '8px',
+    textOverflow: "none",
+    width: "100%",
+    paddingLeft: "8px",
+    paddingRight: "8px",
   }),
   valueContainer: (defaultStyles) => ({
     ...defaultStyles,
-    padding: '0'
+    padding: "0",
   }),
   indicatorSeparator: () => ({
-    display: 'none'
+    display: "none",
   }),
   dropdownIndicator: (defaultStyles) => ({
     // ...defaultStyles,
     // padding: '0',
     // color: "#fff",
-    display: 'none',
+    display: "none",
     "&:hover": {
       color: "#fff",
     },
@@ -99,12 +99,15 @@ const DailyExpenseFilter = (props) => {
   };
 
   return (
-    <Card className={classes.container} style={{minHeight: `${bannerHeight}px`}}>
+    <Card
+      className={classes.container}
+      style={{ minHeight: `${bannerHeight}px` }}
+    >
       <div className={classes["filter-container"]}>
         <div className={classes["select-wrapper"]}>
           <Select
             options={options}
-            defaultValue={{value: 'filter-icon', label: "Filter"}}
+            defaultValue={{ value: "filter-icon", label: "Filter" }}
             onChange={filterExpensesHandler}
             isSearchable={false}
             styles={dropdownStyles}
@@ -116,7 +119,7 @@ const DailyExpenseFilter = (props) => {
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>
       <div className={classes["button-container"]}>
-        <DailyExpenseButton onClick={props.onShow}>+</DailyExpenseButton>
+        <NewExpenseButton onShowNew={props.onShowNew}>+</NewExpenseButton>
       </div>
     </Card>
   );

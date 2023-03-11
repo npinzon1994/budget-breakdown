@@ -1,0 +1,10 @@
+.close-button {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.close-button:hover {
+  background: #eeeeee;
+}

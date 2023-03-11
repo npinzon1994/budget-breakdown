@@ -1,8 +1,9 @@
 import React, { useRef, useContext } from "react";
 import Modal from "../UI/Modal";
-import classes from "./NewDailyExpenseForm.module.css";
+import classes from "./DailyExpenseForm.module.css";
 import ExpensesContext from "../../context/expenses-context";
 import useInput from "../../hooks/use-input";
+import FormHeader from "../UI/FormHeader";
 
 let uniqueId = 0;
 
@@ -11,7 +12,7 @@ const isNotEmpty = (value) => value !== "";
 const isValidNumber = (value) => value > 0 && value < 1000000;
 const selectionIsPicked = (value) => value === "Y" || value === "N";
 
-const NewDailyExpenseForm = (props) => {
+const DailyExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
 
   //USEINPUTS
@@ -101,8 +102,12 @@ const NewDailyExpenseForm = (props) => {
     <Modal onClose={props.onClose}>
       {console.log(enteredDate)}
       <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
-        <h3 className={classes['form-heading']}>New Daily Expense</h3>
-        {amountHasError && <span className={classes['error-text']}>*Please enter an amount between $0 and $1,000,000</span>}
+        <FormHeader title={props.title} onClose={props.onClose} />
+        {amountHasError && (
+          <span className={classes["error-text"]}>
+            *Please enter an amount between $0 and $1,000,000
+          </span>
+        )}
         <input
           ref={amountInputRef}
           id="amountField"
@@ -149,27 +154,24 @@ const NewDailyExpenseForm = (props) => {
           onChange={merchantInputChangeHandler}
           onBlur={merchantOnBlurHandler}
           maxLength="100"
-          value={enteredMerchant}
+          value={props.mode === 'edit' ? 'edit' : enteredMerchant}
           className={`${classes.input} ${
             merchantHasError ? classes.invalid : ""
           }`}
         />
 
         <div className={classes["button-div"]}>
-          <button
-            type="button"
-            className={classes["close-button"]}
-            onClick={props.onClose}
-          >
-            Close
-          </button>
           <button type="submit" className={classes["add-expense-button"]}>
-            Add Expense
+            {props.buttonText}
           </button>
+
+          {props.mode === 'edit' && <button className={classes["remove-button"]} type="button">
+            Delete
+          </button>}
         </div>
       </form>
     </Modal>
   );
 };
 
-export default NewDailyExpenseForm;
+export default DailyExpenseForm;

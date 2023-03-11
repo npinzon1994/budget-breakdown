@@ -6,7 +6,7 @@ const NewExpenseButton = (props) => {
     <button
       type={props.type}
       className={classes["new-expense-button"]}
-      onClick={props.onClick}
+      onClick={props.onShowNew}
     >
       {props.children}
     </button>

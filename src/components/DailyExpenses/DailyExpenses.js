@@ -142,6 +142,7 @@ const DailyExpenses = (props) => {
       date={expense.date}
       isPaid={expense.isPaid}
       merchant={expense.merchant}
+      onShowEdit={props.onShowEdit}
       onRemove={showDeleteModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
@@ -160,7 +161,7 @@ const DailyExpenses = (props) => {
       {console.log(screenHeight)}
       
       {showDeleteModal && deleteModal}
-      <DailyExpenseFilter onFilter={filterExpenses} onShow={props.onShow} />
+      <DailyExpenseFilter onFilter={filterExpenses} onShowNew={props.onShowNew} />
       <Card className={classes.card}>
       {/* <ShowWindowDimensions /> */}
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (

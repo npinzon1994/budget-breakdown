@@ -8,21 +8,26 @@
   list-style-type: none;
   display: flex;
   border-bottom: 1px #e8e8e8 solid;
+  padding: 1.1rem;
+  cursor: pointer;
+}
+
+.daily-expense:hover {
+  background: #f8f8f8;
+}
+
+.daily-expense:active {
+  background: #eeeeee;
+  transition: 100ms;
 }
 
 /*inner div*/
 .list-item-content {
   display: flex;
   width: 100%;
-  margin-right: 1.2em;
-  padding: 1em 0;
-  justify-content: space-between;
+  /* margin-right: 1.2em; */
+  /* justify-content: space-evenly; */
   align-items: center;
-}
-
-.date-outer-container {
-  margin-left: 1.4rem;
-  width: 22%;
 }
 
 .day-text {
@@ -31,10 +36,17 @@
   color: #c50;
 }
 
+.money-merchant-container-mobile {
+  display: flex;
+  flex: 1.8 1.8 0;
+  align-items: center;
+}
+
 .money-container {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  /* width: 25%; */
+  flex: 0.65 0.65 0;
 }
 
 .money-container span {
@@ -61,38 +73,22 @@
   margin-right: 4px;
 }
 
-.merchant-container {
-  width: 100%;
-  width: 35%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .merchant {
   font-size: clamp(0.85rem, 2vw, 1.1rem);
-  width: 100%;
+  /* width: 100%; */
   word-wrap: break-word;
   font-family: "Mulish", sans-serif;
+  flex: 1 1 0;
 }
 
 .button-container {
-  width: 15%;
+  /* width: 15%; */
+  flex: 1 1 0;
   display: flex;
   justify-content: flex-end;
 }
 
-.remove-button {
-  background-image: url("../../assets/delete-circle.svg");
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: clamp(30px, 5vw, 40px);
-  width: clamp(30px, 5vw, 40px);
-  border: none;
-  cursor: pointer;
-  opacity: 80%;
-  transition: 0.2s;
-}
+
 
 .remove-button:hover {
   opacity: 100%;

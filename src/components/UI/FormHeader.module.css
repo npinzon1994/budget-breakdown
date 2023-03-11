@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: larger;
+    font-weight: 500;
+    font-family: "Golos Text", sans-serif;
+}
