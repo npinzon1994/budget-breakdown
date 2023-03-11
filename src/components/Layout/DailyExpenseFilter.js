@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 import DailyExpenseButton from "../UI/NewExpenseButton";
 import Select from "react-select";
 import filterIconImg from "../../assets/filter-icon.svg";
-import useWindowSize from "../../hooks/use-window-width";
+import useWindowHeight from "../../hooks/use-window-height";
 
 const filterIcon = (
   <div>
@@ -82,7 +82,8 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const DailyExpenseFilter = (props) => {
-  const screenWidth = useWindowSize()[0];
+  const screenHeight = useWindowHeight();
+  const bannerHeight = screenHeight * 0.115;
 
   const options = [
     { value: "Show All", label: "Show All" },
@@ -98,7 +99,7 @@ const DailyExpenseFilter = (props) => {
   };
 
   return (
-    <Card className={classes.container}>
+    <Card className={classes.container} style={{minHeight: `${bannerHeight}px`}}>
       <div className={classes["filter-container"]}>
         <div className={classes["select-wrapper"]}>
           <Select

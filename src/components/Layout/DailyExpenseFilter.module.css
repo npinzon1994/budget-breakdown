@@ -4,17 +4,12 @@
   align-items: center;
   justify-content: space-between;
   background: #1167b1;
-  min-height: 85px;
+  /* min-height: 11.5vh; */
 }
 
 .filter-container {
   padding: 12px;
   flex: 1 1 0px;
-}
-
-.select-wrapper {
-  /* padding-left: 8px; */
-  /* margin-left: 12px; */
 }
 
 .filter-icon {

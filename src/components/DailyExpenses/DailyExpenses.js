@@ -4,21 +4,23 @@ import DailyExpenseItem from "./DailyExpenseItem";
 import classes from "./DailyExpenses.module.css";
 import ExpensesContext from "../../context/expenses-context";
 import DailyExpenseFilter from "../Layout/DailyExpenseFilter";
-import NotificationBanner from "../UI/NotificationBanner";
 import DeleteModal from "../UI/DeleteModal";
+import useWindowHeight, {ShowWindowDimensions} from "../../hooks/use-window-height";
 
 let isInitial = true;
-
 let deleteModal;
 
 const DailyExpenses = (props) => {
+  const screenHeight = useWindowHeight();
+  const vh = screenHeight * 0.82;
+
   const expensesContext = useContext(ExpensesContext);
   const [filteredState, setFilteredState] = useState("Show All");
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState();
 
-  const [isSending, setIsSending] = useState(false);
+  const [setIsSending] = useState(false);
   const [sendError, setSendError] = useState();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -155,19 +157,28 @@ const DailyExpenses = (props) => {
 
   return (
     <Fragment>
+      {console.log(screenHeight)}
+      
       {showDeleteModal && deleteModal}
       <DailyExpenseFilter onFilter={filterExpenses} onShow={props.onShow} />
       <Card className={classes.card}>
+      {/* <ShowWindowDimensions /> */}
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}
         {loadError && <p className={transitionText}>{loadError}</p>}
         {sendError && <p className={transitionText}>{sendError}</p>}
         {isLoading && !loadError && (
-            <p className={transitionText}>Loading expenses...</p>
+          <p className={transitionText}>Loading expenses...</p>
         )}
         {!isLoading && (
-          <ul className={classes["daily-expenses"]}>{expenses}</ul>
+          <ul
+            id="expense-list"
+            className={classes["daily-expenses"]}
+            style={{ height: `${vh}px` }}
+          >
+            {expenses}
+          </ul>
         )}
       </Card>
     </Fragment>
