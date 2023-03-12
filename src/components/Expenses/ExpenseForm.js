@@ -1,9 +1,10 @@
-import React, { useRef, useContext } from "react";
-import Modal from "../UI/Modal";
+import React, { useRef, useContext, useState } from "react";
 import classes from "./ExpenseForm.module.css";
 import ExpensesContext from "../../store/expenses-context";
 import useInput from "../../hooks/use-input";
 import FormHeader from "../UI/FormHeader";
+import Card from "../UI/Card";
+import ToggleSwitch from "../UI/ToggleSwitch";
 
 let uniqueId = 0;
 
@@ -14,7 +15,11 @@ const selectionIsPicked = (value) => value === "Y" || value === "N";
 
 const ExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
-  const currentExpenseItem = expensesContext.items.find(item => item.id === props.id);
+  const currentExpenseItem = expensesContext.items.find(
+    (item) => item.id === props.id
+  );
+
+  const [checked, setChecked] = useState(true);
 
   //USEINPUTS
   const {
@@ -100,53 +105,75 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    // <Modal onClose={props.onClose}>
+    <Card className={classes.card}>
+      <FormHeader title={props.title} onClose={props.onClose} />
       <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
-        <FormHeader title={props.title} onClose={props.onClose} />
         {amountHasError && (
           <span className={classes["error-text"]}>
             *Please enter an amount between $0 and $1,000,000
           </span>
         )}
-        <input
-          ref={amountInputRef}
-          id="amountField"
-          type="number"
-          placeholder="Enter Amount"
-          onChange={amountInputChangeHandler}
-          onBlur={amountOnBlurHandler}
-          value={props.mode === 'edit' ? currentExpenseItem.amount : enteredAmount}
-          className={`${classes.input} ${
-            amountHasError ? classes.invalid : ""
-          }`}
-        />
-        <input
-          ref={dateInputRef}
-          id="datePicker"
-          type="date"
-          onChange={dateInputChangeHandler}
-          onBlur={dateOnBlurHandler}
-          value={props.mode === 'edit' ? currentExpenseItem.date.toISOString().substring(0, 10) : enteredDate}
-          max="9999-12-13"
-          className={`${classes.input} ${dateHasError ? classes.invalid : ""}`}
-        />
-        <select
-          ref={isPaidInputRef}
-          id="isPaidDropdown"
-          name="isPaidDropdown"
-          onChange={isPaidInputChangeHandler}
-          onBlur={isPaidOnBlurHandler}
-          value={props.mode === 'edit' ? currentExpenseItem.isPaid : isPaidValue}
-          className={`${classes.input} ${
-            isPaidHasError ? classes.invalid : ""
-          }`}
-        >
-          <option value="default">Paid Off?</option>
-          <option value="Y">Yes</option>
-          <option value="N">No</option>
-        </select>
+        <div className={classes["top-container"]}>
+          <input
+            ref={amountInputRef}
+            id="amountField"
+            type="number"
+            placeholder="Enter Amount"
+            onChange={amountInputChangeHandler}
+            onBlur={amountOnBlurHandler}
+            value={
+              props.mode === "edit" ? currentExpenseItem.amount : enteredAmount
+            }
+            className={`${classes.input} ${
+              amountHasError ? classes.invalid : ""
+            }`}
+          />
+          <input
+            ref={dateInputRef}
+            id="datePicker"
+            type="date"
+            onChange={dateInputChangeHandler}
+            onBlur={dateOnBlurHandler}
+            value={
+              props.mode === "edit"
+                ? currentExpenseItem.date.toISOString().substring(0, 10)
+                : enteredDate
+            }
+            max="9999-12-13"
+            className={`${classes.input} ${
+              dateHasError ? classes.invalid : ""
+            }`}
+          />
 
-        <input
+          <div className={classes['toggle-switch-container']}>
+            <label className={classes['paid-off-label']}>Paid off?</label>
+            <ToggleSwitch
+              id="switch"
+              checked={checked}
+              onChange={(checked) => setChecked(checked)}
+            />
+          </div>
+
+          {/* <select
+            ref={isPaidInputRef}
+            id="isPaidDropdown"
+            name="isPaidDropdown"
+            onChange={isPaidInputChangeHandler}
+            onBlur={isPaidOnBlurHandler}
+            value={
+              props.mode === "edit" ? currentExpenseItem.isPaid : isPaidValue
+            }
+            className={`${classes.input} ${
+              isPaidHasError ? classes.invalid : ""
+            }`}
+          >
+            <option value="default">Paid Off?</option>
+            <option value="Y">Yes</option>
+            <option value="N">No</option>
+          </select> */}
+        </div>
+
+        <textarea
           ref={merchantInputRef}
           id="merchantField"
           type="text"
@@ -154,8 +181,12 @@ const ExpenseForm = (props) => {
           onChange={merchantInputChangeHandler}
           onBlur={merchantOnBlurHandler}
           maxLength="100"
-          value={props.mode === 'edit' ? currentExpenseItem.merchant : enteredMerchant}
-          className={`${classes.input} ${
+          value={
+            props.mode === "edit"
+              ? currentExpenseItem.merchant
+              : enteredMerchant
+          }
+          className={`${classes.input} ${classes.textarea} ${
             merchantHasError ? classes.invalid : ""
           }`}
         />
@@ -165,12 +196,14 @@ const ExpenseForm = (props) => {
             {props.buttonText}
           </button>
 
-          {props.mode === 'edit' && <button className={classes["remove-button"]} type="button">
-            Delete
-          </button>}
+          {props.mode === "edit" && (
+            <button className={classes["remove-button"]} type="button">
+              Delete
+            </button>
+          )}
         </div>
       </form>
-    // </Modal>
+    </Card>
   );
 };
 

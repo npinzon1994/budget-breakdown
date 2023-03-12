@@ -2,10 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px #e8e8e8 solid;
+    padding: 0px 14px;
+    margin-left: 3px;
 }
 
 .title {
-    font-size: larger;
+    /* font-size: large; */
     font-weight: 500;
     font-family: "Golos Text", sans-serif;
 }

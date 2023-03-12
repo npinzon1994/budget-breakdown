@@ -61,9 +61,8 @@ const MainHeader = (props) => {
         <span className={classes["total-label"]}>Total</span>
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>
-      <div className={classes["button-container"]}>
-        <NewExpenseButton onShowNew={props.onShowNew}>+</NewExpenseButton>
-      </div>
+
+      <NewExpenseButton onShowNew={props.onShowNew}>+</NewExpenseButton>
     </Card>
   );
 };

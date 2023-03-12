@@ -1,39 +1,86 @@
+.card {
+  margin: 1rem auto;
+  animation: form-slide-down 2s;
+  z-index: -1;
+}
+
+@keyframes form-slide-down {
+  0% {
+    height: 20px;
+    /* transform: translateY(-15%); */
+    
+  }
+  100% {
+    height: 295px;
+    /* transform: translateY(0); */
+  }
+}
+
+
+
 /*Form*/
 .add-expense-form {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 1rem;
+  padding: 1.25rem;
+  position: relative;
+  margin-top: 0.25rem;
 }
 
 .form-heading {
-  font-family: 'Golos', sans-serif;
+  font-family: "Golos", sans-serif;
   margin-bottom: 0;
 }
 
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  align-items: center;
+}
+
+
+
 /*Input*/
 .input {
-  font-family: 'Mulish', sans-serif;
-  margin: 8px 0;
+  font-family: "Mulish", sans-serif;
+  margin: 0 4px;
   border-radius: 4px;
   border: 1px solid #d3d3d3;
   width: 100%;
-  height: 40px;
-  padding: 0 2px 0 10px;
+  /* height: 40px; */
+  padding: 18px 10px;
   box-sizing: border-box;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  
+  flex: 0.415 1 0;
+  animation: hide-then-show-children 2s;
+}
+
+.input:first-child {
+  margin-left: 0;
+}
+
+
+
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0.15 1 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.paid-off-label {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  font-family: "Golos Text", sans-serif;
+  font-size: 0.9rem;
 }
 
 .input:focus {
   outline: none;
   border-color: #4f005f;
   background: #f6dbfc;
-}
-
-input[type=date] {
-  position: relative;
 }
 
 /* input[type=date]::after {
@@ -47,41 +94,53 @@ input[type=date] {
   border: 1px solid red;
 }
 
+
+.textarea {
+  margin: 16px 0 0;
+  resize: none;
+}
+
 .error-text {
   font-size: small;
   color: red;
+  position: absolute;
+  top: 0;
+}
+
+.is-paid-container {
+  flex: 1 1 0;
 }
 
 /*Select*/
 .add-expense-form select {
-  margin: 12px 0;
+  margin: px 0;
   border-radius: 4px;
   border: 1px solid #d3d3d3;
-  width: 100%;
-  height: 40px;
-  padding: 0 2px 0 10px;
+  /* width: 100%; */
+  /* height: 40px; */
+  padding: 16px 10px;
   box-sizing: border-box;
 }
 
 /*Button*/
 .button-div {
   display: flex;
-  flex-direction: column;
-  row-gap: 6px;
-  width: 100%;
-  margin-top: 10px;
+  gap: 6px;
+  /* width: 100%; */
+  margin-top: 12px;
   margin-bottom: 10px;
 }
 
 .add-expense-button {
   background-color: rgb(245, 145, 31);
   color: #fff;
-  border-radius: 22px;
+  border-radius: 38px;
   border: none;
-  height: 44px;
+  height: 54px;
   cursor: pointer;
   transition: 300ms ease-in-out;
   font-family: "Golos Text", sans-serif;
+  flex: 0.5 1 0;
 }
 
 .add-expense-button:hover {
@@ -89,32 +148,44 @@ input[type=date] {
 }
 
 .remove-button {
-  border-radius: 22px;
-  height: 44px;
-  
+  border-radius: 32px;
+  height: 54px;
   border: none;
   cursor: pointer;
   transition: 300ms ease-in-out;
   background: transparent;
   color: #f33d3d;
   font-family: "Golos Text", sans-serif;
+  flex: 0.5 1 0;
+
 }
 
 .remove-button:hover {
-    background-color: #f33d3d;
-    color: white;
+  background-color: #f33d3d;
+  color: white;
 }
 
-/* .remove-button {
-  background-image: url("../../assets/delete-circle.svg");
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: clamp(30px, 5vw, 40px);
-  width: clamp(30px, 5vw, 40px);
-  border: none;
-  cursor: pointer;
-  opacity: 80%;
-  transition: 0.2s;
-  flex: 0.3 0.3 0;
-} */
+@keyframes hide-then-show-children {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  15% {
+    opacity: 0.25;
+    visibility: hidden;
+  }
+
+  50% {
+    opacity: 0.5;
+    visibility: visible;
+  }
+
+  75% {
+    visibility: visible;
+  }
+
+  100% {
+    visibility: visible;
+  }
+}

@@ -2,12 +2,11 @@
 
 .card {
     overflow: hidden;
+    max-width: 44rem;
 }
 
 .daily-expenses {
-  max-width: 60rem;
-  /* height: 82vh;
-  height: calc(var(--vh, 1vh) * 100); */
+  
   margin: 0 auto;
   padding-left: 0;
   overflow: auto;

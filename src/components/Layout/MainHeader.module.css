@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: space-between;
   background: #1167b1;
-  /* min-height: 11.5vh; */
+  position: relative;
+  z-index: 5;
 }
 
 .filter-container {
@@ -42,9 +43,4 @@
   text-overflow: ellipsis;
 }
 
-.button-container {
-  flex: 1 1 0px;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 20px;
-}
+
