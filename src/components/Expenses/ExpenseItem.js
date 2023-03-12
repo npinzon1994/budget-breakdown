@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
-import classes from "./DailyExpenseItem.module.css";
+import classes from "./ExpenseItem.module.css";
 import redX from "../../assets/unpaid-x.svg";
 import greenCheck from "../../assets/paid-checkmark.svg";
 import dateTable from "./DateTable";
 import Date from "./Date";
 import useWindowWidth from "../../hooks/use-window-width";
 
-const DailyExpenseItem = (props) => {
+const ExpenseItem = (props) => {
   const screenWidth = useWindowWidth();
-  const isphabletSized = screenWidth < 500;
+  const isPhabletSized = screenWidth < 500;
 
   const day = props.date.getUTCDate();
   const month = props.date.getUTCMonth();
@@ -53,4 +53,4 @@ const DailyExpenseItem = (props) => {
   );
 };
 
-export default DailyExpenseItem;
+export default ExpenseItem;

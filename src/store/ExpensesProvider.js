@@ -3,19 +3,24 @@ import ExpensesContext from "./expenses-context";
 
 const defaultExpensesState = {
   items: [],
+  filteredItems: [],
   totalBalance: 0,
-  changed: false
+  changed: false,
 };
 
 const expensesReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalBalance = +state.totalBalance + +action.item.amount;
     const updatedItems = state.items.concat(action.item);
-    updatedItems.sort(function(a, b) {
+    updatedItems.sort(function (a, b) {
       return a.date - b.date;
     });
     updatedItems.reverse();
-    return { items: updatedItems, totalBalance: updatedTotalBalance, changed: true };
+    return {
+      items: updatedItems,
+      totalBalance: updatedTotalBalance,
+      changed: true,
+    };
   }
 
   if (action.type === "REMOVE") {
@@ -28,10 +33,14 @@ const expensesReducer = (state, action) => {
     const updatedTotalBalance =
       +state.totalBalance - +existingExpenseItem.amount;
     const updatedItems = state.items.filter((item) => item.id !== action.id);
-    return { items: updatedItems, totalBalance: updatedTotalBalance, changed: true };
+    return {
+      items: updatedItems,
+      totalBalance: updatedTotalBalance,
+      changed: true,
+    };
   }
 
-  if(action.type === "EDIT"){
+  if (action.type === "EDIT") {
     const expenseItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     ); //index of item we want to edit
@@ -45,15 +54,15 @@ const expensesReducer = (state, action) => {
     */
   }
 
-  if(action.type === "SET_EXPENSES"){
+  if (action.type === "SET_EXPENSES") {
     //compute balance here
     let currentBalance = 0;
     const expenses = [...action.items];
-    for(const key in expenses){
+    for (const key in expenses) {
       const expenseAmount = +expenses[key].amount;
       currentBalance = currentBalance + expenseAmount;
     }
-    return {items: expenses, totalBalance: currentBalance, changed: false};
+    return { items: expenses, totalBalance: currentBalance, changed: false };
   }
 
   return defaultExpensesState;
@@ -74,13 +83,12 @@ const ExpensesProvider = (props) => {
   };
 
   const editExpenseItemHandler = (id) => {
-    dispatchExpensesAction({type: "EDIT", id: id});
-  }
+    dispatchExpensesAction({ type: "EDIT", id: id });
+  };
 
   const setExpenses = (items) => {
-    dispatchExpensesAction({type: "SET_EXPENSES", items: items});
-  }
-
+    dispatchExpensesAction({ type: "SET_EXPENSES", items: items });
+  };
 
   const expensesContext = {
     items: expenses.items,

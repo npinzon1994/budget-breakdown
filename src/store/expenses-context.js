@@ -8,7 +8,6 @@ const ExpensesContext = React.createContext({
     onRemoveExpense: () => {},
     onEditExpense: () => {},
     setExpenses: (expenses) => {},
-
 });
 
 export default ExpensesContext;

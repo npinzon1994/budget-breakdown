@@ -1,49 +1,34 @@
-import "./App.css";
-import React, { useState } from "react";
-import DailyExpenses from "./components/DailyExpenses/DailyExpenses";
-import Header from "./components/Layout/Header";
-import DailyExpenseForm from "./components/DailyExpenses/DailyExpenseForm";
-import ExpensesProvider from "./context/ExpensesProvider";
-import Footer from "./components/Layout/Footer";
+import React from "react";
+import Expenses from "./components/Expenses/Expenses";
+import ExpenseForm from "./components/Expenses/ExpenseForm";
+import ExpensesProvider from "./store/ExpensesProvider";
+import MainHeader from "./components/Layout/MainHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { showHideActions } from "./store/redux/show-hide-slice";
 
 const App = () => {
-  const [expenseFormIsVisible, setExpenseFormIsVisible] = useState(false);
-  const [editFormIsVisible, setEditFormIsVisible] = useState(false);
+  const newFormIsVisible = useSelector((state) => state.showHide.showNewForm);
+  const dispatch = useDispatch();
 
   const showExpenseFormHandler = () => {
-    setExpenseFormIsVisible(true);
+    dispatch(showHideActions.setShowNewForm(true));
   };
 
   const hideExpenseFormHandler = () => {
-    setExpenseFormIsVisible(false);
-  };
-
-
-  const showEditFormHandler = () => {
-    setEditFormIsVisible(true);
-  };
-
-  const hideEditFormHandler = () => {
-    setEditFormIsVisible(false);
+    dispatch(showHideActions.setShowNewForm(false));
   };
 
   return (
     <ExpensesProvider>
-      {expenseFormIsVisible && (
-        <DailyExpenseForm
+      <MainHeader onShowNew={showExpenseFormHandler} />
+      {newFormIsVisible && (
+        <ExpenseForm
           onClose={hideExpenseFormHandler}
           buttonText="Create Expense"
           title="Create New Expense"
         />
       )}
-      {editFormIsVisible && <DailyExpenseForm 
-        onClose={hideEditFormHandler}
-        buttonText="Save"
-        title="Edit Expense"
-        mode="edit"
-      />}
-      <DailyExpenses onShowNew={showExpenseFormHandler} onShowEdit={showEditFormHandler} />
-      {/* <Footer /> */}
+      <Expenses />
     </ExpensesProvider>
   );
 };

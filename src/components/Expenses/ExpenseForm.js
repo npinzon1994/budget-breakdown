@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from "react";
 import Modal from "../UI/Modal";
-import classes from "./DailyExpenseForm.module.css";
-import ExpensesContext from "../../context/expenses-context";
+import classes from "./ExpenseForm.module.css";
+import ExpensesContext from "../../store/expenses-context";
 import useInput from "../../hooks/use-input";
 import FormHeader from "../UI/FormHeader";
 
@@ -12,8 +12,9 @@ const isNotEmpty = (value) => value !== "";
 const isValidNumber = (value) => value > 0 && value < 1000000;
 const selectionIsPicked = (value) => value === "Y" || value === "N";
 
-const DailyExpenseForm = (props) => {
+const ExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
+  const currentExpenseItem = expensesContext.items.find(item => item.id === props.id);
 
   //USEINPUTS
   const {
@@ -99,8 +100,7 @@ const DailyExpenseForm = (props) => {
   };
 
   return (
-    <Modal onClose={props.onClose}>
-      {console.log(enteredDate)}
+    // <Modal onClose={props.onClose}>
       <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
         <FormHeader title={props.title} onClose={props.onClose} />
         {amountHasError && (
@@ -115,7 +115,7 @@ const DailyExpenseForm = (props) => {
           placeholder="Enter Amount"
           onChange={amountInputChangeHandler}
           onBlur={amountOnBlurHandler}
-          value={enteredAmount}
+          value={props.mode === 'edit' ? currentExpenseItem.amount : enteredAmount}
           className={`${classes.input} ${
             amountHasError ? classes.invalid : ""
           }`}
@@ -126,7 +126,7 @@ const DailyExpenseForm = (props) => {
           type="date"
           onChange={dateInputChangeHandler}
           onBlur={dateOnBlurHandler}
-          value={enteredDate}
+          value={props.mode === 'edit' ? currentExpenseItem.date.toISOString().substring(0, 10) : enteredDate}
           max="9999-12-13"
           className={`${classes.input} ${dateHasError ? classes.invalid : ""}`}
         />
@@ -136,7 +136,7 @@ const DailyExpenseForm = (props) => {
           name="isPaidDropdown"
           onChange={isPaidInputChangeHandler}
           onBlur={isPaidOnBlurHandler}
-          value={isPaidValue}
+          value={props.mode === 'edit' ? currentExpenseItem.isPaid : isPaidValue}
           className={`${classes.input} ${
             isPaidHasError ? classes.invalid : ""
           }`}
@@ -154,7 +154,7 @@ const DailyExpenseForm = (props) => {
           onChange={merchantInputChangeHandler}
           onBlur={merchantOnBlurHandler}
           maxLength="100"
-          value={props.mode === 'edit' ? 'edit' : enteredMerchant}
+          value={props.mode === 'edit' ? currentExpenseItem.merchant : enteredMerchant}
           className={`${classes.input} ${
             merchantHasError ? classes.invalid : ""
           }`}
@@ -170,8 +170,8 @@ const DailyExpenseForm = (props) => {
           </button>}
         </div>
       </form>
-    </Modal>
+    // </Modal>
   );
 };
 
-export default DailyExpenseForm;
+export default ExpenseForm;

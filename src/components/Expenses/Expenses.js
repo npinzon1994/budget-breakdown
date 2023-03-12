@@ -1,37 +1,48 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import Card from "../UI/Card";
-import DailyExpenseItem from "./DailyExpenseItem";
-import classes from "./DailyExpenses.module.css";
-import ExpensesContext from "../../context/expenses-context";
-import DailyExpenseFilter from "../Layout/DailyExpenseFilter";
+import ExpenseItem from "./ExpenseItem";
+import classes from "./Expenses.module.css";
+import ExpensesContext from "../../store/expenses-context";
 import DeleteModal from "../UI/DeleteModal";
-import useWindowHeight, {ShowWindowDimensions} from "../../hooks/use-window-height";
+import useWindowHeight from "../../hooks/use-window-height";
+import ExpenseForm from "./ExpenseForm";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { sendingActions } from "../../store/redux/sending-slice";
+import { loadingActions } from "../../store/redux/loading-slice";
+import { showHideActions } from "../../store/redux/show-hide-slice";
 
 let isInitial = true;
 let deleteModal;
+let editModal;
 
 const DailyExpenses = (props) => {
   const screenHeight = useWindowHeight();
   const vh = screenHeight * 0.82;
 
+  const filterState = useSelector((state) => state.filter.filterState);
+  const isLoading = useSelector((state) => state.loading.isLoading);
+  const loadError = useSelector((state) => state.loading.loadError);
+  const sendError = useSelector((state) => state.sending.sendError);
+  const showDeleteModal = useSelector(
+    (state) => state.showHide.showDeleteModal
+  );
+  const showEditForm = useSelector((state) => state.showHide.showEditForm);
+  const dispatch = useDispatch();
+
   const expensesContext = useContext(ExpensesContext);
-  const [filteredState, setFilteredState] = useState("Show All");
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadError, setLoadError] = useState();
-
-  const [setIsSending] = useState(false);
-  const [sendError, setSendError] = useState();
-
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
-    setShowDeleteModal(false);
+    dispatch(showHideActions.setShowDeleteModal(false));
+  };
+
+  const hideDeleteModalHandler = () => {
+    dispatch(showHideActions.setShowDeleteModal(false));
   };
 
   const showDeleteModalHandler = (id) => {
-    setShowDeleteModal(true);
+    dispatch(showHideActions.setShowDeleteModal(true));
 
     deleteModal = (
       <DeleteModal
@@ -41,15 +52,29 @@ const DailyExpenses = (props) => {
     );
   };
 
-  const hideDeleteModalHandler = () => {
-    setShowDeleteModal(false);
+  const showEditModalHandler = (id) => {
+    dispatch(showHideActions.setShowEditForm(true));
+    console.log("you wanna edit this item?", id);
+
+    editModal = (
+      <ExpenseForm
+        onClose={hideEditModalHandler}
+        buttonText="Save"
+        title="Edit Expense"
+        mode="edit"
+        id={id}
+      />
+    );
+  };
+  const hideEditModalHandler = () => {
+    dispatch(showHideActions.setShowEditForm(false));
   };
 
   //gets all expenses on startup
   useEffect(() => {
     console.log("EFFECT RUNNING -- GET");
     const getExpenseData = async () => {
-      setIsLoading(true);
+      dispatch(loadingActions.setIsLoading(true));
 
       const response = await fetch(
         "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json"
@@ -77,14 +102,14 @@ const DailyExpenses = (props) => {
 
       expensesContext.setExpenses(loadedExpenses);
 
-      setIsLoading(false);
+      dispatch(loadingActions.setIsLoading(false));
     };
 
     getExpenseData().catch((error) => {
-      setIsLoading(false);
-      setLoadError(error.message);
+      dispatch(loadingActions.setIsLoading(false));
+      dispatch(loadingActions.setLoadError(error.message));
     });
-  }, []);
+  }, [dispatch]);
 
   //sends cart data to the server
   useEffect(() => {
@@ -95,7 +120,7 @@ const DailyExpenses = (props) => {
 
     console.log("EFFECT RUNNING -- PUT");
     const sendExpenseData = async () => {
-      setIsSending(true);
+      dispatch(sendingActions.setIsSending(true));
       const response = await fetch(
         "https://budget-breakdown-85145-default-rtdb.firebaseio.com/expenses.json",
         {
@@ -112,23 +137,24 @@ const DailyExpenses = (props) => {
         throw new Error("Something went wrong!");
       }
 
-      setIsSending(false);
+      dispatch(sendingActions.setIsSending(false));
     };
     if (expensesContext.changed) {
       sendExpenseData().catch((error) => {
-        setIsSending(false);
-        setSendError(error.message);
+        dispatch(sendingActions.setIsSending(false));
+
+        dispatch(sendingActions.setSendError(error.message));
       });
     }
-  }, [expensesContext]);
+  }, [expensesContext, dispatch]);
 
   let filteredExpenses = [...expensesContext.items];
-  if (filteredState === "Paid Expenses") {
+  if (filterState === "Paid Expenses") {
     filteredExpenses = filteredExpenses.filter(
       (expense) => expense.isPaid === "Y"
     );
   }
-  if (filteredState === "Unpaid Expenses") {
+  if (filterState === "Unpaid Expenses") {
     filteredExpenses = filteredExpenses.filter(
       (expense) => expense.isPaid === "N"
     );
@@ -136,21 +162,17 @@ const DailyExpenses = (props) => {
 
   //creates a new array of DailyExpenseItem(s)
   const expenses = filteredExpenses.map((expense) => (
-    <DailyExpenseItem
+    <ExpenseItem
       key={expense.id}
       amount={expense.amount}
       date={expense.date}
       isPaid={expense.isPaid}
       merchant={expense.merchant}
-      onShowEdit={props.onShowEdit}
+      onShowEdit={showEditModalHandler.bind(null, expense.id)}
       onRemove={showDeleteModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
   ));
-
-  const filterExpenses = (state) => {
-    setFilteredState(state);
-  };
 
   const transitionText = classes["transition-text"];
   const expenseListIsEmpty = expensesContext.items.length === 0;
@@ -159,11 +181,11 @@ const DailyExpenses = (props) => {
   return (
     <Fragment>
       {console.log(screenHeight)}
-      
+
       {showDeleteModal && deleteModal}
-      <DailyExpenseFilter onFilter={filterExpenses} onShowNew={props.onShowNew} />
+      {showEditForm && editModal}
       <Card className={classes.card}>
-      {/* <ShowWindowDimensions /> */}
+        {/* <ShowWindowDimensions /> */}
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}
