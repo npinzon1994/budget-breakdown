@@ -1,14 +1,64 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px #e8e8e8 solid;
-    padding: 0px 14px;
-    margin-left: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px #e8e8e8 solid;
+  padding: 0px 14px;
+  margin-left: 3px;
+  /* animation: hide-then-show 800ms; */
 }
 
 .title {
-    /* font-size: large; */
-    font-weight: 500;
-    font-family: "Golos Text", sans-serif;
+  /* font-size: large; */
+  font-weight: 500;
+  font-family: "Golos Text", sans-serif;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  15% {
+    opacity: 0.15;
+    visibility: show;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  45% {
+    opacity: 0.45;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+    /* visibility: hidden; */
+  }
+
+  15% {
+    opacity: 0.85;
+    /* visibility: hidden; */
+  }
+  30% {
+    opacity: 0.5;
+  }
+  
+  100% {
+    opacity: 1;
+  }
 }

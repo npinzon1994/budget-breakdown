@@ -5,6 +5,8 @@ import useInput from "../../hooks/use-input";
 import FormHeader from "../UI/FormHeader";
 import Card from "../UI/Card";
 import ToggleSwitch from "../UI/ToggleSwitch";
+import CSSTransition from "react-transition-group/CSSTransition";
+import { useSelector } from "react-redux";
 
 let uniqueId = 0;
 
@@ -14,6 +16,7 @@ const isValidNumber = (value) => value > 0 && value < 1000000;
 const selectionIsPicked = (value) => value === "Y" || value === "N";
 
 const ExpenseForm = (props) => {
+  const isNewFormVisible = useSelector((state) => state.showHide.showNewForm);
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
@@ -105,56 +108,108 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    <Card className={classes.card}>
-      <FormHeader title={props.title} onClose={props.onClose} />
-      <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
-        {amountHasError && (
-          <span className={classes["error-text"]}>
-            *Please enter an amount between $0 and $1,000,000
-          </span>
-        )}
-        <div className={classes["top-container"]}>
-          <input
-            ref={amountInputRef}
-            id="amountField"
-            type="number"
-            placeholder="Enter Amount"
-            onChange={amountInputChangeHandler}
-            onBlur={amountOnBlurHandler}
-            value={
-              props.mode === "edit" ? currentExpenseItem.amount : enteredAmount
-            }
-            className={`${classes.input} ${
-              amountHasError ? classes.invalid : ""
-            }`}
-          />
-          <input
-            ref={dateInputRef}
-            id="datePicker"
-            type="date"
-            onChange={dateInputChangeHandler}
-            onBlur={dateOnBlurHandler}
-            value={
-              props.mode === "edit"
-                ? currentExpenseItem.date.toISOString().substring(0, 10)
-                : enteredDate
-            }
-            max="9999-12-13"
-            className={`${classes.input} ${
-              dateHasError ? classes.invalid : ""
-            }`}
-          />
+    <CSSTransition
+      in={isNewFormVisible}
+      mountOnEnter
+      unmountOnExit
+      timeout={{ enter: 500, exit: 500 }}
+      classNames={{
+        enter: "",
+        enterActive: `${classes["card-open"]}`,
+        exit: "",
+        exitActive: `${classes["card-closed"]}`,
+      }}
+    >
+      <Card className={classes.card}>
+        <FormHeader title={props.title} onClose={props.onClose} />
+        <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
+          {amountHasError && (
+            <span className={classes["error-text"]}>
+              *Please enter an amount between $0 and $1,000,000
+            </span>
+          )}
+          <div className={classes["top-container"]}>
+            <CSSTransition
+              in={isNewFormVisible}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 300, exit: 500 }}
+              classNames={{
+                enter: "",
+                enterActive: `${classes["input-open"]}`,
+                exit: "",
+                exitActive: `${classes["input-closed"]}`,
+              }}
+            >
+              <input
+                ref={amountInputRef}
+                id="amountField"
+                type="number"
+                placeholder="Enter Amount"
+                onChange={amountInputChangeHandler}
+                onBlur={amountOnBlurHandler}
+                value={
+                  props.mode === "edit"
+                    ? currentExpenseItem.amount
+                    : enteredAmount
+                }
+                className={`${classes.input} ${
+                  amountHasError ? classes.invalid : ""
+                }`}
+              />
+            </CSSTransition>
+            <CSSTransition
+              in={isNewFormVisible}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 300, exit: 500 }}
+              classNames={{
+                enter: "",
+                enterActive: `${classes["input-open"]}`,
+                exit: "",
+                exitActive: `${classes["input-closed"]}`,
+              }}
+            >
+              <input
+                ref={dateInputRef}
+                id="datePicker"
+                type="date"
+                onChange={dateInputChangeHandler}
+                onBlur={dateOnBlurHandler}
+                value={
+                  props.mode === "edit"
+                    ? currentExpenseItem.date.toISOString().substring(0, 10)
+                    : enteredDate
+                }
+                max="9999-12-13"
+                className={`${classes.input} ${
+                  dateHasError ? classes.invalid : ""
+                }`}
+              />
+            </CSSTransition>
+            <CSSTransition
+              in={isNewFormVisible}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 500, exit: 500 }}
+              classNames={{
+                enter: "",
+                enterActive: `${classes["toggle-switch-container-open"]}`,
+                exit: "",
+                exitActive: `${classes["toggle-switch-container-closed"]}`,
+              }}
+            >
+              <div className={classes["toggle-switch-container"]}>
+                <label className={classes["paid-off-label"]}>Paid off?</label>
+                <ToggleSwitch
+                  id="switch"
+                  checked={checked}
+                  onChange={(checked) => setChecked(checked)}
+                />
+              </div>
+            </CSSTransition>
 
-          <div className={classes['toggle-switch-container']}>
-            <label className={classes['paid-off-label']}>Paid off?</label>
-            <ToggleSwitch
-              id="switch"
-              checked={checked}
-              onChange={(checked) => setChecked(checked)}
-            />
-          </div>
-
-          {/* <select
+            {/* <select
             ref={isPaidInputRef}
             id="isPaidDropdown"
             name="isPaidDropdown"
@@ -171,39 +226,65 @@ const ExpenseForm = (props) => {
             <option value="Y">Yes</option>
             <option value="N">No</option>
           </select> */}
-        </div>
+          </div>
+          <CSSTransition
+              in={isNewFormVisible}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 300, exit: 500 }}
+              classNames={{
+                enter: "",
+                enterActive: `${classes["input-open"]}`,
+                exit: "",
+                exitActive: `${classes["input-closed"]}`,
+              }}
+            >
+          <textarea
+            ref={merchantInputRef}
+            id="merchantField"
+            type="text"
+            placeholder="Merchant"
+            onChange={merchantInputChangeHandler}
+            onBlur={merchantOnBlurHandler}
+            maxLength="100"
+            value={
+              props.mode === "edit"
+                ? currentExpenseItem.merchant
+                : enteredMerchant
+            }
+            className={`${classes.input} ${classes.textarea} ${
+              merchantHasError ? classes.invalid : ""
+            }`}
+          />
+          </CSSTransition>
 
-        <textarea
-          ref={merchantInputRef}
-          id="merchantField"
-          type="text"
-          placeholder="Merchant"
-          onChange={merchantInputChangeHandler}
-          onBlur={merchantOnBlurHandler}
-          maxLength="100"
-          value={
-            props.mode === "edit"
-              ? currentExpenseItem.merchant
-              : enteredMerchant
-          }
-          className={`${classes.input} ${classes.textarea} ${
-            merchantHasError ? classes.invalid : ""
-          }`}
-        />
-
-        <div className={classes["button-div"]}>
-          <button type="submit" className={classes["add-expense-button"]}>
-            {props.buttonText}
-          </button>
-
-          {props.mode === "edit" && (
-            <button className={classes["remove-button"]} type="button">
-              Delete
+          <div className={classes["button-div"]}>
+          <CSSTransition
+              in={isNewFormVisible}
+              mountOnEnter
+              unmountOnExit
+              timeout={{ enter: 300, exit: 500 }}
+              classNames={{
+                enter: "",
+                enterActive: `${classes["add-expense-button-open"]}`,
+                exit: "",
+                exitActive: `${classes["add-expense-button-closed"]}`,
+              }}
+            >
+            <button type="submit" className={classes["add-expense-button"]}>
+              {props.buttonText}
             </button>
-          )}
-        </div>
-      </form>
-    </Card>
+            </CSSTransition>
+
+            {props.mode === "edit" && (
+              <button className={classes["remove-button"]} type="button">
+                Delete
+              </button>
+            )}
+          </div>
+        </form>
+      </Card>
+    </CSSTransition>
   );
 };
 

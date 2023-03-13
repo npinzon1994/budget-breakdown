@@ -21,13 +21,13 @@ const App = () => {
   return (
     <ExpensesProvider>
       <MainHeader onShowNew={showExpenseFormHandler} />
-      {newFormIsVisible && (
-        <ExpenseForm
-          onClose={hideExpenseFormHandler}
-          buttonText="Create Expense"
-          title="Create New Expense"
-        />
-      )}
+
+      <ExpenseForm
+        onClose={hideExpenseFormHandler}
+        buttonText="Create Expense"
+        title="Create New Expense"
+      />
+
       <Expenses />
     </ExpensesProvider>
   );
