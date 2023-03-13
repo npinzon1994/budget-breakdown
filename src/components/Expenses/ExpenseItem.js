@@ -38,15 +38,15 @@ const ExpenseItem = (props) => {
       <li className={classes["daily-expense"]} onClick={props.onShowEdit}>
         <div className={classes["list-item-content"]}>
           <Date month={formattedMonth} day={day} year={year} />
-          <div className={classes['money-merchant-container-mobile']}>
+            <span className={classes.merchant}>{props.merchant}</span>
+          {/* <div className={classes['money-merchant-container-mobile']}> */}
             <div className={classes["money-container"]}>
               <span className={classes.price}>{formattedTotal}</span>
               <span className={classes["paid-off"]}>
                 <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
               </span>
             </div>
-            <span className={classes.merchant}>{props.merchant}</span>
-          </div>
+          {/* </div> */}
         </div>
       </li>
     </Fragment>

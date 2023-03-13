@@ -18,7 +18,7 @@ let editModal;
 
 const DailyExpenses = (props) => {
   const screenHeight = useWindowHeight();
-  const vh = screenHeight * 0.82;
+  const vh = screenHeight * 0.76;
 
   const filterState = useSelector((state) => state.filter.filterState);
   const isLoading = useSelector((state) => state.loading.isLoading);
@@ -54,7 +54,6 @@ const DailyExpenses = (props) => {
 
   const showEditModalHandler = (id) => {
     dispatch(showHideActions.setShowEditForm(true));
-    console.log("you wanna edit this item?", id);
 
     editModal = (
       <ExpenseForm
@@ -198,7 +197,7 @@ const DailyExpenses = (props) => {
           <ul
             id="expense-list"
             className={classes["daily-expenses"]}
-            style={{ height: `${vh}px` }}
+            // style={{ height: `${vh}px` }}
           >
             {expenses}
           </ul>

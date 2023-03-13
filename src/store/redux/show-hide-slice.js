@@ -11,7 +11,7 @@ const showHideSlice = createSlice({
   initialState,
   reducers: {
     setShowNewForm(state, action) {
-      state.showNewForm = action.payload;
+      state.showNewForm = !state.showNewForm;
     },
     setShowEditForm(state, action) {
       state.showEditForm = action.payload;

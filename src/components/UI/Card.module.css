@@ -1,7 +1,8 @@
+
 .card {
   border-radius: 1rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
-  margin: 0.5em auto;
+  margin: 0.8rem auto;
   max-width: 44rem;
   width: 90%;
 }

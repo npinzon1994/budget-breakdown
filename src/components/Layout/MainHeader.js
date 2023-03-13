@@ -52,18 +52,20 @@ const MainHeader = (props) => {
   }
 
   return (
-    <Card
-      className={classes.container}
-      style={{ minHeight: `${bannerHeight}px` }}
-    >
-      <ExpenseFilter onFilter={filterExpenses} />
-      <div className={classes["remaining-balance"]}>
-        <span className={classes["total-label"]}>Total</span>
-        <span className={classes["total-balance"]}>{totalBalance}</span>
-      </div>
+    <div className={classes['invisible-wrapper']}>
+      <Card
+        className={classes.container}
+        style={{ minHeight: `${bannerHeight}px` }}
+      >
+        <ExpenseFilter onFilter={filterExpenses} />
+        <div className={classes["remaining-balance"]}>
+          <span className={classes["total-label"]}>Total</span>
+          <span className={classes["total-balance"]}>{totalBalance}</span>
+        </div>
 
-      <NewExpenseButton onShowNew={props.onShowNew}>+</NewExpenseButton>
-    </Card>
+        {/* <NewExpenseButton onShowNew={props.onShowNew}>+</NewExpenseButton> */}
+      </Card>
+    </div>
   );
 };
 

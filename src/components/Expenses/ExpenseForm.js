@@ -7,105 +7,76 @@ import Card from "../UI/Card";
 import ToggleSwitch from "../UI/ToggleSwitch";
 import CSSTransition from "react-transition-group/CSSTransition";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 let uniqueId = 0;
 
-//USEINPUT VALIDATION FUNCTIONS
-const isNotEmpty = (value) => value !== "";
-const isValidNumber = (value) => value > 0 && value < 1000000;
-const selectionIsPicked = (value) => value === "Y" || value === "N";
+//VALIDATION FUNCTIONS
+const checkInput = (value) => value !== "";
+const validateAmount = (amount) => amount > 0 && amount < 1000000;
 
 const ExpenseForm = (props) => {
+  const [amountValidityState, setAmountValidityState] = useState(null);
+
   const isNewFormVisible = useSelector((state) => state.showHide.showNewForm);
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
   );
 
-  const [checked, setChecked] = useState(true);
+  const { register, handleSubmit, watch, getValues } = useForm({
+    // defaultValues: {
+    //   amount: currentExpenseItem.amount,
+    //   date: currentExpenseItem.date,
+    //   isPaid: currentExpenseItem.isPaid,
+    //   merchant: currentExpenseItem.merchant,
+    // }
+  });
 
-  //USEINPUTS
-  const {
-    enteredValue: enteredAmount,
-    inputIsValid: amountInputIsValid,
-    hasError: amountHasError,
-    inputChangeHandler: amountInputChangeHandler,
-    inputOnBlurHandler: amountOnBlurHandler,
-    reset: resetAmount,
-  } = useInput(isNotEmpty && isValidNumber);
-
-  const {
-    enteredValue: enteredDate,
-    inputIsValid: dateInputIsValid,
-    hasError: dateHasError,
-    inputChangeHandler: dateInputChangeHandler,
-    inputOnBlurHandler: dateOnBlurHandler,
-    reset: resetDate,
-  } = useInput(isNotEmpty);
-
-  const {
-    enteredValue: isPaidValue,
-    inputIsValid: isIsPaidValid,
-    hasError: isPaidHasError,
-    inputChangeHandler: isPaidInputChangeHandler,
-    inputOnBlurHandler: isPaidOnBlurHandler,
-    reset: resetIsPaid,
-  } = useInput(selectionIsPicked);
-
-  const {
-    enteredValue: enteredMerchant,
-    inputIsValid: merchantInputIsValid,
-    hasError: merchantHasError,
-    inputChangeHandler: merchantInputChangeHandler,
-    inputOnBlurHandler: merchantOnBlurHandler,
-    reset: resetMerchant,
-  } = useInput(isNotEmpty);
-
-  //INPUT REFS
-  const amountInputRef = useRef();
-  const dateInputRef = useRef();
-  const isPaidInputRef = useRef();
-  const merchantInputRef = useRef();
-
-  //object to be added -- contains all values captured from the form
-  const newExpenseObject = {
-    id: "E" + uniqueId++,
-    date: new Date(enteredDate),
-    amount: enteredAmount,
-    isPaid: isPaidValue,
-    merchant: enteredMerchant,
+  const inputChangeMonitors = {
+    watchAmount: watch("amount"),
+    watchDate: watch("date"),
+    watchIsPaid: watch("is-paid"),
+    watchMerchant: watch("merchant"),
   };
 
-  const formIsValid =
-    amountInputIsValid &&
-    dateInputIsValid &&
-    isIsPaidValid &&
-    merchantInputIsValid;
+  const { watchAmount, watchDate, watchIsPaid, watchMerchant } =
+    inputChangeMonitors;
 
-  const resetInputs = () => {
-    resetAmount();
-    resetDate();
-    resetIsPaid();
-    resetMerchant();
+  const currentValues = {
+    currentAmount: getValues("amount"),
+    currentDate: getValues("date"),
+    currentMerchant: getValues("merchant"),
+  };
+  const { currentAmount, currentDate, currentMerchant } = currentValues;
+
+  //object to be added -- contains all values captured from the form
+  // const newExpenseObject = {
+  //   id: "E" + uniqueId++,
+  //   date: new Date(enteredDate),
+  //   amount: enteredAmount,
+  //   isPaid: isPaidValue,
+  //   merchant: enteredMerchant,
+  // };
+
+  const validateAmountOnBlur = () => {
+    if(watchAmount === "") {
+      setAmountValidityState(false);
+    }
+    if(parseInt(watchAmount) > 0 || parseInt(watchAmount) < 1000000) {
+      setAmountValidityState(true);
+    }
+    
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (formIsValid) {
-      expensesContext.onAddExpense(newExpenseObject);
-      resetInputs();
-    } else {
-      if (!amountInputIsValid) {
-        amountInputRef.current.focus();
-      } else if (!dateInputIsValid) {
-        dateInputRef.current.focus();
-      } else if (!isIsPaidValid) {
-        isPaidInputRef.current.focus();
-      } else if (!merchantInputIsValid) {
-        merchantInputRef.current.focus();
-      }
-    }
+    // if (formIsValid) {
+    //   expensesContext.onAddExpense(newExpenseObject);
+    // }
   };
+
+  console.log("Watch Amount", watchAmount);
 
   return (
     <CSSTransition
@@ -122,12 +93,19 @@ const ExpenseForm = (props) => {
     >
       <Card className={classes.card}>
         <FormHeader title={props.title} onClose={props.onClose} />
-        <form onSubmit={submitHandler} className={classes["add-expense-form"]}>
-          {amountHasError && (
+        <form
+          onSubmit={handleSubmit(submitHandler)}
+          className={classes["add-expense-form"]}
+        >
+          <p>Watch Amount: {watchAmount}</p>
+          {amountValidityState ? (
             <span className={classes["error-text"]}>
               *Please enter an amount between $0 and $1,000,000
             </span>
+          ) : (
+            ""
           )}
+
           <div className={classes["top-container"]}>
             <CSSTransition
               in={isNewFormVisible}
@@ -142,20 +120,12 @@ const ExpenseForm = (props) => {
               }}
             >
               <input
-                ref={amountInputRef}
+                {...register("amount", { required: true })}
                 id="amountField"
                 type="number"
+                onBlur={validateAmountOnBlur}
                 placeholder="Enter Amount"
-                onChange={amountInputChangeHandler}
-                onBlur={amountOnBlurHandler}
-                value={
-                  props.mode === "edit"
-                    ? currentExpenseItem.amount
-                    : enteredAmount
-                }
-                className={`${classes.input} ${
-                  amountHasError ? classes.invalid : ""
-                }`}
+                className={classes.input}
               />
             </CSSTransition>
             <CSSTransition
@@ -171,20 +141,11 @@ const ExpenseForm = (props) => {
               }}
             >
               <input
-                ref={dateInputRef}
+                {...register("date", { required: true })}
                 id="datePicker"
                 type="date"
-                onChange={dateInputChangeHandler}
-                onBlur={dateOnBlurHandler}
-                value={
-                  props.mode === "edit"
-                    ? currentExpenseItem.date.toISOString().substring(0, 10)
-                    : enteredDate
-                }
-                max="9999-12-13"
-                className={`${classes.input} ${
-                  dateHasError ? classes.invalid : ""
-                }`}
+                max="9999-12-31"
+                className={classes.input}
               />
             </CSSTransition>
             <CSSTransition
@@ -201,65 +162,35 @@ const ExpenseForm = (props) => {
             >
               <div className={classes["toggle-switch-container"]}>
                 <label className={classes["paid-off-label"]}>Paid off?</label>
-                <ToggleSwitch
-                  id="switch"
-                  checked={checked}
-                  onChange={(checked) => setChecked(checked)}
-                />
+                <ToggleSwitch id="switch" />
               </div>
             </CSSTransition>
-
-            {/* <select
-            ref={isPaidInputRef}
-            id="isPaidDropdown"
-            name="isPaidDropdown"
-            onChange={isPaidInputChangeHandler}
-            onBlur={isPaidOnBlurHandler}
-            value={
-              props.mode === "edit" ? currentExpenseItem.isPaid : isPaidValue
-            }
-            className={`${classes.input} ${
-              isPaidHasError ? classes.invalid : ""
-            }`}
-          >
-            <option value="default">Paid Off?</option>
-            <option value="Y">Yes</option>
-            <option value="N">No</option>
-          </select> */}
           </div>
+
           <CSSTransition
-              in={isNewFormVisible}
-              mountOnEnter
-              unmountOnExit
-              timeout={{ enter: 300, exit: 500 }}
-              classNames={{
-                enter: "",
-                enterActive: `${classes["input-open"]}`,
-                exit: "",
-                exitActive: `${classes["input-closed"]}`,
-              }}
-            >
-          <textarea
-            ref={merchantInputRef}
-            id="merchantField"
-            type="text"
-            placeholder="Merchant"
-            onChange={merchantInputChangeHandler}
-            onBlur={merchantOnBlurHandler}
-            maxLength="100"
-            value={
-              props.mode === "edit"
-                ? currentExpenseItem.merchant
-                : enteredMerchant
-            }
-            className={`${classes.input} ${classes.textarea} ${
-              merchantHasError ? classes.invalid : ""
-            }`}
-          />
+            in={isNewFormVisible}
+            mountOnEnter
+            unmountOnExit
+            timeout={{ enter: 300, exit: 500 }}
+            classNames={{
+              enter: "",
+              enterActive: `${classes["input-open"]}`,
+              exit: "",
+              exitActive: `${classes["input-closed"]}`,
+            }}
+          >
+            <textarea
+              {...register("merchant", { required: true })}
+              id="merchantField"
+              type="text"
+              placeholder="Merchant"
+              maxLength="100"
+              className={`${classes.input} ${classes.textarea}`}
+            />
           </CSSTransition>
 
           <div className={classes["button-div"]}>
-          <CSSTransition
+            <CSSTransition
               in={isNewFormVisible}
               mountOnEnter
               unmountOnExit
@@ -271,9 +202,9 @@ const ExpenseForm = (props) => {
                 exitActive: `${classes["add-expense-button-closed"]}`,
               }}
             >
-            <button type="submit" className={classes["add-expense-button"]}>
-              {props.buttonText}
-            </button>
+              <button type="submit" className={classes["add-expense-button"]}>
+                {props.buttonText}
+              </button>
             </CSSTransition>
 
             {props.mode === "edit" && (

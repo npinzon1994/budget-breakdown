@@ -1,21 +1,24 @@
+.invisible-wrapper {
+  background: white;
+  width: 90%;
+  max-width: 44rem;
+  margin: 0 auto;
+  /* position: sticky;
+  top: 0;
+  z-index: 99; */
+  border-radius: 0 0 1rem 1rem;
+  padding-top: 0.6rem;
+}
+
 .container {
   display: flex;
-  margin: 1rem auto;
+  margin: 0;
   align-items: center;
-  justify-content: space-between;
   background: #1167b1;
-  position: relative;
-  z-index: 5;
-}
-
-.filter-container {
-  padding: 12px;
-  flex: 1 1 0px;
-}
-
-.filter-icon {
-  height: 40px;
-  width: 40px;
+  width: 100%;
+  /* position: sticky;
+  top: 0;
+  z-index: 5; */
 }
 
 .remaining-balance {
@@ -23,7 +26,7 @@
   flex-direction: column;
   text-align: center;
   margin: 12px;
-  flex: 1 1 0px;
+  flex: 0.33 1 0px;
 }
 
 .total-label {
@@ -42,5 +45,3 @@
   font-family: "Golos Text", sans-serif;
   text-overflow: ellipsis;
 }
-
-

@@ -1,13 +1,13 @@
 .container {
-    flex: 0.6 0.6 0;
+    flex: 0.3 0.3 0;
 }
 
 .date {
     padding: clamp(0.55rem, 0.5vw, 0.65rem) clamp(1.2rem, 2vw, 1.7rem);
     border-radius: 1rem;
-    font-weight: 500;
+    /* font-weight: 500; */
     color: gray;
-    background-color: #f3f3f3;
+    /* background-color: #f3f3f3; */
     text-align: center;
     width: clamp(2rem, 5vw, 2.5rem);
 }
@@ -15,11 +15,11 @@
 .date span{
     display: block;
     font-family: 'Golos Text', sans-serif;
-    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
 }
 
 .container .day-text {
-    font-size: clamp(1rem, 3vw, 1.7rem);
+    font-size: clamp(0.7rem, 3vw, 1.2rem);
     font-weight: 500;
     color: #1167b1;
     font-family: 'Golos Text', sans-serif;
