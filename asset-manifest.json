@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.767ff80e.css",
+    "main.css": "/budget-breakdown/static/css/main.5e07c8c0.css",
     "main.js": "/budget-breakdown/static/js/main.b47e3c0a.js",
     "static/media/roboto.thin.ttf": "/budget-breakdown/static/media/roboto.thin.bc405e852883934268b5.ttf",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
@@ -13,11 +13,11 @@
     "index.html": "/budget-breakdown/index.html",
     "static/media/right-arrow.svg": "/budget-breakdown/static/media/right-arrow.1484ee51fcc0f668b37d4ef309b90f6f.svg",
     "static/media/left-arrow.svg": "/budget-breakdown/static/media/left-arrow.f965f6cba006dcbb8c6fe0c25c02862f.svg",
-    "main.767ff80e.css.map": "/budget-breakdown/static/css/main.767ff80e.css.map",
+    "main.5e07c8c0.css.map": "/budget-breakdown/static/css/main.5e07c8c0.css.map",
     "main.b47e3c0a.js.map": "/budget-breakdown/static/js/main.b47e3c0a.js.map"
   },
   "entrypoints": [
-    "static/css/main.767ff80e.css",
+    "static/css/main.5e07c8c0.css",
     "static/js/main.b47e3c0a.js"
   ]
 }
