@@ -23,7 +23,9 @@ const ExpenseForm = (props) => {
   );
 
   const [isChecked, setIsChecked] = useState(
-    props.mode === "edit" && currentExpenseItem ? currentExpenseItem.isPaid : false
+    props.mode === "edit" && currentExpenseItem
+      ? currentExpenseItem.isPaid
+      : false
   );
 
   const dispatch = useDispatch();
@@ -64,7 +66,6 @@ const ExpenseForm = (props) => {
 
   isAmountValid = +watchAmount >= 0 && +watchAmount < 1000000;
 
-
   const toggleSwitchChangeHandler = (event) => {
     setIsChecked(event);
   };
@@ -86,7 +87,6 @@ const ExpenseForm = (props) => {
 
       expensesContext.onEditExpense(newExpenseObject, currentExpenseItem.id);
       dispatch(showHideActions.setShowEditForm(false));
-
     } else {
       newExpenseObject = {
         id: `E${uniqueId}`,
@@ -104,7 +104,11 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    <Modal onClose={props.onClose} className={classes.modal} backdropClassName={classes.backdrop}>
+    <Modal
+      onClose={props.onClose}
+      className={classes.modal}
+      backdropClassName={classes.backdrop}
+    >
       <FormHeader title={props.title} onClose={props.onClose} />
       <form
         onSubmit={handleSubmit(submitHandler)}
@@ -118,7 +122,11 @@ const ExpenseForm = (props) => {
 
         <div className={classes["top-container"]}>
           <input
-            {...register("amount", { required: true, min: 0.01, max: 999999.99 })}
+            {...register("amount", {
+              required: true,
+              min: 0.01,
+              max: 999999.99,
+            })}
             id="amountField"
             type="number"
             step=".01"
@@ -134,7 +142,18 @@ const ExpenseForm = (props) => {
             max="9999-12-31"
             className={classes.input}
           />
+        </div>
 
+        <div className={classes["bottom-container"]}>
+          <textarea
+            {...register("merchant", { required: true })}
+            id="merchantField"
+            name="merchant"
+            type="text"
+            placeholder="Merchant"
+            maxLength="100"
+            className={classes.textarea}
+          />
           <div className={classes["toggle-switch-container"]}>
             <label className={classes["paid-off-label"]}>Paid off?</label>
             <ToggleSwitch
@@ -145,23 +164,17 @@ const ExpenseForm = (props) => {
           </div>
         </div>
 
-        <textarea
-          {...register("merchant", { required: true })}
-          id="merchantField"
-          name="merchant"
-          type="text"
-          placeholder="Merchant"
-          maxLength="100"
-          className={`${classes.input} ${classes.textarea}`}
-        />
-
         <div className={classes["button-div"]}>
           <button type="submit" className={classes["add-expense-button"]}>
             {props.buttonText}
           </button>
 
           {props.mode === "edit" && (
-            <button className={classes["remove-button"]} type="button" onClick={props.onDelete}>
+            <button
+              className={classes["remove-button"]}
+              type="button"
+              onClick={props.onDelete}
+            >
               Delete
             </button>
           )}

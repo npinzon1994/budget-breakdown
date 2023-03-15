@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+  max-width: 44rem;
+  margin: auto;
+  padding-right: 1rem;
+  gap: 1rem;
+  font-size: 0.95rem;
+  font-family: "Golos Text", sans-serif;
+}
+
+.displaying {
+}
+
+.numbers {
+}
+
+.button-container {
+  display: flex;
+  gap: 4px;
+}
+
+.button-container button {
+  padding: 0;
+  background-color: transparent;
+  outline-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container button img {
+  width: 16px;
+}

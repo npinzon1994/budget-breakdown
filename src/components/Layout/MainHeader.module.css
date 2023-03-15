@@ -30,7 +30,7 @@
 }
 
 .total-label {
-  font-size: clamp(8pt, 2vw, 1rem);
+  font-size: clamp(0.6rem, 2vw, 0.9rem);
   color: #fff;
   font-family: "Golos Text", sans-serif;
   display: flex;
@@ -39,7 +39,7 @@
 
 .total-balance {
   color: #fff;
-  font-size: clamp(12pt, 4vw, 2rem);
+  font-size: clamp(1.6rem, 4vw, 2rem);
   padding-top: 3px;
   font-weight: 400;
   font-family: "Golos Text", sans-serif;

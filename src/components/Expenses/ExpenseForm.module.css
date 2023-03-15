@@ -7,46 +7,6 @@
   z-index: 20;
 }
 
-
-/*Input*/
-.input {
-  font-family: "Mulish", sans-serif;
-  margin: 0 4px;
-  border-radius: 4px;
-  border: 1px solid #d3d3d3;
-  width: 100%;
-  /* height: 40px; */
-  padding: 18px 10px;
-  box-sizing: border-box;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  flex: 0.415 1 0;
-  /* animation: show-children 300ms forwards; */
-}
-
-.toggle-switch-container {
-  display: flex;
-  flex-direction: column;
-  flex: 0.15 1 0;
-  align-items: center;
-  justify-content: center;
-  /* animation: show-toggle 500ms forwards; */
-}
-
-.add-expense-button {
-  background-color: rgb(245, 145, 31);
-  color: #fff;
-  border-radius: 38px;
-  border: none;
-  height: 54px;
-  cursor: pointer;
-  transition: 300ms ease-in-out;
-  font-family: "Golos Text", sans-serif;
-  flex: 0.5 1 0;
-  /* animation: show-button 350ms forwards; */
-}
-
 /*Form*/
 .add-expense-form {
   padding: 1.25rem;
@@ -54,27 +14,36 @@
   margin-top: 0.25rem;
 }
 
-.form-heading {
-  font-family: "Golos", sans-serif;
-  margin-bottom: 0;
-}
-
 .top-container {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-top: 0.25rem;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+/*Input*/
+.input {
+  font-family: "Mulish", sans-serif;
+  /* margin: 0 4px; */
+  border-radius: 4px;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  min-width: 123px;
+  /* height: 40px; */
+  padding: 18px 10px;
+  box-sizing: border-box;
+  /* appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; */
+  flex: 1 1 0;
+
+  /* animation: show-children 300ms forwards; */
 }
 
 .input:first-child {
   margin-left: 0;
-}
-
-.paid-off-label {
-  margin-right: 3px;
-  margin-bottom: 3px;
-  font-family: "Golos Text", sans-serif;
-  font-size: 0.9rem;
 }
 
 .input:focus {
@@ -88,9 +57,45 @@
   border: 1px solid red;
 }
 
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
 .textarea {
-  margin: 16px 0 0;
+  font-family: "Mulish", sans-serif;
+  border-radius: 4px;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  /* height: 40px; */
+  padding: 18px 10px;
+  box-sizing: border-box;
+
+  flex-grow: 1;
+  margin: 0.7rem 0 0;
   resize: none;
+}
+
+.textarea:focus {
+  outline: none;
+  border: 1px #1167b1 solid;
+}
+
+.paid-off-label {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  font-family: "Golos Text", sans-serif;
+  font-size: 0.9rem;
+}
+
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  /* animation: show-toggle 500ms forwards; */
 }
 
 .error-text {
@@ -118,6 +123,21 @@
   /* width: 100%; */
   margin-top: 12px;
   margin-bottom: 10px;
+  flex-flow: wrap;
+}
+
+.add-expense-button {
+  background-color: rgb(245, 145, 31);
+  color: #fff;
+  border-radius: 38px;
+  border: none;
+  height: 54px;
+  cursor: pointer;
+  transition: background-color 300ms ease-in-out;
+  font-family: "Golos Text", sans-serif;
+  width: 100%;
+  flex: 1 1 0;
+  /* animation: show-button 350ms forwards; */
 }
 
 .add-expense-button:hover {
@@ -129,14 +149,35 @@
   height: 54px;
   border: 1px #f33d3d solid;
   cursor: pointer;
-  transition: 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out;
   background: transparent;
   color: #f33d3d;
   font-family: "Golos Text", sans-serif;
-  flex: 0.5 1 0;
+  flex: 1 1 0;
+  width: 100%;
+
 }
 
 .remove-button:hover {
   background-color: #f33d3d;
   color: white;
+}
+
+.remove-bottom::after {
+  content: ' ';
+}
+
+@media (max-width: 600px) {
+  .button-div {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .add-expense-button {
+    padding-block: 1rem;
+  }
+
+  .remove-button {
+    padding-block: 1rem;
+  }
 }

@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
+import NewExpenseButton from "../UI/NewExpenseButton";
+import expenseIcon from '../../assets/expense-icon.svg';
 
 let isInitial = true;
 let deleteModal;
@@ -58,7 +60,7 @@ const Expenses = (props) => {
   };
 
   const showEditModalHandler = (id) => {
-    console.log('ID', id);
+    console.log("ID", id);
     dispatch(showHideActions.setShowEditForm(true));
 
     editModal = (
@@ -72,7 +74,6 @@ const Expenses = (props) => {
       />
     );
   };
-  
 
   //gets all expenses on startup
   useEffect(() => {
@@ -181,6 +182,10 @@ const Expenses = (props) => {
   const expenseListIsEmpty = expensesContext.items.length === 0;
   const filteredListIsEmpty = expenses.length === 0;
 
+  const showExpenseFormHandler = () => {
+    dispatch(showHideActions.setShowNewForm(true));
+  };
+
   return (
     <Fragment>
       {console.log(screenHeight)}
@@ -188,7 +193,15 @@ const Expenses = (props) => {
       {showDeleteModal && deleteModal}
       {showEditForm && editModal}
       <Card className={classes.card}>
-        {/* <ShowWindowDimensions /> */}
+        <div className={classes.header}>
+          <div className={classes['icon-title-container']}>
+            <img src={expenseIcon} alt="dollar sign icon" className={classes['expense-icon']}/>
+            <span>Expenses</span>
+          </div>
+          <NewExpenseButton onShowNew={showExpenseFormHandler}>
+            +
+          </NewExpenseButton>
+        </div>
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}

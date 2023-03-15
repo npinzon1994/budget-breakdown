@@ -9,11 +9,11 @@
 }
 
 .title {
-  font-size: large;
+  font-size: clamp(0.7rem, 4vw, 1rem);
   /* font-weight: 700; */
   font-family: "Golos Text", sans-serif;
   color: #072a47;
-  padding: 1rem 0.25rem;
+  padding: 0.75rem 0.25rem;
 }
 
 @keyframes show {
