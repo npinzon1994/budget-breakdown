@@ -1,3 +1,12 @@
+.backdrop {
+    z-index: 40;
+}
+
+.modal {
+    max-width: 20rem;
+    z-index: 50;
+}
+
 .container {
     text-align: center;
     background: linear-gradient(180deg, #e8e8e8 25%, #FFF 25%);

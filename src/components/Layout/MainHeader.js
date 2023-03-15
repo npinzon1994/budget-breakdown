@@ -42,12 +42,12 @@ const MainHeader = (props) => {
   let filteredExpenses = [...expensesContext.items];
   if (filterState === "Paid Expenses") {
     filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === "Y"
+      (expense) => expense.isPaid === true
     );
   }
   if (filterState === "Unpaid Expenses") {
     filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === "N"
+      (expense) => expense.isPaid === false
     );
   }
 

@@ -8,6 +8,10 @@ const defaultExpensesState = {
   changed: false,
 };
 
+const add = (total, num) => {
+  return total + num;
+};
+
 const expensesReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalBalance = +state.totalBalance + +action.item.amount;
@@ -41,17 +45,30 @@ const expensesReducer = (state, action) => {
   }
 
   if (action.type === "EDIT") {
-    const expenseItemIndex = state.items.findIndex(
-      (item) => item.id === action.id
-    ); //index of item we want to edit
 
-    //current item we want to edit
-    const existingExpenseItem = state.items[expenseItemIndex];
-    console.log(existingExpenseItem);
+    const arrayWithoutItem = state.items.filter(
+      (item) => item.id !== action.search.id
+    );
+    const updatedItems = arrayWithoutItem.concat(action.search.item);
 
-    /*
-    Now we want to pull up the ExpenseItemForm
-    */
+    const priceArray = updatedItems.map((item) => item.amount);
+    let updatedTotalBalance = 0;
+    for (let i = 0; i < priceArray.length; i++) {
+      updatedTotalBalance += +priceArray[i];
+      console.log("current amount:", priceArray[i].amount);
+    }
+    console.log("Updated total balance:", updatedTotalBalance);
+
+    updatedItems.sort(function (a, b) {
+      return a.date - b.date;
+    });
+    updatedItems.reverse();
+
+    return {
+      items: updatedItems,
+      totalBalance: updatedTotalBalance,
+      changed: true,
+    };
   }
 
   if (action.type === "SET_EXPENSES") {
@@ -82,8 +99,8 @@ const ExpensesProvider = (props) => {
     dispatchExpensesAction({ type: "REMOVE", id: id });
   };
 
-  const editExpenseItemHandler = (id) => {
-    dispatchExpensesAction({ type: "EDIT", id: id });
+  const editExpenseItemHandler = (item, id) => {
+    dispatchExpensesAction({ type: "EDIT", search: { item, id } });
   };
 
   const setExpenses = (items) => {

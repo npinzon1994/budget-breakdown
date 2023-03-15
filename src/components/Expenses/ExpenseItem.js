@@ -27,7 +27,7 @@ const ExpenseItem = (props) => {
   let isPaidLabel = "Not paid off";
   let isPaidImage = redX;
   let isPaidImageAltText = "Red checkmark";
-  if (props.isPaid === "Y") {
+  if (props.isPaid === true) {
     isPaidLabel = "Paid off";
     isPaidImage = greenCheck;
     isPaidImageAltText = "Green checkmark";

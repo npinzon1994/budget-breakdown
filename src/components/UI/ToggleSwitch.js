@@ -17,6 +17,7 @@ const ToggleSwitch = ({
   optionLabels,
   small,
   disabled,
+  register
 }) => {
   function handleKeyPress(e) {
     if (e.keyCode !== 32) return;
@@ -28,6 +29,7 @@ const ToggleSwitch = ({
   return (
     <div className={"toggle-switch" + (small ? " small-switch" : "")}>
       <input
+      {...register}
         type="checkbox"
         name={name}
         className="toggle-switch-checkbox"

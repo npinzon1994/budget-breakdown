@@ -5,7 +5,7 @@ import deleteIcon from "../../assets/modal-delete-red-x.png";
 
 const DeleteModal = (props) => {
   return (
-    <Modal onClose={props.onClose}>
+    <Modal onClose={props.onClose} className={classes.modal} backdropClassName={classes.backdrop}>
       <div className={classes.container}>
         <img
           className={classes.icon}

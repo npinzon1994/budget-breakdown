@@ -16,7 +16,7 @@ let isInitial = true;
 let deleteModal;
 let editModal;
 
-const DailyExpenses = (props) => {
+const Expenses = (props) => {
   const screenHeight = useWindowHeight();
   const vh = screenHeight * 0.76;
 
@@ -35,6 +35,7 @@ const DailyExpenses = (props) => {
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
     dispatch(showHideActions.setShowDeleteModal(false));
+    dispatch(showHideActions.setShowEditForm(false));
   };
 
   const hideDeleteModalHandler = () => {
@@ -52,7 +53,12 @@ const DailyExpenses = (props) => {
     );
   };
 
+  const hideEditModalHandler = () => {
+    dispatch(showHideActions.setShowEditForm(false));
+  };
+
   const showEditModalHandler = (id) => {
+    console.log('ID', id);
     dispatch(showHideActions.setShowEditForm(true));
 
     editModal = (
@@ -62,12 +68,11 @@ const DailyExpenses = (props) => {
         title="Edit Expense"
         mode="edit"
         id={id}
+        onDelete={showDeleteModalHandler.bind(null, id)}
       />
     );
   };
-  const hideEditModalHandler = () => {
-    dispatch(showHideActions.setShowEditForm(false));
-  };
+  
 
   //gets all expenses on startup
   useEffect(() => {
@@ -150,12 +155,12 @@ const DailyExpenses = (props) => {
   let filteredExpenses = [...expensesContext.items];
   if (filterState === "Paid Expenses") {
     filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === "Y"
+      (expense) => expense.isPaid === true
     );
   }
   if (filterState === "Unpaid Expenses") {
     filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === "N"
+      (expense) => expense.isPaid === false
     );
   }
 
@@ -167,8 +172,7 @@ const DailyExpenses = (props) => {
       date={expense.date}
       isPaid={expense.isPaid}
       merchant={expense.merchant}
-      onShowEdit={showEditModalHandler.bind(null, expense.id)}
-      onRemove={showDeleteModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
+      onShowEdit={showEditModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
   ));
@@ -207,4 +211,4 @@ const DailyExpenses = (props) => {
   );
 };
 
-export default DailyExpenses;
+export default Expenses;

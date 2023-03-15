@@ -1,37 +1,49 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import classes from "./ExpenseForm.module.css";
 import ExpensesContext from "../../store/expenses-context";
-import useInput from "../../hooks/use-input";
 import FormHeader from "../UI/FormHeader";
-import Card from "../UI/Card";
 import ToggleSwitch from "../UI/ToggleSwitch";
-import CSSTransition from "react-transition-group/CSSTransition";
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
-let uniqueId = 0;
+import Modal from "../UI/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { uniqueIdActions } from "../../store/redux/generate-unique-id-slice";
+import { sendingActions } from "../../store/redux/sending-slice";
+import { showHideActions } from "../../store/redux/show-hide-slice";
 
 //VALIDATION FUNCTIONS
 const checkInput = (value) => value !== "";
 const validateAmount = (amount) => amount > 0 && amount < 1000000;
 
-const ExpenseForm = (props) => {
-  const [amountValidityState, setAmountValidityState] = useState(null);
+let isAmountValid;
 
-  const isNewFormVisible = useSelector((state) => state.showHide.showNewForm);
+const ExpenseForm = (props) => {
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
   );
 
-  const { register, handleSubmit, watch, getValues } = useForm({
-    // defaultValues: {
-    //   amount: currentExpenseItem.amount,
-    //   date: currentExpenseItem.date,
-    //   isPaid: currentExpenseItem.isPaid,
-    //   merchant: currentExpenseItem.merchant,
-    // }
+  const [isChecked, setIsChecked] = useState(
+    props.mode === "edit" && currentExpenseItem ? currentExpenseItem.isPaid : false
+  );
+
+  const dispatch = useDispatch();
+
+  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
+
+  const { register, handleSubmit, watch, getValues, setFocus } = useForm({
+    defaultValues: {
+      amount: currentExpenseItem ? currentExpenseItem.amount : "",
+      date: currentExpenseItem
+        ? currentExpenseItem.date.toISOString().substring(0, 10)
+        : "",
+      isPaid: currentExpenseItem ? currentExpenseItem.isPaid : "",
+      merchant: currentExpenseItem ? currentExpenseItem.merchant : "",
+    },
   });
+
+  useEffect(() => {
+    setFocus("amount");
+  }, [setFocus]);
 
   const inputChangeMonitors = {
     watchAmount: watch("amount"),
@@ -50,172 +62,112 @@ const ExpenseForm = (props) => {
   };
   const { currentAmount, currentDate, currentMerchant } = currentValues;
 
-  //object to be added -- contains all values captured from the form
-  // const newExpenseObject = {
-  //   id: "E" + uniqueId++,
-  //   date: new Date(enteredDate),
-  //   amount: enteredAmount,
-  //   isPaid: isPaidValue,
-  //   merchant: enteredMerchant,
-  // };
+  isAmountValid = +watchAmount >= 0 && +watchAmount < 1000000;
 
-  const validateAmountOnBlur = () => {
-    if(watchAmount === "") {
-      setAmountValidityState(false);
-    }
-    if(parseInt(watchAmount) > 0 || parseInt(watchAmount) < 1000000) {
-      setAmountValidityState(true);
-    }
-    
+
+  const toggleSwitchChangeHandler = (event) => {
+    setIsChecked(event);
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    // if (formIsValid) {
-    //   expensesContext.onAddExpense(newExpenseObject);
-    // }
-  };
+  const submitHandler = () => {
+    //object to be added -- contains all values captured from the form
+    console.log("submitting...");
+    let newExpenseObject = {};
+    dispatch(sendingActions.setIsSending(true));
+    if (props.mode === "edit") {
+      //find current item and overwrite
+      newExpenseObject = {
+        id: currentExpenseItem.id,
+        date: new Date(currentDate),
+        amount: currentAmount,
+        isPaid: isChecked,
+        merchant: currentMerchant,
+      };
 
-  console.log("Watch Amount", watchAmount);
+      expensesContext.onEditExpense(newExpenseObject, currentExpenseItem.id);
+      dispatch(showHideActions.setShowEditForm(false));
+
+    } else {
+      newExpenseObject = {
+        id: `E${uniqueId}`,
+        date: new Date(currentDate),
+        amount: currentAmount,
+        isPaid: isChecked,
+        merchant: currentMerchant,
+      };
+      expensesContext.onAddExpense(newExpenseObject);
+      dispatch(uniqueIdActions.incrementIdCounter());
+      dispatch(showHideActions.setShowNewForm(false));
+    }
+
+    dispatch(sendingActions.setIsSending(false));
+  };
 
   return (
-    <CSSTransition
-      in={isNewFormVisible}
-      mountOnEnter
-      unmountOnExit
-      timeout={{ enter: 500, exit: 500 }}
-      classNames={{
-        enter: "",
-        enterActive: `${classes["card-open"]}`,
-        exit: "",
-        exitActive: `${classes["card-closed"]}`,
-      }}
-    >
-      <Card className={classes.card}>
-        <FormHeader title={props.title} onClose={props.onClose} />
-        <form
-          onSubmit={handleSubmit(submitHandler)}
-          className={classes["add-expense-form"]}
-        >
-          <p>Watch Amount: {watchAmount}</p>
-          {amountValidityState ? (
-            <span className={classes["error-text"]}>
-              *Please enter an amount between $0 and $1,000,000
-            </span>
-          ) : (
-            ""
-          )}
+    <Modal onClose={props.onClose} className={classes.modal} backdropClassName={classes.backdrop}>
+      <FormHeader title={props.title} onClose={props.onClose} />
+      <form
+        onSubmit={handleSubmit(submitHandler)}
+        className={classes["add-expense-form"]}
+      >
+        {isAmountValid === false && (
+          <span className={classes["error-text"]}>
+            *Please enter an amount between $0 and $1,000,000
+          </span>
+        )}
 
-          <div className={classes["top-container"]}>
-            <CSSTransition
-              in={isNewFormVisible}
-              mountOnEnter
-              unmountOnExit
-              timeout={{ enter: 300, exit: 500 }}
-              classNames={{
-                enter: "",
-                enterActive: `${classes["input-open"]}`,
-                exit: "",
-                exitActive: `${classes["input-closed"]}`,
-              }}
-            >
-              <input
-                {...register("amount", { required: true })}
-                id="amountField"
-                type="number"
-                onBlur={validateAmountOnBlur}
-                placeholder="Enter Amount"
-                className={classes.input}
-              />
-            </CSSTransition>
-            <CSSTransition
-              in={isNewFormVisible}
-              mountOnEnter
-              unmountOnExit
-              timeout={{ enter: 300, exit: 500 }}
-              classNames={{
-                enter: "",
-                enterActive: `${classes["input-open"]}`,
-                exit: "",
-                exitActive: `${classes["input-closed"]}`,
-              }}
-            >
-              <input
-                {...register("date", { required: true })}
-                id="datePicker"
-                type="date"
-                max="9999-12-31"
-                className={classes.input}
-              />
-            </CSSTransition>
-            <CSSTransition
-              in={isNewFormVisible}
-              mountOnEnter
-              unmountOnExit
-              timeout={{ enter: 500, exit: 500 }}
-              classNames={{
-                enter: "",
-                enterActive: `${classes["toggle-switch-container-open"]}`,
-                exit: "",
-                exitActive: `${classes["toggle-switch-container-closed"]}`,
-              }}
-            >
-              <div className={classes["toggle-switch-container"]}>
-                <label className={classes["paid-off-label"]}>Paid off?</label>
-                <ToggleSwitch id="switch" />
-              </div>
-            </CSSTransition>
-          </div>
+        <div className={classes["top-container"]}>
+          <input
+            {...register("amount", { required: true, min: 0.01, max: 999999.99 })}
+            id="amountField"
+            type="number"
+            step=".01"
+            placeholder="Enter Amount"
+            className={classes.input}
+          />
 
-          <CSSTransition
-            in={isNewFormVisible}
-            mountOnEnter
-            unmountOnExit
-            timeout={{ enter: 300, exit: 500 }}
-            classNames={{
-              enter: "",
-              enterActive: `${classes["input-open"]}`,
-              exit: "",
-              exitActive: `${classes["input-closed"]}`,
-            }}
-          >
-            <textarea
-              {...register("merchant", { required: true })}
-              id="merchantField"
-              type="text"
-              placeholder="Merchant"
-              maxLength="100"
-              className={`${classes.input} ${classes.textarea}`}
+          <input
+            {...register("date", { required: true })}
+            id="datePicker"
+            name="date"
+            type="date"
+            max="9999-12-31"
+            className={classes.input}
+          />
+
+          <div className={classes["toggle-switch-container"]}>
+            <label className={classes["paid-off-label"]}>Paid off?</label>
+            <ToggleSwitch
+              id="switch"
+              onChange={toggleSwitchChangeHandler}
+              checked={isChecked}
             />
-          </CSSTransition>
-
-          <div className={classes["button-div"]}>
-            <CSSTransition
-              in={isNewFormVisible}
-              mountOnEnter
-              unmountOnExit
-              timeout={{ enter: 300, exit: 500 }}
-              classNames={{
-                enter: "",
-                enterActive: `${classes["add-expense-button-open"]}`,
-                exit: "",
-                exitActive: `${classes["add-expense-button-closed"]}`,
-              }}
-            >
-              <button type="submit" className={classes["add-expense-button"]}>
-                {props.buttonText}
-              </button>
-            </CSSTransition>
-
-            {props.mode === "edit" && (
-              <button className={classes["remove-button"]} type="button">
-                Delete
-              </button>
-            )}
           </div>
-        </form>
-      </Card>
-    </CSSTransition>
+        </div>
+
+        <textarea
+          {...register("merchant", { required: true })}
+          id="merchantField"
+          name="merchant"
+          type="text"
+          placeholder="Merchant"
+          maxLength="100"
+          className={`${classes.input} ${classes.textarea}`}
+        />
+
+        <div className={classes["button-div"]}>
+          <button type="submit" className={classes["add-expense-button"]}>
+            {props.buttonText}
+          </button>
+
+          {props.mode === "edit" && (
+            <button className={classes["remove-button"]} type="button" onClick={props.onDelete}>
+              Delete
+            </button>
+          )}
+        </div>
+      </form>
+    </Modal>
   );
 };
 
