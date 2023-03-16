@@ -25,14 +25,13 @@
   color: white;
   border: none;
   cursor: pointer;
-  font-family: "Golos Text", sans-serif;
-  font-size: 2rem;
-  font-weight: 100;
+  font-family: "Mulish", sans-serif;
+  font-size: 1rem;
   box-sizing: content-box;
   transition: 0.3s;
-  padding-inline: 0.4rem;
+  padding-inline: 1.4rem;
   padding-block: 0;
-  border-radius: 50%;
+  border-radius: 14px;
   line-height: 1.8rem;
 }
 

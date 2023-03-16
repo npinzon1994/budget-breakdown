@@ -8,27 +8,42 @@
   gap: 1rem;
   font-size: 0.95rem;
   font-family: "Golos Text", sans-serif;
+  align-items: center;
 }
 
 .displaying {
 }
 
 .numbers {
+  color: #a5a5a5;
 }
 
 .button-container {
   display: flex;
-  gap: 4px;
+  gap: 6px;
 }
 
-.button-container button {
+.button {
+  border-radius: 50%;
   padding: 0;
   background-color: transparent;
   outline-color: transparent;
   border: none;
   cursor: pointer;
+  width: 2.2rem;
+  height: 2.2rem;
+  transition: 0.3s;
 }
 
-.button-container button img {
+.button:hover:enabled {
+  background-color: #e8e8e8;
+}
+
+.image {
   width: 16px;
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: default;
 }

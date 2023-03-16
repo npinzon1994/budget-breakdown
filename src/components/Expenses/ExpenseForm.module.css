@@ -23,6 +23,12 @@
   gap: 0.7rem;
 }
 
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 /*Input*/
 .input {
   font-family: "Mulish", sans-serif;
@@ -34,9 +40,9 @@
   /* height: 40px; */
   padding: 18px 10px;
   box-sizing: border-box;
-  /* appearance: none;
+  appearance: none;
   -webkit-appearance: none;
-  -moz-appearance: none; */
+  -moz-appearance: none;
   flex: 1 1 0;
 
   /* animation: show-children 300ms forwards; */
@@ -155,7 +161,6 @@
   font-family: "Golos Text", sans-serif;
   flex: 1 1 0;
   width: 100%;
-
 }
 
 .remove-button:hover {
@@ -164,7 +169,7 @@
 }
 
 .remove-bottom::after {
-  content: ' ';
+  content: " ";
 }
 
 @media (max-width: 600px) {

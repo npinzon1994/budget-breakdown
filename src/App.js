@@ -32,7 +32,7 @@ const App = () => {
         New Expense
       </NewExpenseButton> */}
       <Expenses />
-      {/* <NumberOfExpenses /> */}
+      <NumberOfExpenses />
     </ExpensesProvider>
   );
 };

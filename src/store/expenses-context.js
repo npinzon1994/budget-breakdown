@@ -2,6 +2,7 @@ import React from "react";
 
 const ExpensesContext = React.createContext({
     items: [],
+    currentPage: [],
     totalBalance: 0,
     changed: false,
     onAddExpense: () => {},

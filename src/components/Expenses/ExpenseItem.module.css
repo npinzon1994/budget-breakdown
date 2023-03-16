@@ -10,6 +10,7 @@
   border-bottom: 1px #e8e8e8 solid;
   /* padding: 0.2rem; */
   cursor: pointer;
+  background-color: #fff;
 }
 
 .daily-expense:hover {

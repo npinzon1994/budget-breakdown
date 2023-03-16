@@ -3,6 +3,7 @@
 .card {
     overflow: hidden;
     max-width: 44rem;
+    background-color: #f7f7f7;
 }
 
 .header {
@@ -12,6 +13,7 @@
   padding-block: 0.4rem;
   padding-inline: 0.8rem;
   align-items: center;
+  background-color: #fff;
 }
 
 .icon-title-container {
@@ -41,7 +43,6 @@
 }
 
 .daily-expenses {
-  
   margin: 0 auto;
   padding-left: 0;
   overflow: auto;

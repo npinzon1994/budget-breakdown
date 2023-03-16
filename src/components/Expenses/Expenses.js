@@ -12,15 +12,16 @@ import { sendingActions } from "../../store/redux/sending-slice";
 import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import NewExpenseButton from "../UI/NewExpenseButton";
-import expenseIcon from '../../assets/expense-icon.svg';
+import expenseIcon from "../../assets/expense-icon.svg";
 
 let isInitial = true;
 let deleteModal;
 let editModal;
 
 const Expenses = (props) => {
+
   const screenHeight = useWindowHeight();
-  const vh = screenHeight * 0.76;
+  const vh = screenHeight * 0.71;
 
   const filterState = useSelector((state) => state.filter.filterState);
   const isLoading = useSelector((state) => state.loading.isLoading);
@@ -31,8 +32,9 @@ const Expenses = (props) => {
   );
   const showEditForm = useSelector((state) => state.showHide.showEditForm);
   const dispatch = useDispatch();
-
   const expensesContext = useContext(ExpensesContext);
+
+  const currentPage = useSelector(state => state.pages.currentPage);
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
@@ -153,20 +155,23 @@ const Expenses = (props) => {
     }
   }, [expensesContext, dispatch]);
 
-  let filteredExpenses = [...expensesContext.items];
-  if (filterState === "Paid Expenses") {
-    filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === true
-    );
-  }
-  if (filterState === "Unpaid Expenses") {
-    filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === false
-    );
-  }
+  const filteredExpenses = useSelector(state => state.filter.filteredItems);
+  const firstPage = filteredExpenses.slice(0, 10);
+  
+
 
   //creates a new array of DailyExpenseItem(s)
-  const expenses = filteredExpenses.map((expense) => (
+  const expenses = !currentPage ? firstPage.map((expense) => (
+    <ExpenseItem
+      key={expense.id}
+      amount={expense.amount}
+      date={expense.date}
+      isPaid={expense.isPaid}
+      merchant={expense.merchant}
+      onShowEdit={showEditModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
+      //need to bind in order to be able to pass down to ExpenseItem.js
+    />
+  )) :currentPage.map((expense) => (
     <ExpenseItem
       key={expense.id}
       amount={expense.amount}
@@ -177,6 +182,8 @@ const Expenses = (props) => {
       //need to bind in order to be able to pass down to ExpenseItem.js
     />
   ));
+
+
 
   const transitionText = classes["transition-text"];
   const expenseListIsEmpty = expensesContext.items.length === 0;
@@ -194,13 +201,19 @@ const Expenses = (props) => {
       {showEditForm && editModal}
       <Card className={classes.card}>
         <div className={classes.header}>
-          <div className={classes['icon-title-container']}>
-            <img src={expenseIcon} alt="dollar sign icon" className={classes['expense-icon']}/>
+          <div className={classes["icon-title-container"]}>
+            <img
+              src={expenseIcon}
+              alt="dollar sign icon"
+              className={classes["expense-icon"]}
+            />
             <span>Expenses</span>
           </div>
-          <NewExpenseButton onShowNew={showExpenseFormHandler}>
-            +
-          </NewExpenseButton>
+          <div>
+            <NewExpenseButton onShowNew={showExpenseFormHandler}>
+              Add
+            </NewExpenseButton>
+          </div>
         </div>
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
@@ -214,7 +227,7 @@ const Expenses = (props) => {
           <ul
             id="expense-list"
             className={classes["daily-expenses"]}
-            // style={{ height: `${vh}px` }}
+            style={{ height: `${vh}px` }}
           >
             {expenses}
           </ul>
