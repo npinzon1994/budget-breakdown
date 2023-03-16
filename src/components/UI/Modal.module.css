@@ -19,43 +19,18 @@
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     animation: slide-down 300ms ease-out forwards;
+    -webkit-animation: slide-down 300ms ease-out forwards;
   }
 
   @keyframes slide-down {
     from {
       opacity: 0;
       transform: translate(-50%, -60%);
+      -webkit-transform: translate(-50%, -60%);
     }
     to {
       opacity: 1;
       transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
     }
   }
-  
-  /* @media (min-width: 768px) {
-    .modal {
-      width: 30rem;
-      left: calc(50% - 10rem);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .modal{
-      left: calc(50% - 10rem);
-      width: 67%;
-    }
-  }
-
-  @media (max-width: 424px) {
-    .modal{
-      left: calc(50% - 9.5rem);
-      width: 72%;
-    }
-  }
-
-  @media (max-width: 374px) {
-    .modal{
-      left: calc(50% - 8.8rem);
-      width: 78%;
-    }
-  } */

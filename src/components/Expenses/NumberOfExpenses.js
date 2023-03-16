@@ -68,8 +68,15 @@ const NumberOfExpenses = () => {
     dispatch(pagesActions.setPages(pages));
     dispatch(pagesActions.setCurrentPage(pages[currentPageCount]));
     dispatch(pagesActions.setLowerBound(1 + currentPageCount * 10));
+    console.log('current page count', currentPageCount)
     dispatch(pagesActions.setUpperBound(upperBoundTemp));
   }, [dispatch, pages, filteredExpenses, currentPageCount, upperBoundTemp]);
+
+  useEffect(() => {
+    dispatch(pagesActions.resetPage());
+  }, [dispatch, filterState])
+
+
 
   const firstPage = filteredExpenses.slice(0, 10);
   console.log("First Page", pages[0]);

@@ -1,14 +1,16 @@
 .container {
   display: flex;
   justify-content: flex-end;
-  width: 90%;
-  max-width: 44rem;
-  margin: auto;
-  padding-right: 1rem;
+  /* width: 90%;
+  max-width: 44rem; */
+  /* margin: auto; */
+  /* padding-right: 1rem; */
   gap: 1rem;
   font-size: 0.95rem;
   font-family: "Golos Text", sans-serif;
   align-items: center;
+  background-color: #fff;
+  border-top: 1px #e8e8e8 solid;
 }
 
 .displaying {
@@ -20,15 +22,18 @@
 
 .button-container {
   display: flex;
-  gap: 6px;
+  /* gap: 6px; */
 }
 
 .button {
-  border-radius: 50%;
+  /* border-radius: 50%; */
   padding: 0;
   background-color: transparent;
   outline-color: transparent;
-  border: none;
+  border-left: 1px #e8e8e8 solid;
+  border-right: 1px #e8e8e8 solid;
+  border-top: none;
+  border-bottom: none;
   cursor: pointer;
   width: 2.2rem;
   height: 2.2rem;

@@ -5,9 +5,6 @@ import ExpensesProvider from "./store/ExpensesProvider";
 import MainHeader from "./components/Layout/MainHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { showHideActions } from "./store/redux/show-hide-slice";
-import NewExpenseButton from "./components/UI/NewExpenseButton";
-import Modal from "./components/UI/Modal";
-import NumberOfExpenses from "./components/Expenses/NumberOfExpenses";
 
 const App = () => {
   const newFormIsVisible = useSelector((state) => state.showHide.showNewForm);
@@ -27,12 +24,7 @@ const App = () => {
         />
       )}
       <MainHeader />
-
-      {/* <NewExpenseButton type="button" onShowNew={showExpenseFormHandler}>
-        New Expense
-      </NewExpenseButton> */}
       <Expenses />
-      <NumberOfExpenses />
     </ExpensesProvider>
   );
 };

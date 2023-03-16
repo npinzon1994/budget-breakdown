@@ -1922,6 +1922,16 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@playwright/test@^1.31.2":
+  "integrity" "sha512-BYVutxDI4JeZKV1+ups6dt5WiqKhjBtIYowyZIJ3kBDmJgsuPKsqqKNIMFbUePLSCmp2cZu+BDL427RcNKTRYw=="
+  "resolved" "https://registry.npmjs.org/@playwright/test/-/test-1.31.2.tgz"
+  "version" "1.31.2"
+  dependencies:
+    "@types/node" "*"
+    "playwright-core" "1.31.2"
+  optionalDependencies:
+    "fsevents" "2.3.2"
+
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   "integrity" "sha512-zZbZeHQDnoTlt2AF+diQT0wsSXpvWiaIOZwBRdltNFhG1+I3ozyaw7U/nBiUwyJ0D+zwdXp0E3bWOl38Ag2BMw=="
   "resolved" "https://registry.npmjs.org/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.4.tgz"
@@ -8080,6 +8090,11 @@
   "version" "3.1.0"
   dependencies:
     "find-up" "^3.0.0"
+
+"playwright-core@1.31.2":
+  "integrity" "sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ=="
+  "resolved" "https://registry.npmjs.org/playwright-core/-/playwright-core-1.31.2.tgz"
+  "version" "1.31.2"
 
 "postcss-attribute-case-insensitive@^5.0.0":
   "integrity" "sha512-b4g9eagFGq9T5SWX4+USfVyjIb3liPnjhHHRMP7FMB2kFVpYyfEscV0wP3eaXhKlcHKUut8lt5BGoeylWA/dBQ=="

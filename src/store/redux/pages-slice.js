@@ -24,6 +24,9 @@ const pagesSlice = createSlice({
     decrementPage(state) {
       state.pageCounter = state.pageCounter - 1;
     },
+    resetPage(state) {
+      state.pageCounter = 0;
+    },
     setLowerBound(state, action) {
       state.lowerBound = action.payload;
     },

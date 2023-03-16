@@ -1,0 +1,58 @@
+
+
+.card {
+    overflow: hidden;
+    max-width: 44rem;
+    background-color: #f7f7f7;
+}
+
+.header {
+  border-bottom: 1px #e8e8e8 solid;
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.4rem;
+  padding-inline: 0.8rem;
+  align-items: center;
+  background-color: #fff;
+}
+
+.icon-title-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.expense-icon {
+  height: 1.45rem;
+  width: 1.45rem;
+}
+
+.header span {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 4vw, 1rem)
+  
+}
+
+.button-div {
+
+}
+
+.button {
+
+}
+
+.daily-expenses {
+  margin: 0 auto;
+  padding-left: 0;
+  overflow: auto;
+}
+
+.transition-text {
+  font-size: 1em;
+  font-weight: bold;
+  list-style-type: none;
+  text-align: center;
+  padding: 20px 0;
+  margin-left: 28px;
+}
