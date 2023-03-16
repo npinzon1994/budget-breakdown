@@ -13,6 +13,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
+    min-width: 300px;
     /* max-width: 33rem; */
     background-color: white;
     /* padding: 1rem; */
