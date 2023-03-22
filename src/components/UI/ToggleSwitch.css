@@ -26,9 +26,10 @@
 .toggle-switch-label:focus > span {
   box-shadow: 0 0 2px 5px red;
 }
-.toggle-switch-label > span:focus {
+.toggle-switch-label > span:before:focus {
   outline: none;
 }
+
 .toggle-switch-inner {
   display: block;
   width: 200%;
@@ -37,17 +38,18 @@
 }
 .toggle-switch-inner:before,
 .toggle-switch-inner:after {
-  display: block;
+  /* display: block; */
   float: left;
   width: 50%;
   height: 34px;
   padding: 0;
   line-height: 34px;
   font-size: 14px;
-  color: white;
+  color: transparent;
   font-weight: bold;
   box-sizing: border-box;
 }
+
 .toggle-switch-inner:before {
   content: attr(data-yes);
   text-transform: uppercase;

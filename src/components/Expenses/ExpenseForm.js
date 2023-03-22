@@ -3,16 +3,14 @@ import classes from "./ExpenseForm.module.css";
 import ExpensesContext from "../../store/expenses-context";
 import FormHeader from "../UI/FormHeader";
 import ToggleSwitch from "../UI/ToggleSwitch";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Modal from "../UI/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { uniqueIdActions } from "../../store/redux/generate-unique-id-slice";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
-
-//VALIDATION FUNCTIONS
-const checkInput = (value) => value !== "";
-const validateAmount = (amount) => amount > 0 && amount < 1000000;
 
 let isAmountValid;
 
@@ -22,6 +20,7 @@ const ExpenseForm = (props) => {
     (item) => item.id === props.id
   );
 
+  const [pickedDate, setPickedDate] = useState();
   const [isChecked, setIsChecked] = useState(
     props.mode === "edit" && currentExpenseItem
       ? currentExpenseItem.isPaid
@@ -32,16 +31,17 @@ const ExpenseForm = (props) => {
 
   const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
 
-  const { register, handleSubmit, watch, getValues, setFocus } = useForm({
-    defaultValues: {
-      amount: currentExpenseItem ? currentExpenseItem.amount : "",
-      date: currentExpenseItem
-        ? currentExpenseItem.date.toISOString().substring(0, 10)
-        : "",
-      isPaid: currentExpenseItem ? currentExpenseItem.isPaid : "",
-      merchant: currentExpenseItem ? currentExpenseItem.merchant : "",
-    },
-  });
+  const { register, control, handleSubmit, watch, getValues, setFocus } =
+    useForm({
+      defaultValues: {
+        amount: currentExpenseItem ? currentExpenseItem.amount : "",
+        date: currentExpenseItem
+          ? currentExpenseItem.date.toISOString().substring(0, 10)
+          : null,
+        isPaid: currentExpenseItem ? currentExpenseItem.isPaid : "",
+        merchant: currentExpenseItem ? currentExpenseItem.merchant : "",
+      },
+    });
 
   useEffect(() => {
     setFocus("amount");
@@ -56,6 +56,8 @@ const ExpenseForm = (props) => {
 
   const { watchAmount, watchDate, watchIsPaid, watchMerchant } =
     inputChangeMonitors;
+
+  const fieldIsNotEmpty = (value) => value !== "";
 
   const currentValues = {
     currentAmount: getValues("amount"),
@@ -103,6 +105,10 @@ const ExpenseForm = (props) => {
     dispatch(sendingActions.setIsSending(false));
   };
 
+  useEffect(() => {
+    console.log("Picked Date:", pickedDate);
+  }, [pickedDate]);
+
   return (
     <Modal
       onClose={props.onClose}
@@ -113,6 +119,7 @@ const ExpenseForm = (props) => {
       <form
         onSubmit={handleSubmit(submitHandler)}
         className={classes["add-expense-form"]}
+        name="submit-form"
       >
         {isAmountValid === false && (
           <span className={classes["error-text"]}>
@@ -121,51 +128,104 @@ const ExpenseForm = (props) => {
         )}
 
         <div className={classes["top-container"]}>
-          <input
-            {...register("amount", {
-              required: true,
-              min: 0.01,
-              max: 999999.99,
-            })}
-            id="amountField"
-            type="number"
-            step=".01"
-            placeholder="Enter Amount"
-            className={classes.input}
-          />
+          <div className={classes["input-container"]}>
+            <input
+              {...register("amount", {
+                required: true,
+                min: 0.01,
+                max: 999999.99,
+              })}
+              id="amountField"
+              type="number"
+              step=".01"
+              className={`${classes.input} ${
+                fieldIsNotEmpty(watchAmount) && classes["after-focus"]
+              }`}
+            />
+            <label
+              htmlFor="amountField"
+              className={classes["input-placeholder"]}
+            >
+              Enter Amount
+            </label>
+          </div>
 
-          <input
-            {...register("date", { required: true })}
-            id="datePicker"
+          <div className={classes["input-container"]}>
+            <input
+              {...register("date", { required: true })}
+              id="datePicker"
+              type="date"
+              max="9999-12-31"
+              className={classes.input}
+            />
+            {/* <label
+              htmlFor="datePicker"
+              className={classes["datepicker-placeholder"]}
+            >
+              Enter Date
+            </label> */}
+          </div>
+          {/* <Controller
+            control={control}
             name="date"
-            type="date"
-            max="9999-12-31"
-            className={classes.input}
-          />
+            rules={{ required: true }}
+            // defaultValue={currentExpenseItem
+            //   ? currentExpenseItem.date.toISOString().substring(0, 10)
+            //   : null}
+            render={({ field }) => (
+                <DatePicker
+                  {...field}
+                  id="datePicker"
+                  isClearable
+                  shouldCloseOnSelect
+                  selected={pickedDate}
+                  onChange={(date) => setPickedDate(date)}
+                  className={`${classes.datepicker} ${
+                    fieldIsNotEmpty(pickedDate) && classes["after-focus"]
+                  }`}
+                  // wrapperClassName={classes["datepicker-wrapper"]}
+                />
+                
+              
+            )}
+          /> */}
         </div>
 
         <div className={classes["bottom-container"]}>
-          <textarea
-            {...register("merchant", { required: true })}
-            id="merchantField"
-            name="merchant"
-            type="text"
-            placeholder="Merchant"
-            maxLength="100"
-            className={classes.textarea}
-          />
-          <div className={classes["toggle-switch-container"]}>
+          <div className={classes["input-container"]}>
+            <textarea
+              {...register("merchant", { required: true })}
+              id="merchantField"
+              type="text"
+              maxLength="100"
+              className={`${classes.textarea} ${
+                fieldIsNotEmpty(watchMerchant) && classes["after-focus"]
+              }`}
+              data-testid="merchant-input-field"
+            />
+            <label
+              htmlFor="merchantField"
+              className={classes["textarea-placeholder"]}
+            >
+              Enter Merchant
+            </label>
+            {/* <div className={classes["toggle-switch-container"]}>
             <label className={classes["paid-off-label"]}>Paid off?</label>
             <ToggleSwitch
               id="switch"
               onChange={toggleSwitchChangeHandler}
               checked={isChecked}
             />
+          </div> */}
           </div>
         </div>
 
         <div className={classes["button-div"]}>
-          <button type="submit" className={classes["add-expense-button"]}>
+          <button
+            type="submit"
+            className={classes["add-expense-button"]}
+            data-testid="submit-button"
+          >
             {props.buttonText}
           </button>
 

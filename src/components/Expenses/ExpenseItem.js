@@ -39,14 +39,12 @@ const ExpenseItem = (props) => {
         <div className={classes["list-item-content"]}>
           <Date month={formattedMonth} day={day} year={year} />
             <span className={classes.merchant}>{props.merchant}</span>
-          {/* <div className={classes['money-merchant-container-mobile']}> */}
             <div className={classes["money-container"]}>
               <span className={classes.price}>{formattedTotal}</span>
               <span className={classes["paid-off"]}>
                 <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
               </span>
             </div>
-          {/* </div> */}
         </div>
       </li>
     </Fragment>

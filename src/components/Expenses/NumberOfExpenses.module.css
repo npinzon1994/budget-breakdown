@@ -37,18 +37,22 @@
   cursor: pointer;
   width: 2.2rem;
   height: 2.2rem;
-  transition: 0.3s;
 }
 
 .button:hover:enabled {
-  background-color: #e8e8e8;
+  background-color: #e0e0e0;
 }
 
 .image {
   width: 16px;
 }
 
-.disabled {
-  opacity: 0.4;
+.disabled-button {
+  background: rgb(226, 226, 226);
+  opacity: 0.4
+}
+
+.disabled-image {
+  opacity: 0.7;
   cursor: default;
 }

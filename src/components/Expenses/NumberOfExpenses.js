@@ -102,11 +102,11 @@ const NumberOfExpenses = () => {
         {lowerBound} — {upperBound} of {numItems}
       </span>
       <div className={classes["button-container"]}>
-        <button className={classes.button} onClick={goBackOnePage} disabled={onTheFirstPage}>
-          <img className={`${classes.image} ${onTheFirstPage ? classes.disabled : ''}`} style={{paddingRight: 3, paddingTop: 3}} src={leftArrow} alt="left arrow icon" />
+        <button className={`${classes.button} ${onTheFirstPage ? classes['disabled-button'] : ''}`} onClick={goBackOnePage} disabled={onTheFirstPage}>
+          <img className={`${classes.image} ${onTheFirstPage ? classes['disabled-image'] : ''}`} style={{paddingRight: 3, paddingTop: 3}} src={leftArrow} alt="left arrow icon" />
         </button>
-        <button className={classes.button} onClick={goUpOnePage} disabled={onTheLastPage}>
-          <img className={`${classes.image} ${onTheLastPage ? classes.disabled : ''}`} style={{paddingLeft: 3, paddingTop: 3}} src={rightArrow} alt="right arrow icon" />
+        <button className={`${classes.button} ${onTheLastPage ? classes['disabled-button'] : ''}`} onClick={goUpOnePage} disabled={onTheLastPage}>
+          <img className={`${classes.image} ${onTheLastPage ? classes['disabled-image'] : ''}`} style={{paddingLeft: 3, paddingTop: 3}} src={rightArrow} alt="right arrow icon" />
         </button>
       </div>
     </div>

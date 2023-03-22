@@ -3,7 +3,7 @@ import classes from "./ExpenseFilter.module.css";
 import Select from "react-select";
 
 const dropdownStyles = {
-  control: (defaultStyles, state) => ({
+  control: (defaultStyles) => ({
     ...defaultStyles,
     background: "transparent",
     width: "100%",
@@ -35,7 +35,7 @@ const dropdownStyles = {
   indicatorSeparator: () => ({
     display: "none",
   }),
-  dropdownIndicator: (defaultStyles) => ({
+  dropdownIndicator: () => ({
     display: "none",
     "&:hover": {
       color: "#fff",
