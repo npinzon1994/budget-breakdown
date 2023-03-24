@@ -1,6 +1,17 @@
 import React from "react";
 import classes from "./ExpenseFilter.module.css";
-import Select from "react-select";
+import Select, { components } from "react-select";
+import { ReactComponent as FilterIcon } from "../../assets/filter-icon.svg";
+
+const { SingleValue } = components;
+const IconSingleValue = (props) => {
+  return (
+    <SingleValue {...props}>
+      <FilterIcon className={classes["filter-icon"]} />
+      {props.data.label}
+    </SingleValue>
+  );
+};
 
 const dropdownStyles = {
   control: (defaultStyles) => ({
@@ -9,24 +20,27 @@ const dropdownStyles = {
     width: "100%",
     border: "none",
     outline: "none",
-    borderRadius: "12px",
-    padding: "6px 0",
+    borderRadius: "20px",
+    padding: "6px 8px",
     cursor: "pointer",
     boxShadow: "none",
     transition: "200ms",
     fontFamily: '"Golos Text", sans-serif',
     fontSize: "clamp(0.75rem, 1.75vw, 1rem)",
     "&:hover": {
-      background: "#3477b1",
+      background: "#f1f1f1",
     },
   }),
   singleValue: (defaultStyles) => ({
     ...defaultStyles,
-    color: "#fff",
+    color: "rgb(34, 34, 34)",
     textOverflow: "none",
     width: "100%",
     paddingLeft: "8px",
     paddingRight: "8px",
+    display: "flex",
+    alignItems: "center",
+    gap: "6px"
   }),
   valueContainer: (defaultStyles) => ({
     ...defaultStyles,
@@ -69,15 +83,15 @@ const ExpenseFilter = (props) => {
 
   return (
     <div className={classes["filter-container"]}>
-      <div className={classes["select-wrapper"]}>
-        <Select
-          options={options}
-          defaultValue={{ value: "filter-icon", label: "Filter" }}
-          onChange={filterExpensesHandler}
-          isSearchable={false}
-          styles={dropdownStyles}
-        />
-      </div>
+      {/* <FilterIcon className={classes['filter-icon']}/> */}
+      <Select
+        options={options}
+        defaultValue={{ value: "Filter", label: "Filter" }}
+        onChange={filterExpensesHandler}
+        isSearchable={false}
+        styles={dropdownStyles}
+        components={{ SingleValue: IconSingleValue }}
+      />
     </div>
   );
 };

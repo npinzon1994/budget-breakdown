@@ -20,7 +20,7 @@ const App = () => {
         <ExpenseForm
           onClose={hideExpenseFormHandler}
           buttonText="Create Expense"
-          title="Create New Expense"
+          title="New Expense"
         />
       )}
       <MainHeader />

@@ -4,6 +4,7 @@
   "homepage": "https://npinzon1994.github.io/budget-breakdown",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",

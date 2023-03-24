@@ -13,6 +13,7 @@ import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import NewExpenseButton from "../UI/NewExpenseButton";
 import expenseIcon from "../../assets/expense-icon.svg";
+import ExpensesHeader from "../Layout/ExpensesHeader";
 
 let isInitial = true;
 let deleteModal;
@@ -199,7 +200,8 @@ const ExpensesList = (props) => {
 
       {showDeleteModal && deleteModal}
       {showEditForm && editModal}
-        <div className={classes.header}>
+        <ExpensesHeader />
+        {/* <div className={classes.header}>
           <div className={classes["icon-title-container"]}>
             <img
               src={expenseIcon}
@@ -213,7 +215,7 @@ const ExpensesList = (props) => {
               Add
             </NewExpenseButton>
           </div>
-        </div>
+        </div> */}
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}

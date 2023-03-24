@@ -1650,6 +1650,11 @@
     "protobufjs" "^7.0.0"
     "yargs" "^16.2.0"
 
+"@hookform/resolvers@^3.0.0":
+  "integrity" "sha512-SQPefakODpyq25b/phHXDKCdRrEfPcCXV7B4nAa139wE1DxufYbbNAjeo0T04ZXBokRxZ+wD8iA1kkVMa3QwjQ=="
+  "resolved" "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-3.0.0.tgz"
+  "version" "3.0.0"
+
 "@humanwhocodes/config-array@^0.9.2":
   "integrity" "sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.9.5.tgz"
@@ -9062,7 +9067,7 @@
   dependencies:
     "prop-types" "^15.7.2"
 
-"react-hook-form@^7.43.5":
+"react-hook-form@^7.0.0", "react-hook-form@^7.43.5":
   "integrity" "sha512-YcaXhuFHoOPipu5pC7ckxrLrialiOcU91pKu8P+isAcXZyMgByUK9PkI9j5fENO4+6XU5PwWXRGMIFlk9u9UBQ=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.5.tgz"
   "version" "7.43.5"

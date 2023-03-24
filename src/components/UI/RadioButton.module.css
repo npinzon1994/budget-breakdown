@@ -1,0 +1,72 @@
+.radio-button-container,
+.radio-button {
+  box-sizing: border-box;
+}
+
+.radio-button-container {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: "Golos Text", sans-serif;
+  flex: 0.5;
+}
+
+.radio-button {
+  display: flex;
+  border: 1px #d3d3d3 solid;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 100%;
+  padding: 6px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.radio-button:last-child {
+  border-radius: 0 0 4px 4px;
+  border-top: transparent;
+}
+
+.radio-button.selected .thumbs-up,
+.radio-button.selected .thumbs-down {
+  fill: white;
+}
+
+.radio-button.selected {
+  background: #1167b1;
+  color: white;
+}
+
+.radio-button.disabled {
+  background: #000;
+  cursor: initial;
+  pointer-events: none;
+}
+
+.label {
+  /* border: 1px green solid; */
+  user-select: none;
+}
+
+/* .icon {
+  height: 20px;
+  width: 20px;
+} */
+
+.thumbs-up {
+  height: 20px;
+  width: 20px;
+}
+
+/* .radio-button:last-child .icon {
+  transform: rotate(180deg);
+} */
+.thumbs-down {
+  height: 20px;
+  width: 20px;
+  transform: rotate(180deg);
+}

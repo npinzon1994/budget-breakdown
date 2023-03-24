@@ -4,16 +4,18 @@
   align-items: center;
   border-bottom: 1px #e8e8e8 solid;
   padding: 0px 14px;
-  margin-left: 3px;
+  /* margin-left: 3px; */
+  background: #1167b1;
+  border-radius: 0.7rem 0.7rem 0 0;
   /* animation: hide-then-show 800ms; */
 }
 
 .title {
   font-size: clamp(0.7rem, 4vw, 1rem);
-  /* font-weight: 700; */
+  font-weight: 600;
   font-family: "Golos Text", sans-serif;
-  color: #072a47;
-  padding: 0.75rem 0.25rem;
+  color: white;
+  padding: 0.75rem 0.55rem;
 }
 
 @keyframes show {
