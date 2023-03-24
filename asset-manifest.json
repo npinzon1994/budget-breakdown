@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.55091594.css",
-    "main.js": "/budget-breakdown/static/js/main.ab796168.js",
-    "static/media/roboto.thin.ttf": "/budget-breakdown/static/media/roboto.thin.bc405e852883934268b5.ttf",
+    "main.css": "/budget-breakdown/static/css/main.95a6dbb6.css",
+    "main.js": "/budget-breakdown/static/js/main.e0fc3abc.js",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
     "static/media/Aileron-ThinItalic.otf": "/budget-breakdown/static/media/Aileron-ThinItalic.bf68b5f9bd21bfb99691.otf",
     "static/media/expense-icon.svg": "/budget-breakdown/static/media/expense-icon.8785816a8007520d71844390616f4c34.svg",
-    "static/media/filter-icon.svg": "/budget-breakdown/static/media/filter-icon.40bb394b752cccab8c2daf3528a101f3.svg",
-    "static/media/cross.svg": "/budget-breakdown/static/media/cross.cf10509b6429e51de3fb074eaf053a2e.svg",
+    "static/media/cross.svg": "/budget-breakdown/static/media/cross.0243f429175a858a85c5095c5607ac3b.svg",
     "static/media/unpaid-x.svg": "/budget-breakdown/static/media/unpaid-x.32916068069ca512215aa78ee45f6061.svg",
     "static/media/paid-checkmark.svg": "/budget-breakdown/static/media/paid-checkmark.f90e2c1f32a3d6ec2aa5d6b021235ae7.svg",
     "index.html": "/budget-breakdown/index.html",
+    "static/media/thumbs-up-icon.svg": "/budget-breakdown/static/media/thumbs-up-icon.be5f52dcce6c70792e044a55d6d233ac.svg",
+    "static/media/filter-icon.svg": "/budget-breakdown/static/media/filter-icon.701300d99c1b20d991b0c30347be62aa.svg",
     "static/media/right-arrow.svg": "/budget-breakdown/static/media/right-arrow.d112d627f2cc9c40e8be38e863008d6f.svg",
     "static/media/left-arrow.svg": "/budget-breakdown/static/media/left-arrow.f965f6cba006dcbb8c6fe0c25c02862f.svg",
-    "main.55091594.css.map": "/budget-breakdown/static/css/main.55091594.css.map",
-    "main.ab796168.js.map": "/budget-breakdown/static/js/main.ab796168.js.map"
+    "main.95a6dbb6.css.map": "/budget-breakdown/static/css/main.95a6dbb6.css.map",
+    "main.e0fc3abc.js.map": "/budget-breakdown/static/js/main.e0fc3abc.js.map"
   },
   "entrypoints": [
-    "static/css/main.55091594.css",
-    "static/js/main.ab796168.js"
+    "static/css/main.95a6dbb6.css",
+    "static/js/main.e0fc3abc.js"
   ]
 }
