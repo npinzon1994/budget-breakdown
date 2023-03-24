@@ -41,6 +41,7 @@
   padding: 26px 10px 10px 10px;
   box-sizing: border-box;
   font-family: "Golos Text", sans-serif;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
 }
 
 .input-placeholder {
@@ -53,6 +54,7 @@
   transition: 0.3s;
   pointer-events: none;
   font-family: "Golos Text", sans-serif;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
 .input:focus {
@@ -194,6 +196,7 @@
   transition: 0.3s;
   pointer-events: none;
   font-family: "Golos Text", sans-serif;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
 .datepicker {
@@ -203,6 +206,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 4px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
 }
 
 .datepicker-placeholder {
@@ -214,6 +218,7 @@
   color: #666;
   transition: 0.3s;
   pointer-events: none;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
 .datepicker:focus {
