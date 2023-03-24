@@ -26,7 +26,9 @@ const ExpenseForm = (props) => {
       : false
   );
 
-  const [isPaid, setIsPaid] = useState(currentExpenseItem ? currentExpenseItem.isPaid : false);
+  const [isPaid, setIsPaid] = useState(
+    currentExpenseItem ? currentExpenseItem.isPaid : false
+  );
 
   const dispatch = useDispatch();
 
@@ -107,7 +109,7 @@ const ExpenseForm = (props) => {
 
   useEffect(() => {
     console.log("IS PAID?? (From Expense form)", isPaid);
-  }, [isPaid])
+  }, [isPaid]);
 
   return (
     <Modal
@@ -121,6 +123,11 @@ const ExpenseForm = (props) => {
         className={classes["add-expense-form"]}
         name="submit-form"
       >
+        {checkIsValidAmount(watchAmount) === false && (
+          <span className={classes["error-text"]}>
+            *Please enter an amount between $0 and $1,000,000
+          </span>
+        )}
         <div className={classes["top-container"]}>
           <div className={classes["input-container"]}>
             <input
@@ -165,11 +172,6 @@ const ExpenseForm = (props) => {
             )}
           />
         </div>
-        {checkIsValidAmount(watchAmount) === false && (
-          <span className={classes["error-text"]}>
-            *Please enter an amount between $0 and $1,000,000
-          </span>
-        )}
 
         <div className={classes["bottom-container"]}>
           <div className={classes["input-container"]}>
@@ -192,8 +194,12 @@ const ExpenseForm = (props) => {
 
           <RadioButton
             names={{ firstOption: "Paid", secondOption: "Unpaid" }}
-            defaultValue={currentExpenseItem ? currentExpenseItem.isPaid : isPaid}
-            isPaid={(value) => {setIsPaid(value)}}
+            defaultValue={
+              currentExpenseItem ? currentExpenseItem.isPaid : isPaid
+            }
+            isPaid={(value) => {
+              setIsPaid(value);
+            }}
             mode={props.mode}
             currentExpenseItem={currentExpenseItem}
           />

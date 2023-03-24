@@ -1,5 +1,6 @@
 .modal {
   max-width: 33rem;
+  min-width: 20rem;
   z-index: 30;
 }
 
@@ -9,8 +10,10 @@
 
 /*Form*/
 .add-expense-form {
-  padding: 1.35rem;
-  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
 .top-container {
@@ -49,7 +52,7 @@
   color: #666;
   transition: 0.3s;
   pointer-events: none;
-    font-family: "Golos Text", sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .input:focus {
@@ -69,13 +72,14 @@
 
 .input.textarea {
   flex-grow: 1;
-  margin: 0.7rem 0 0;
+  margin: 0;
+  height: 100%;
   resize: none;
 }
 
-.input-placeholder.textarea-placeholder {
+/* .input-placeholder.textarea-placeholder {
   top: 1.15rem;
-}
+} */
 
 .textarea:focus {
   outline: none;
@@ -105,8 +109,6 @@
 .error-text {
   font-size: small;
   color: red;
-  /* position: absolute;
-  top: 0; */
 }
 
 /*Select*/
@@ -125,7 +127,7 @@
   display: flex;
   gap: 6px;
   /* width: 100%; */
-  margin-top: 1.35rem;
+  /* margin-top: 1.35rem; */
   flex-flow: wrap;
 }
 
@@ -169,22 +171,6 @@
   content: " ";
 }
 
-@media (max-width: 600px) {
-  .button-div {
-    flex-direction: column;
-    gap: 9px;
-  }
-
-  .add-expense-button {
-    padding-block: 1rem;
-  }
-
-  .remove-button {
-    padding-block: 1rem;
-  }
-}
-
-
 .datepicker-container {
   position: relative;
   display: flex;
@@ -205,7 +191,7 @@
   color: #666;
   transition: 0.3s;
   pointer-events: none;
-    font-family: "Golos Text", sans-serif;
+  font-family: "Golos Text", sans-serif;
 }
 
 .datepicker {
@@ -239,6 +225,36 @@
   font-size: small;
 }
 
-.radio-button-div {
+@media (max-width: 600px) {
+  .add-expense-form {
+    gap: 9px;
+  }
+  
+  .button-div {
+    flex-direction: column;
+    gap: 9px;
+  }
 
+  .add-expense-button {
+    padding-block: 1rem;
+  }
+
+  .remove-button {
+    padding-block: 1rem;
+  }
+
+  .top-container {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .bottom-container {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .input-container {
+    width: 100%;
+  }
+  .datepicker-container {
+    width: 100%;
+  }
 }

@@ -61,6 +61,7 @@ const dropdownStyles = {
     cursor: "pointer",
     fontWeight: "500",
     background: state.isSelected && "#1167b1",
+    fontFamily: '"Golos Text", sans-serif',
   }),
   menu: (defaultStyles) => ({
     ...defaultStyles,

@@ -62,11 +62,6 @@ const RadioButton = (props) => {
         onClick={bottomButtonClickHandler}
       >
         <span className={classes.label}>{props.names.secondOption}</span>
-        {/* <img
-          src={thumbsDownIcon}
-          alt="Thumbs down icon"
-          className={classes.icon}
-        /> */}
         <ThumbsDownIcon className={classes['thumbs-down']}/>
       </div>
     </div>
