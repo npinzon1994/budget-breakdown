@@ -228,7 +228,7 @@ const ExpensesList = (props) => {
           <ul
             id="expense-list"
             className={classes["daily-expenses"]}
-            style={{ height: `${vh}px` }}
+            // style={{ height: `${vh}px` }}
           >
             {expenses}
           </ul>

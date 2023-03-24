@@ -40,7 +40,7 @@ const dropdownStyles = {
     paddingRight: "8px",
     display: "flex",
     alignItems: "center",
-    gap: "6px"
+    gap: "6px",
   }),
   valueContainer: (defaultStyles) => ({
     ...defaultStyles,
@@ -90,8 +90,15 @@ const ExpenseFilter = (props) => {
         defaultValue={{ value: "Filter", label: "Filter" }}
         onChange={filterExpensesHandler}
         isSearchable={false}
-        styles={dropdownStyles}
+        styles={{
+          ...dropdownStyles,
+          menuPortal: (base) => ({
+            ...base,
+            zIndex: 9999,
+          }),
+        }}
         components={{ SingleValue: IconSingleValue }}
+        menuPortalTarget={document.body}
       />
     </div>
   );
