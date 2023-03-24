@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.95a6dbb6.css",
-    "main.js": "/budget-breakdown/static/js/main.e0fc3abc.js",
+    "main.css": "/budget-breakdown/static/css/main.cc3f20e0.css",
+    "main.js": "/budget-breakdown/static/js/main.3de79f4a.js",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
     "static/media/Aileron-ThinItalic.otf": "/budget-breakdown/static/media/Aileron-ThinItalic.bf68b5f9bd21bfb99691.otf",
     "static/media/expense-icon.svg": "/budget-breakdown/static/media/expense-icon.8785816a8007520d71844390616f4c34.svg",
@@ -13,11 +13,11 @@
     "static/media/filter-icon.svg": "/budget-breakdown/static/media/filter-icon.701300d99c1b20d991b0c30347be62aa.svg",
     "static/media/right-arrow.svg": "/budget-breakdown/static/media/right-arrow.d112d627f2cc9c40e8be38e863008d6f.svg",
     "static/media/left-arrow.svg": "/budget-breakdown/static/media/left-arrow.f965f6cba006dcbb8c6fe0c25c02862f.svg",
-    "main.95a6dbb6.css.map": "/budget-breakdown/static/css/main.95a6dbb6.css.map",
-    "main.e0fc3abc.js.map": "/budget-breakdown/static/js/main.e0fc3abc.js.map"
+    "main.cc3f20e0.css.map": "/budget-breakdown/static/css/main.cc3f20e0.css.map",
+    "main.3de79f4a.js.map": "/budget-breakdown/static/js/main.3de79f4a.js.map"
   },
   "entrypoints": [
-    "static/css/main.95a6dbb6.css",
-    "static/js/main.e0fc3abc.js"
+    "static/css/main.cc3f20e0.css",
+    "static/js/main.3de79f4a.js"
   ]
 }
