@@ -11,7 +11,8 @@
 }
 
 .title {
-  font-size: clamp(0.7rem, 4vw, 1rem);
+  font-size: 1rem;
+  /* font-size: clamp(0.7rem, 4vw, 1rem); */
   font-weight: 600;
   font-family: "Golos Text", sans-serif;
   color: white;

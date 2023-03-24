@@ -1,6 +1,6 @@
 .new-expense-button {
   outline-color: transparent;
-  background-color: rgb(245, 145, 31);
+  background-color: rgb(255, 136, 0);
   color: white;
   border: none;
   cursor: pointer;
@@ -15,8 +15,8 @@
 }
 
 .new-expense-button:hover {
-  background-color: rgb(255, 166, 65);
-  border-radius: 8px;
+  background-color: rgb(241, 130, 2);
+  /* border-radius: 8px; */
 }
 
 .new-expense-button:active {

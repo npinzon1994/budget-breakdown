@@ -132,7 +132,7 @@
 }
 
 .add-expense-button {
-  background-color: rgb(245, 145, 31);
+  background-color: rgb(255, 136, 0);
   color: #fff;
   border-radius: 38px;
   border: none;
@@ -140,13 +140,14 @@
   cursor: pointer;
   transition: background-color 300ms ease-in-out;
   font-family: "Golos Text", sans-serif;
+  font-size: 1rem;
   width: 100%;
   flex: 1 1 0;
   /* animation: show-button 350ms forwards; */
 }
 
 .add-expense-button:hover {
-  background-color: rgb(231, 136, 27);
+  background-color: rgb(231, 124, 2);
 }
 
 .remove-button {
@@ -158,6 +159,7 @@
   background: transparent;
   color: #f33d3d;
   font-family: "Golos Text", sans-serif;
+  font-size: 1rem;
   flex: 1 1 0;
   width: 100%;
 }
@@ -236,11 +238,11 @@
   }
 
   .add-expense-button {
-    padding-block: 1rem;
+    padding-block: 1.3rem;
   }
 
   .remove-button {
-    padding-block: 1rem;
+    padding-block: 1.3rem;
   }
 
   .top-container {
