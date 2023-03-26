@@ -6,11 +6,10 @@
   /* margin: auto; */
   /* padding-right: 1rem; */
   gap: 1rem;
-  font-size: 0.95rem;
   font-family: "Golos Text", sans-serif;
   align-items: center;
   background-color: #fff;
-  border-top: 1px #e8e8e8 solid;
+  /* border-top: 1px #e8e8e8 solid; */
 }
 
 .displaying {
@@ -18,38 +17,51 @@
 
 .numbers {
   color: #a5a5a5;
+  font-size: 0.8rem;
 }
 
 .button-container {
   display: flex;
-  /* gap: 6px; */
+  gap: 4px;
 }
 
 .button {
   /* border-radius: 50%; */
-  padding: 0;
+  /* padding: 0; */
   background-color: transparent;
   outline-color: transparent;
-  border-left: 1px #e8e8e8 solid;
-  border-right: 1px #e8e8e8 solid;
-  border-top: none;
-  border-bottom: none;
+  border: none;
   cursor: pointer;
   width: 2.2rem;
   height: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 300ms;
 }
 
 .button:hover:enabled {
-  background-color: #e0e0e0;
+  background-color: #ebebeb;
 }
 
 .image {
-  width: 16px;
+  width: 1.8em;
+  -webkit-user-drag: none;
+}
+
+.image.left {
+  transform: rotate(90deg);
+}
+
+.image.right {
+  transform: rotate(-90deg);
 }
 
 .disabled-button {
-  background: rgb(226, 226, 226);
-  opacity: 0.4
+  /* background: rgb(226, 226, 226); */
+  opacity: 0.4;
+  cursor: default;
 }
 
 .disabled-image {

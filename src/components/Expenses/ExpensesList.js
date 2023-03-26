@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Card from "../UI/Card";
 import ExpenseItem from "./ExpenseItem";
 import classes from "./ExpensesList.module.css";
@@ -11,19 +11,25 @@ import { useDispatch } from "react-redux";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
+import { pagesActions } from "../../store/redux/pages-slice";
 import NewExpenseButton from "../UI/NewExpenseButton";
 import expenseIcon from "../../assets/expense-icon.svg";
 import ExpensesHeader from "../Layout/ExpensesHeader";
+import { filterItems } from "./util/filter";
 
 let isInitial = true;
 let deleteModal;
 let editModal;
 
 const ExpensesList = (props) => {
-
   const screenHeight = useWindowHeight();
   const vh = screenHeight * 0.71;
 
+  const expensesContext = useContext(ExpensesContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(10);
+
+  const dispatch = useDispatch();
   const filterState = useSelector((state) => state.filter.filterState);
   const isLoading = useSelector((state) => state.loading.isLoading);
   const loadError = useSelector((state) => state.loading.loadError);
@@ -31,14 +37,35 @@ const ExpensesList = (props) => {
   const showDeleteModal = useSelector(
     (state) => state.showHide.showDeleteModal
   );
-  const showEditForm = useSelector((state) => state.showHide.showEditForm);
-  const dispatch = useDispatch();
-  const expensesContext = useContext(ExpensesContext);
 
-  const currentPage = useSelector(state => state.pages.currentPage);
+  const filteredItems = filterItems(expensesContext.items, filterState);
+
+  const numItems = filteredItems.length;
+  const numPages = Math.ceil(numItems / recordsPerPage);
+
+  //set upper bound to total unless it's not the last page
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  
+  const currentRecords = filteredItems.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+
+    useEffect(() => {
+      console.log("index of FIRST record:", indexOfFirstRecord);
+      console.log("index of LAST record:", indexOfLastRecord);
+    }, [indexOfFirstRecord, indexOfLastRecord])
+
+  const showEditForm = useSelector((state) => state.showHide.showEditForm);
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
+    if(currentPage === numPages && currentRecords.length === 1) {
+      //this is where we move back one page
+      setCurrentPage(currentPage - 1);
+    }
+
     dispatch(showHideActions.setShowDeleteModal(false));
     dispatch(showHideActions.setShowEditForm(false));
   };
@@ -63,7 +90,7 @@ const ExpensesList = (props) => {
   };
 
   const showEditModalHandler = (id) => {
-    console.log("ID", id);
+    // console.log("ID", id);
     dispatch(showHideActions.setShowEditForm(true));
 
     editModal = (
@@ -100,11 +127,12 @@ const ExpensesList = (props) => {
         for (let i = 0; i < data.items.length; i++) {
           loadedExpenses.push({
             id: data.items[i].id,
-            date: new Date(data.items[i].date.substring(0, 10)),
+            date: new Date(data.items[i].date),
             amount: data.items[i].amount,
             isPaid: data.items[i].isPaid,
             merchant: data.items[i].merchant,
           });
+          console.log(loadedExpenses[i].date);
         }
       }
 
@@ -156,23 +184,9 @@ const ExpensesList = (props) => {
     }
   }, [expensesContext, dispatch]);
 
-  const filteredExpenses = useSelector(state => state.filter.filteredItems);
-  const firstPage = filteredExpenses.slice(0, 10);
-  
-
-
   //creates a new array of DailyExpenseItem(s)
-  const expenses = !currentPage ? firstPage.map((expense) => (
-    <ExpenseItem
-      key={expense.id}
-      amount={expense.amount}
-      date={expense.date}
-      isPaid={expense.isPaid}
-      merchant={expense.merchant}
-      onShowEdit={showEditModalHandler.bind(null, expense.id)} //binding expense.id so the actual expense.id can also be used
-      //need to bind in order to be able to pass down to ExpenseItem.js
-    />
-  )) :currentPage.map((expense) => (
+
+  const expenses = currentRecords.map((expense) => (
     <ExpenseItem
       key={expense.id}
       amount={expense.amount}
@@ -184,8 +198,6 @@ const ExpensesList = (props) => {
     />
   ));
 
-
-
   const transitionText = classes["transition-text"];
   const expenseListIsEmpty = expensesContext.items.length === 0;
   const filteredListIsEmpty = expenses.length === 0;
@@ -196,43 +208,36 @@ const ExpensesList = (props) => {
 
   return (
     <Fragment>
-      {console.log(screenHeight)}
+      {/* {console.log(screenHeight)} */}
 
       {showDeleteModal && deleteModal}
       {showEditForm && editModal}
-        <ExpensesHeader />
-        {/* <div className={classes.header}>
-          <div className={classes["icon-title-container"]}>
-            <img
-              src={expenseIcon}
-              alt="dollar sign icon"
-              className={classes["expense-icon"]}
-            />
-            <span>Expenses</span>
-          </div>
-          <div>
-            <NewExpenseButton onShowNew={showExpenseFormHandler}>
-              Add
-            </NewExpenseButton>
-          </div>
-        </div> */}
-        {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
-          <p className={transitionText}>No expenses found.</p>
-        )}
-        {loadError && <p className={transitionText}>{loadError}</p>}
-        {sendError && <p className={transitionText}>{sendError}</p>}
-        {isLoading && !loadError && (
-          <p className={transitionText}>Loading expenses...</p>
-        )}
-        {!isLoading && (
-          <ul
-            id="expense-list"
-            className={classes["daily-expenses"]}
-            // style={{ height: `${vh}px` }}
-          >
-            {expenses}
-          </ul>
-        )}
+      <ExpensesHeader
+        indexOfFirstRecord={indexOfFirstRecord}
+        indexOfLastRecord={indexOfLastRecord}
+        numItems={numItems}
+        numPages={numPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        currentRecords={currentRecords}
+      />
+      {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
+        <p className={transitionText}>No expenses found.</p>
+      )}
+      {loadError && <p className={transitionText}>{loadError}</p>}
+      {sendError && <p className={transitionText}>{sendError}</p>}
+      {isLoading && !loadError && (
+        <p className={transitionText}>Loading expenses...</p>
+      )}
+      {!isLoading && (
+        <ul
+          id="expense-list"
+          className={classes["daily-expenses"]}
+          // style={{ height: `${vh}px` }}
+        >
+          {expenses}
+        </ul>
+      )}
     </Fragment>
   );
 };

@@ -37,11 +37,11 @@ const RadioButton = (props) => {
   }, [props, topButtonSelected]);
 
   /*Confirming button states*/
-  useEffect(() => {
-    console.log("Top button selected?", topButtonSelected);
-    console.log("Bottom button selected?", bottomButtonSelected);
-    // console.log("IS PAID? (from RadioButton.js)", isPaid);
-  }, [topButtonSelected, bottomButtonSelected]);
+  // useEffect(() => {
+  //   console.log("Top button selected?", topButtonSelected);
+  //   console.log("Bottom button selected?", bottomButtonSelected);
+  //   // console.log("IS PAID? (from RadioButton.js)", isPaid);
+  // }, [topButtonSelected, bottomButtonSelected]);
 
   return (
     <div className={classes["radio-button-container"]}>

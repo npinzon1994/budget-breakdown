@@ -6,28 +6,22 @@ import { showHideActions } from "../../store/redux/show-hide-slice";
 import { filterActions } from "../../store/redux/filter-slice";
 import ExpensesContext from "../../store/expenses-context";
 import ExpenseFilter from "../Expenses/ExpenseFilter";
+import NumberOfExpenses from "../Expenses/NumberOfExpenses";
 
-const ExpensesHeader = () => {
-  const expensesContext = useContext(ExpensesContext);
-
-  const filterState = useSelector((state) => state.filter.filterState);
+const ExpensesHeader = ({
+  indexOfFirstRecord,
+  indexOfLastRecord,
+  numItems,
+  numPages,
+  currentPage,
+  setCurrentPage,
+  currentRecords
+}) => {
   const dispatch = useDispatch();
 
   const filterExpenses = (state) => {
     dispatch(filterActions.setFilterState(state));
   };
-
-  let filteredExpenses = [...expensesContext.items];
-  if (filterState === "Paid Expenses") {
-    filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === true
-    );
-  }
-  if (filterState === "Unpaid Expenses") {
-    filteredExpenses = filteredExpenses.filter(
-      (expense) => expense.isPaid === false
-    );
-  }
 
   const showExpenseFormHandler = () => {
     dispatch(showHideActions.setShowNewForm(true));
@@ -35,10 +29,21 @@ const ExpensesHeader = () => {
 
   return (
     <div className={classes.header}>
-      <ExpenseFilter onFilter={filterExpenses} />
-      <NewExpenseButton onShowNew={showExpenseFormHandler}>
-        Add
-      </NewExpenseButton>
+      <div className={classes["actions-container"]}>
+        <NewExpenseButton onShowNew={showExpenseFormHandler}>
+          Add
+        </NewExpenseButton>
+        <ExpenseFilter onFilter={filterExpenses} />
+      </div>
+      <NumberOfExpenses
+        indexOfFirstRecord={indexOfFirstRecord}
+        indexOfLastRecord={indexOfLastRecord}
+        numItems={numItems}
+        numPages={numPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        currentRecords={currentRecords}
+      />
     </div>
   );
 };

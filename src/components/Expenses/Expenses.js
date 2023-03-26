@@ -8,7 +8,6 @@ const Expenses = () => {
   return (
     <Card className={classes.card}>
         <ExpensesList />
-        <NumberOfExpenses />
     </Card>
   )
 }

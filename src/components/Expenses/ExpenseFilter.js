@@ -21,7 +21,7 @@ const dropdownStyles = {
     border: "none",
     outline: "none",
     borderRadius: "20px",
-    padding: "6px 8px",
+    padding: "6px",
     cursor: "pointer",
     boxShadow: "none",
     transition: "200ms",

@@ -10,11 +10,11 @@ const ExpenseItem = (props) => {
   const screenWidth = useWindowWidth();
   const isPhabletSized = screenWidth < 500;
 
-  const day = props.date.getUTCDate();
-  const month = props.date.getUTCMonth();
+  const day = props.date.getDate();
+  const month = props.date.getMonth();
   const formattedMonth = dateTable(month);
 
-  const year = props.date.getUTCFullYear();
+  const year = props.date.getFullYear();
 
   const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",

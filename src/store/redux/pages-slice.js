@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  pages: [],
+  currentPageCount: 1,
+  recordsPerPage: 10,
   currentPage: [],
+  
+
+  
+  pages: [],
   pageCounter: 0,
   lowerBound: 1,
   upperBound: 0
@@ -12,17 +17,30 @@ const pagesSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
+    
+    setRecordsPerPage (state, action) {
+      state.recordsPerPage = action.payload;
+    },
+    setCurrentPageCount(state, action) {
+      state.currentPageCount = action.payload;
+    },
+    incrementPage(state) {
+      state.currentPageCount = state.currentPageCount + 1;
+    },
+    decrementPage(state) {
+      state.currentPageCount = state.currentPageCount - 1;
+    },
+
+
     setPages(state, action) {
       state.pages = action.payload;
     },
+    addPage(state, action) {
+      state.pages = [...state.pages, action.payload];
+    },
+    
     setCurrentPage(state, action) {
       state.currentPage = action.payload;
-    },
-    incrementPage(state) {
-      state.pageCounter = state.pageCounter + 1;
-    },
-    decrementPage(state) {
-      state.pageCounter = state.pageCounter - 1;
     },
     resetPage(state) {
       state.pageCounter = 0;

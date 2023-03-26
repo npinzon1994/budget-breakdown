@@ -13,8 +13,11 @@ import { showHideActions } from "../../store/redux/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
 
 const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
+const dateFormatter = new Intl.DateTimeFormat("en-US", {timeZone: 'UTC'});
 
 const ExpenseForm = (props) => {
+  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
+  
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
@@ -32,7 +35,6 @@ const ExpenseForm = (props) => {
 
   const dispatch = useDispatch();
 
-  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
 
   const {
     register,
@@ -108,8 +110,9 @@ const ExpenseForm = (props) => {
   };
 
   useEffect(() => {
-    console.log("IS PAID?? (From Expense form)", isPaid);
-  }, [isPaid]);
+    // console.log("IS PAID?? (From Expense form)", isPaid);
+    console.log("Current Date:", dateFormatter.format(currentDate))
+  }, [currentDate]);
 
   return (
     <Modal
@@ -164,6 +167,7 @@ const ExpenseForm = (props) => {
                   onChange={onChange}
                   onBlur={onBlur}
                   placeholderText="MM/DD/YYYY"
+                  
                   className={classes.datepicker}
                   isClearable
                   shouldCloseOnSelect
