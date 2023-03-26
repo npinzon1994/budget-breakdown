@@ -16,6 +16,7 @@ import NewExpenseButton from "../UI/NewExpenseButton";
 import expenseIcon from "../../assets/expense-icon.svg";
 import ExpensesHeader from "../Layout/ExpensesHeader";
 import { filterItems } from "./util/filter";
+import { filterActions } from "../../store/redux/filter-slice";
 
 let isInitial = true;
 let deleteModal;
@@ -46,22 +47,34 @@ const ExpensesList = (props) => {
   //set upper bound to total unless it's not the last page
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  
+
   const currentRecords = filteredItems.slice(
     indexOfFirstRecord,
     indexOfLastRecord
   );
 
-    useEffect(() => {
-      console.log("index of FIRST record:", indexOfFirstRecord);
-      console.log("index of LAST record:", indexOfLastRecord);
-    }, [indexOfFirstRecord, indexOfLastRecord])
+  // useEffect(() => {
+  //   console.log("index of FIRST record:", indexOfFirstRecord);
+  //   console.log("index of LAST record:", indexOfLastRecord);
+  // }, [indexOfFirstRecord, indexOfLastRecord]);
 
   const showEditForm = useSelector((state) => state.showHide.showEditForm);
 
   const removeItemHandler = (id) => {
     expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
-    if(currentPage === numPages && currentRecords.length === 1) {
+    if (
+      currentPage === numPages &&
+      currentPage !== 1 &&
+      currentRecords.length === 1 &&
+      filterState !== "Show All"
+    ) {
+      setCurrentPage(currentPage - 1);
+      dispatch(filterActions.setFilterState("Show All"));
+    } else if (
+      currentPage === numPages &&
+      currentPage !== 1 &&
+      currentRecords.length === 1
+    ) {
       //this is where we move back one page
       setCurrentPage(currentPage - 1);
     }

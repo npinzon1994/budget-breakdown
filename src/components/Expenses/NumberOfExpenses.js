@@ -12,18 +12,23 @@ const NumberOfExpenses = ({
   numPages,
   currentPage,
   setCurrentPage,
-  currentRecords
+  currentRecords,
 }) => {
   const filterState = useSelector((state) => state.filter.filterState);
   const expensesContext = useContext(ExpensesContext);
   const filteredItems = filterItems(expensesContext.items, filterState);
+
   //index of the last record -- accounts for if page has < 10 items
   const lastIndex = currentRecords.length < 10 ? numItems : indexOfLastRecord;
 
   const noExpenses = filteredItems.length === 0;
   const displayEmptyPageCount = "0—0 of 0";
-  const displayNormalPageCount = `${indexOfFirstRecord + 1}—${lastIndex} of ${numItems}`;
+  const displayNormalPageCount = `${
+    indexOfFirstRecord + 1
+  }—${lastIndex} of ${numItems}`;
 
+  const onFirstPage = !(numPages > 0 && currentPage !== 1);
+  const onLastPage = !(numPages > 0 && currentPage !== numPages);
 
   const goUpOnePage = () => {
     if (numPages > 0 && currentPage !== numPages) {
@@ -40,8 +45,12 @@ const NumberOfExpenses = ({
   };
 
   useEffect(() => {
+    console.log("-------------------------------------------------------");
+    console.log("current page:", currentPage);
     console.log("number of pages:", numPages);
-  }, [numPages])
+    console.log("# of current records", currentRecords.length);
+    console.log("Filter State:", filterState);
+  }, [currentPage, numPages, currentRecords.length, filterState]);
 
   return (
     <div className={classes.container}>
@@ -50,21 +59,35 @@ const NumberOfExpenses = ({
       </span>
       <div className={classes["button-container"]}>
         <button
-          className={classes.button}
+          className={`${classes.button} ${
+            onFirstPage || noExpenses ? classes["disabled-button"] : ""
+          }`}
           onClick={goBackOnePage}
-          // disabled={onTheFirstPage}
+          disabled={onFirstPage || noExpenses}
+          style={{paddingRight: "7px"}}
         >
-          <ArrowIcon className={`${classes.image} ${classes.left}`} />
+          <ArrowIcon
+            className={`${classes.image} ${classes.left} ${
+              onFirstPage || noExpenses ? classes["disabled-image"] : ""
+            }`}
+          />
         </button>
         <button
-          className={classes.button}
+          className={`${classes.button} ${
+            onLastPage || noExpenses ? classes["disabled-button"] : ""
+          }`}
           onClick={goUpOnePage}
-          // disabled={onTheLastPage || noExpenses}
+          disabled={onLastPage || noExpenses}
+          style={{paddingLeft: "7px"}}
         >
-          <ArrowIcon className={`${classes.image} ${classes.right}`} />
+          <ArrowIcon
+            className={`${classes.image} ${classes.right} ${
+              onLastPage || noExpenses ? classes["disabled-image"] : ""
+            }`}
+          />
         </button>
       </div>
-      <div>{`Page ${currentPage} of ${numPages}`}</div>
+      {/* <div>{`Page ${currentPage} of ${numPages}`}</div> */}
     </div>
   );
 };
