@@ -64,7 +64,7 @@
 
 .paid-off {
   font-size: clamp(0.7rem, 2vw, 0.9rem);
-  color: rgb(189, 188, 188);
+  color: rgb(100, 100, 100);
   font-family: "Aileron-thinitalic";
 }
 
@@ -78,7 +78,7 @@
   font-size: clamp(0.85rem, 2vw, 0.95rem);
   /* width: 100%; */
   word-wrap: break-word;
-  font-family: "Mulish", sans-serif;
+  font-family: "Golos Text", sans-serif;
   flex: 1 1 0;
   padding-block: 4px;
   padding-inline: 30px;;

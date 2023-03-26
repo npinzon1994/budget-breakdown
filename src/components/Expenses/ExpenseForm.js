@@ -13,28 +13,22 @@ import { showHideActions } from "../../store/redux/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
 
 const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
-const dateFormatter = new Intl.DateTimeFormat("en-US", {timeZone: 'UTC'});
+const dateFormatter = new Intl.DateTimeFormat("en-US", { timeZone: "UTC" });
 
 const ExpenseForm = (props) => {
   const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
-  
+
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
   );
 
-  const [isChecked, setIsChecked] = useState(
-    props.mode === "edit" && currentExpenseItem
-      ? currentExpenseItem.isPaid
-      : false
-  );
-
   const [isPaid, setIsPaid] = useState(
     currentExpenseItem ? currentExpenseItem.isPaid : false
   );
+  const [isDateFocused, setIsDateFocused] = useState(null);
 
   const dispatch = useDispatch();
-
 
   const {
     register,
@@ -71,10 +65,6 @@ const ExpenseForm = (props) => {
   };
   const { currentAmount, currentDate, currentMerchant } = currentValues;
 
-  const toggleSwitchChangeHandler = (event) => {
-    setIsChecked(event);
-  };
-
   const submitHandler = () => {
     //object to be added -- contains all values captured from the form
     console.log("submitting...");
@@ -109,10 +99,9 @@ const ExpenseForm = (props) => {
     dispatch(sendingActions.setIsSending(false));
   };
 
-  useEffect(() => {
-    // console.log("IS PAID?? (From Expense form)", isPaid);
-    console.log("Current Date:", dateFormatter.format(currentDate))
-  }, [currentDate]);
+  const dateInputFocusHandler = () => setIsDateFocused(true);
+  const dateInputBlurHandler = () => setIsDateFocused(false);
+
 
   return (
     <Modal
@@ -165,13 +154,20 @@ const ExpenseForm = (props) => {
                   id="datePicker"
                   selected={value}
                   onChange={onChange}
-                  onBlur={onBlur}
+                  // onBlur={onBlur}
                   placeholderText="MM/DD/YYYY"
-                  
                   className={classes.datepicker}
                   isClearable
                   shouldCloseOnSelect
+                  onFocus={dateInputFocusHandler}
+                  onBlur={dateInputBlurHandler}
                 />
+                <label
+                  htmlFor="datePicker"
+                  className={`${classes["datepicker-placeholder"]} ${isDateFocused ? classes.focused : ""}`}
+                >
+                  Date
+                </label>
               </div>
             )}
           />
