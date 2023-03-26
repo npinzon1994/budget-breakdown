@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/budget-breakdown/static/css/main.02195582.css",
-    "main.js": "/budget-breakdown/static/js/main.be2b74a8.js",
+    "main.css": "/budget-breakdown/static/css/main.95fdc5a7.css",
+    "main.js": "/budget-breakdown/static/js/main.189e5ba3.js",
     "static/media/modal-delete-red-x.png": "/budget-breakdown/static/media/modal-delete-red-x.602ad416a4597a1def14.png",
     "static/media/Aileron-ThinItalic.otf": "/budget-breakdown/static/media/Aileron-ThinItalic.bf68b5f9bd21bfb99691.otf",
     "static/media/expense-icon.svg": "/budget-breakdown/static/media/expense-icon.8785816a8007520d71844390616f4c34.svg",
@@ -11,13 +11,12 @@
     "index.html": "/budget-breakdown/index.html",
     "static/media/thumbs-up-icon.svg": "/budget-breakdown/static/media/thumbs-up-icon.be5f52dcce6c70792e044a55d6d233ac.svg",
     "static/media/filter-icon.svg": "/budget-breakdown/static/media/filter-icon.701300d99c1b20d991b0c30347be62aa.svg",
-    "static/media/right-arrow.svg": "/budget-breakdown/static/media/right-arrow.d112d627f2cc9c40e8be38e863008d6f.svg",
-    "static/media/left-arrow.svg": "/budget-breakdown/static/media/left-arrow.f965f6cba006dcbb8c6fe0c25c02862f.svg",
-    "main.02195582.css.map": "/budget-breakdown/static/css/main.02195582.css.map",
-    "main.be2b74a8.js.map": "/budget-breakdown/static/js/main.be2b74a8.js.map"
+    "static/media/arrow-rounded-corners.svg": "/budget-breakdown/static/media/arrow-rounded-corners.2f1ef23b30477dcbaaaba78728933723.svg",
+    "main.95fdc5a7.css.map": "/budget-breakdown/static/css/main.95fdc5a7.css.map",
+    "main.189e5ba3.js.map": "/budget-breakdown/static/js/main.189e5ba3.js.map"
   },
   "entrypoints": [
-    "static/css/main.02195582.css",
-    "static/js/main.be2b74a8.js"
+    "static/css/main.95fdc5a7.css",
+    "static/js/main.189e5ba3.js"
   ]
 }
