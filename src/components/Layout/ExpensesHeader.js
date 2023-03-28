@@ -21,6 +21,7 @@ const ExpensesHeader = ({
 
   const filterExpenses = (state) => {
     dispatch(filterActions.setFilterState(state));
+    if(currentPage !== 1) setCurrentPage(1);
   };
 
   const showExpenseFormHandler = () => {
