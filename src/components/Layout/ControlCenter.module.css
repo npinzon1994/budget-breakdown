@@ -3,6 +3,7 @@
     justify-content: space-between;
     padding-block: 0.4rem;
     padding-inline: 0.8rem;
+    padding-left: 0.7rem;
     align-items: center;
   }
   
@@ -15,10 +16,3 @@
     height: 1.45rem;
     width: 1.45rem;
   }
-  
-  /* .header span {
-    font-family: "Golos Text", sans-serif;
-    font-weight: 500;
-    font-size: clamp(0.7rem, 4vw, 1rem)
-    
-  } */

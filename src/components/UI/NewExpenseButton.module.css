@@ -25,10 +25,7 @@
   content: "Add";
 }
 
-.new-expense-button:active {
-  background-color: rgb(255, 174, 81);
-  transition: none;
-}
+
 
 /*All hover*/
 @media (hover: hover) {
@@ -73,4 +70,9 @@
     font-size: 2rem;
     font-family: "Roboto-thin", sans-serif;
   }
+}
+
+.new-expense-button:active {
+  background-color: rgb(255, 174, 81);
+  transition: none;
 }

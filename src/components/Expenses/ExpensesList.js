@@ -15,6 +15,7 @@ import ControlCenter from "../Layout/ControlCenter";
 import { filterItems } from "./util/filter";
 import { filterActions } from "../../store/redux/filter-slice";
 import FilterHeader from "../Layout/FilterHeader";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 let isInitial = true;
 let deleteModal;
@@ -223,7 +224,9 @@ const ExpensesList = (props) => {
           currentRecords={currentRecords}
         />
       </Card>
-      <Card>
+      <Card
+        className={`${isLoading && !loadError ? classes["card-padding"] : ""}`}
+      >
         <FilterHeader
           title={filterState === "Show All" ? "All Expenses" : filterState}
         />
@@ -232,9 +235,7 @@ const ExpensesList = (props) => {
         )}
         {loadError && <p className={transitionText}>{loadError}</p>}
         {sendError && <p className={transitionText}>{sendError}</p>}
-        {isLoading && !loadError && (
-          <p className={transitionText}>Loading expenses...</p>
-        )}
+        {isLoading && !loadError && <LoadingSpinner />}
         {!isLoading && (
           <ul
             id="expense-list"

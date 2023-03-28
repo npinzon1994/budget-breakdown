@@ -8,7 +8,6 @@ const IconSingleValue = (props) => {
   return (
     <SingleValue {...props}>
       <FilterIcon className={classes["filter-icon"]} />
-      
     </SingleValue>
   );
 };
@@ -18,7 +17,7 @@ const dropdownStyles = {
     ...defaultStyles,
     background: "transparent",
     width: "100%",
-    border: "none",
+    border: "1px #d3d3d3 solid",
     outline: "none",
     borderRadius: "50%",
     paddingBlock: "10px",
@@ -28,7 +27,13 @@ const dropdownStyles = {
     fontFamily: '"Golos Text", sans-serif',
     fontSize: "clamp(0.75rem, 1.75vw, 1rem)",
     "&:hover": {
-      background: "#f1f1f1",
+      background: "#eeeeee",
+      borderColor: "#eeeeee",
+    },
+    "&:active": {
+      background: "#f4f4f4",
+      borderColor: "#f4f4f4",
+      transition: "none",
     },
   }),
   singleValue: (defaultStyles) => ({
@@ -88,7 +93,7 @@ const ExpenseFilter = (props) => {
       {/* <FilterIcon className={classes['filter-icon']}/> */}
       <Select
         options={options}
-        defaultValue={{ value: "Show All"}}
+        defaultValue={{ value: "Show All" }}
         onChange={filterExpensesHandler}
         isSearchable={false}
         styles={{

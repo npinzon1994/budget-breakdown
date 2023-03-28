@@ -35,3 +35,7 @@
   padding: 20px 0;
   margin-left: 28px;
 }
+
+.card-padding {
+  padding-bottom: 0.1rem;
+}
