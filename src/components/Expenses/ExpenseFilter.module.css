@@ -4,32 +4,35 @@
   position: relative;
 }
 
-/*Tooltip*/
-.filter-container::before {
-  content: attr(dataTooltip);
-  position: absolute;
-  padding: 4px;
-  padding-bottom: 6px;
-  background: rgb(34, 34, 34);
-  top: -0.25rem;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  width: max-content;
-  max-width: 100%;
-  cursor: default;
-  pointer-events: none;
-  font-size: 0.7rem;
-  border-radius: 4px;
-  opacity: 0;
-  transition: 0.2s 0.2s;
-  color: white;
-}
-
-.filter-container:hover::before {
-  opacity: 1;
-}
-
 .filter-icon {
   height: 26px;
   width: 26px;
+}
+
+/*Hover events*/
+@media (hover: hover) {
+  /*Tooltip*/
+  .filter-container::before {
+    content: attr(dataTooltip);
+    position: absolute;
+    padding: 4px;
+    padding-bottom: 6px;
+    background: rgb(34, 34, 34);
+    top: -0.25rem;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: max-content;
+    max-width: 100%;
+    cursor: default;
+    pointer-events: none;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: 0.2s 0.2s;
+    color: white;
+  }
+
+  .filter-container:hover::before {
+    opacity: 1;
+  }
 }
