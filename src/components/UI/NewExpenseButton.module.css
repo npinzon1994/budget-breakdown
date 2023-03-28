@@ -14,7 +14,7 @@
   box-sizing: content-box;
   transition: 0.4s;
   padding-inline: 2em;
-  padding-block: 4px;
+  padding-block: 0;
   border-radius: 24px;
   position: relative;
   /* line-height: 1.8rem; */
@@ -30,7 +30,7 @@
   transition: none;
 }
 
-/*All hover events*/
+/*All hover*/
 @media (hover: hover) {
   /*Tooltip*/
   .new-expense-button::before {
@@ -64,7 +64,7 @@
 /*Resizing button on mobile screens*/
 @media (max-width: 500px) {
   .new-expense-button {
-    padding-inline: 0.9em;
+    padding-inline: 0.85em;
     padding-block: 0;
   }
 
