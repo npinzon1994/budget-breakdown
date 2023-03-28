@@ -224,7 +224,9 @@ const ExpensesList = (props) => {
         />
       </Card>
       <Card>
-        <FilterHeader title={filterState} />
+        <FilterHeader
+          title={filterState === "Show All" ? "All Expenses" : filterState}
+        />
         {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
           <p className={transitionText}>No expenses found.</p>
         )}

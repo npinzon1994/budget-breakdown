@@ -68,7 +68,7 @@ const dropdownStyles = {
     background: "#f3f3f3",
     borderRadius: "12px",
     padding: "6px 0",
-    width: "auto",
+    width: "max-content",
   }),
 };
 
