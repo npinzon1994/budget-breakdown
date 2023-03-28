@@ -13,7 +13,7 @@
 @media (hover: hover) {
   /*Tooltip*/
   .filter-container::before {
-    content: attr(dataTooltip);
+    content: attr(datatooltip);
     position: absolute;
     padding: 4px;
     padding-bottom: 6px;

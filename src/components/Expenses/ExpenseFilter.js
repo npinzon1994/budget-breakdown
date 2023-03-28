@@ -84,7 +84,7 @@ const ExpenseFilter = (props) => {
   };
 
   return (
-    <div className={classes["filter-container"]} dataTooltip="Filter">
+    <div className={classes["filter-container"]} datatooltip="Filter">
       {/* <FilterIcon className={classes['filter-icon']}/> */}
       <Select
         options={options}

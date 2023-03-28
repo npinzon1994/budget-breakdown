@@ -8,7 +8,7 @@ const NewExpenseButton = (props) => {
         type={props.type}
         className={`${classes["new-expense-button"]} ${props.buttonClassName}`}
         onClick={props.onShowNew}
-        dataTooltip={props.tooltip}
+        datatooltip={props.tooltip}
       >
         {props.children}
       </button>
