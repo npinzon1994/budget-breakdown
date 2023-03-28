@@ -30,11 +30,11 @@ const ControlCenter = ({
   return (
     <div className={classes.header}>
       <div className={classes["actions-container"]}>
+        <ExpenseFilter onFilter={filterExpenses} />
         <NewExpenseButton
           onShowNew={showExpenseFormHandler}
           tooltip="Create New Expense"
         />
-        <ExpenseFilter onFilter={filterExpenses} />
       </div>
       <NumberOfExpenses
         indexOfFirstRecord={indexOfFirstRecord}

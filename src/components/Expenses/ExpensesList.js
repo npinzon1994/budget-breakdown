@@ -213,7 +213,6 @@ const ExpensesList = (props) => {
 
       {showDeleteModal && deleteModal}
       {showEditForm && editModal}
-      <Card>
         <ControlCenter
           indexOfFirstRecord={indexOfFirstRecord}
           indexOfLastRecord={indexOfLastRecord}
@@ -223,7 +222,6 @@ const ExpensesList = (props) => {
           setCurrentPage={setCurrentPage}
           currentRecords={currentRecords}
         />
-      </Card>
       <Card
         className={`${isLoading && !loadError ? classes["card-padding"] : ""}`}
       >

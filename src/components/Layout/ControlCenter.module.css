@@ -1,18 +1,21 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding-block: 0.4rem;
-    padding-inline: 0.8rem;
-    padding-left: 0.7rem;
-    align-items: center;
-  }
-  
- .actions-container {
   display: flex;
-  gap: 4px;
- }
-  
-  .expense-icon {
-    height: 1.45rem;
-    width: 1.45rem;
-  }
+  justify-content: space-between;
+  /* padding-block: 0.4rem; */
+  /* padding-inline: 0.8rem;
+    padding-left: 0.7rem; */
+  align-items: center;
+  margin: 0 auto;
+  max-width: 44rem;
+  width: 90%;
+}
+
+.actions-container {
+  display: flex;
+  gap: 8px;
+}
+
+.expense-icon {
+  height: 1.45rem;
+  width: 1.45rem;
+}

@@ -11,7 +11,10 @@ export default function useWindowHeight() {
     return () => window.removeEventListener('resizeHeight', updateSize);
   }, []);
   return size;
+  
 }
+
+
 
 export function ShowWindowDimensions(props) {
   const height = useWindowHeight();
