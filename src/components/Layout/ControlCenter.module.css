@@ -1,11 +1,9 @@
 .header {
-    border-bottom: 1px #e8e8e8 solid;
     display: flex;
     justify-content: space-between;
     padding-block: 0.4rem;
     padding-inline: 0.8rem;
     align-items: center;
-    background-color: #fff;
   }
   
  .actions-container {

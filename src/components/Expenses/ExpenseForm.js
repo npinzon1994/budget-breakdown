@@ -11,12 +11,13 @@ import { uniqueIdActions } from "../../store/redux/generate-unique-id-slice";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
+import { useId } from "react";
 
 const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
 const dateFormatter = new Intl.DateTimeFormat("en-US", { timeZone: "UTC" });
 
 const ExpenseForm = (props) => {
-  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
+  const uniqueId = useId();
 
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
@@ -85,7 +86,7 @@ const ExpenseForm = (props) => {
       dispatch(showHideActions.setShowEditForm(false));
     } else {
       newExpenseObject = {
-        id: `E${uniqueId}`,
+        id: uniqueId,
         date: new Date(currentDate),
         amount: currentAmount,
         isPaid,

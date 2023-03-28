@@ -8,7 +8,7 @@ const IconSingleValue = (props) => {
   return (
     <SingleValue {...props}>
       <FilterIcon className={classes["filter-icon"]} />
-      {props.data.label}
+      
     </SingleValue>
   );
 };
@@ -20,8 +20,8 @@ const dropdownStyles = {
     width: "100%",
     border: "none",
     outline: "none",
-    borderRadius: "20px",
-    padding: "6px",
+    borderRadius: "50%",
+    paddingBlock: "10px",
     cursor: "pointer",
     boxShadow: "none",
     transition: "200ms",
@@ -68,6 +68,7 @@ const dropdownStyles = {
     background: "#f3f3f3",
     borderRadius: "12px",
     padding: "6px 0",
+    width: "auto",
   }),
 };
 
@@ -83,11 +84,11 @@ const ExpenseFilter = (props) => {
   };
 
   return (
-    <div className={classes["filter-container"]}>
+    <div className={classes["filter-container"]} dataTooltip="Filter">
       {/* <FilterIcon className={classes['filter-icon']}/> */}
       <Select
         options={options}
-        defaultValue={{ value: "Filter", label: "Filter" }}
+        defaultValue={{ value: "Show All"}}
         onChange={filterExpensesHandler}
         isSearchable={false}
         styles={{

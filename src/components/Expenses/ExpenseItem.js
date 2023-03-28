@@ -4,11 +4,10 @@ import redX from "../../assets/unpaid-x.svg";
 import greenCheck from "../../assets/paid-checkmark.svg";
 import dateTable from "./DateTable";
 import Date from "./Date";
-import useWindowWidth from "../../hooks/use-window-width";
+// import useWindowWidth from "../../hooks/use-window-width";
 
 const ExpenseItem = (props) => {
-  const screenWidth = useWindowWidth();
-  const isPhabletSized = screenWidth < 500;
+  // const screenWidth = useWindowWidth();
 
   const day = props.date.getDate();
   const month = props.date.getMonth();
@@ -21,14 +20,13 @@ const ExpenseItem = (props) => {
     currency: "USD",
   });
 
-  // const formattedTotal = `$${(+props.amount).toFixed(2)}`;
   const formattedTotal = currencyFormatter.format(props.amount);
 
-  let isPaidLabel = "Not paid off";
+  let isPaidLabel = "Unpaid";
   let isPaidImage = redX;
   let isPaidImageAltText = "Red checkmark";
   if (props.isPaid === true) {
-    isPaidLabel = "Paid off";
+    isPaidLabel = "Paid";
     isPaidImage = greenCheck;
     isPaidImageAltText = "Green checkmark";
   }
@@ -38,13 +36,13 @@ const ExpenseItem = (props) => {
       <li className={classes["daily-expense"]} onClick={props.onShowEdit}>
         <div className={classes["list-item-content"]}>
           <Date month={formattedMonth} day={day} year={year} />
-            <span className={classes.merchant}>{props.merchant}</span>
-            <div className={classes["money-container"]}>
-              <span className={classes.price}>{formattedTotal}</span>
-              <span className={classes["paid-off"]}>
-                <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
-              </span>
-            </div>
+          <span className={classes.merchant}>{props.merchant}</span>
+          <div className={classes["money-container"]}>
+            <span className={classes.price}>{formattedTotal}</span>
+            <span className={classes["paid-off"]}>
+              <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
+            </span>
+          </div>
         </div>
       </li>
     </Fragment>

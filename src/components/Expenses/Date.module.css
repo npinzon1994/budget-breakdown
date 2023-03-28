@@ -1,5 +1,5 @@
 .container {
-    flex: 0.3 0.3 0;
+    flex-basis: 20%;
 }
 
 .date {
@@ -16,6 +16,7 @@
     display: block;
     font-family: 'Golos Text', sans-serif;
     font-size: clamp(0.6rem, 2vw, 0.8rem);
+    user-select: none;
 }
 
 .container .day-text {

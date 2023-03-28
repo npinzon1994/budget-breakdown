@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Roboto-thin';
+  src: url('C:\workspace\react_practice\react\budget-breakdown\src\fonts\roboto.thin.ttf');
+}
+
 .new-expense-button {
   outline-color: transparent;
   background-color: rgb(255, 136, 0);
@@ -8,18 +13,60 @@
   font-size: 1rem;
   box-sizing: content-box;
   transition: 0.4s;
-  padding-inline: 2rem;
+  padding-inline: 2em;
   padding-block: 4px;
   border-radius: 24px;
-  line-height: 1.8rem;
+  position: relative;
+  /* line-height: 1.8rem; */
+}
+
+/*Tooltip*/
+.new-expense-button::before {
+  content: attr(dataTooltip);
+  position: absolute;
+  padding: 4px;
+  padding-bottom: 6px;
+  background: rgb(34, 34, 34);
+  top: -0.25rem;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: max-content;
+  max-width: 100%;
+  cursor: default;
+  pointer-events: none;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  opacity: 0;
+  transition: 0.2s 0.2s;
+}
+
+.new-expense-button:hover::before {
+  opacity: 1;
+}
+
+/*Button Text*/
+.new-expense-button::after {
+  content: 'Add';
 }
 
 .new-expense-button:hover {
   background-color: rgb(241, 130, 2);
-  /* border-radius: 8px; */
 }
 
 .new-expense-button:active {
   background-color: rgb(255, 174, 81);
   transition: none;
+}
+
+@media(max-width: 500px) {
+  .new-expense-button {
+    padding-inline: 0.9em;
+    padding-block: 0;
+  }
+  
+  .new-expense-button::after {
+    content: '+';
+    font-size: 2rem;
+    font-family: 'Roboto-thin', sans-serif;
+  }
 }

@@ -17,7 +17,8 @@
 
 .numbers {
   color: #a5a5a5;
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 2vw, 0.85rem);
+  user-select: none;
 }
 
 .button-container {
@@ -39,10 +40,36 @@
   align-items: center;
   justify-content: center;
   transition: 300ms;
+  position: relative;
 }
 
 .button:hover:enabled {
   background-color: #ebebeb;
+}
+
+/*Tooltip*/
+.button::before {
+  content: attr(dataTooltip);
+  position: absolute;
+  padding: 4px;
+  padding-bottom: 6px;
+  background: rgb(34, 34, 34);
+  top: -0.1rem;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: max-content;
+  max-width: 100%;
+  cursor: default;
+  pointer-events: none;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  opacity: 0;
+  transition: 0.2s 0.2s;
+  color: white;
+}
+
+.button:hover::before {
+  opacity: 1;
 }
 
 .image {
@@ -59,12 +86,14 @@
 }
 
 .disabled-button {
-  /* background: rgb(226, 226, 226); */
-  opacity: 0.4;
   cursor: default;
 }
 
+.disabled-button:hover::before {
+  opacity: 1;
+}
+
 .disabled-image {
-  opacity: 0.7;
+  opacity: 0.3;
   cursor: default;
 }

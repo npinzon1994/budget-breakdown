@@ -1,5 +1,5 @@
 import React from "react";
-import Expenses from "./components/Expenses/Expenses";
+import ExpensesList from "./components/Expenses/ExpensesList";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
 import ExpensesProvider from "./store/ExpensesProvider";
 import MainHeader from "./components/Layout/MainHeader";
@@ -24,7 +24,7 @@ const App = () => {
         />
       )}
       <MainHeader />
-      <Expenses />
+      <ExpensesList />
     </ExpensesProvider>
   );
 };

@@ -9,6 +9,7 @@ const CloseButtonX = (props) => {
       alt="close button"
       onClick={props.onClose}
       className={classes["close-button"]}
+      dataTooltip="Close"
     />
   );
 };

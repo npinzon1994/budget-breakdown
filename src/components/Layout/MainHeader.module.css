@@ -17,6 +17,8 @@
   justify-content: center;
   background: #1167b1;
   width: 90%;
+  user-select: none;
+  position: relative;
 }
 
 .remaining-balance {

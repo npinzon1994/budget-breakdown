@@ -1,27 +1,26 @@
-import React, { useContext } from "react";
-import classes from "./ExpensesHeader.module.css";
+import React from "react";
+import classes from "./ControlCenter.module.css";
 import NewExpenseButton from "../UI/NewExpenseButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import { filterActions } from "../../store/redux/filter-slice";
-import ExpensesContext from "../../store/expenses-context";
 import ExpenseFilter from "../Expenses/ExpenseFilter";
 import NumberOfExpenses from "../Expenses/NumberOfExpenses";
 
-const ExpensesHeader = ({
+const ControlCenter = ({
   indexOfFirstRecord,
   indexOfLastRecord,
   numItems,
   numPages,
   currentPage,
   setCurrentPage,
-  currentRecords
+  currentRecords,
 }) => {
   const dispatch = useDispatch();
 
   const filterExpenses = (state) => {
     dispatch(filterActions.setFilterState(state));
-    if(currentPage !== 1) setCurrentPage(1);
+    if (currentPage !== 1) setCurrentPage(1);
   };
 
   const showExpenseFormHandler = () => {
@@ -31,9 +30,10 @@ const ExpensesHeader = ({
   return (
     <div className={classes.header}>
       <div className={classes["actions-container"]}>
-        <NewExpenseButton onShowNew={showExpenseFormHandler}>
-          Add
-        </NewExpenseButton>
+        <NewExpenseButton
+          onShowNew={showExpenseFormHandler}
+          tooltip="Create New Expense"
+        />
         <ExpenseFilter onFilter={filterExpenses} />
       </div>
       <NumberOfExpenses
@@ -49,4 +49,4 @@ const ExpensesHeader = ({
   );
 };
 
-export default ExpensesHeader;
+export default ControlCenter;

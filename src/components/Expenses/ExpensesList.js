@@ -4,27 +4,25 @@ import ExpenseItem from "./ExpenseItem";
 import classes from "./ExpensesList.module.css";
 import ExpensesContext from "../../store/expenses-context";
 import DeleteModal from "../UI/DeleteModal";
-import useWindowHeight from "../../hooks/use-window-height";
+// import useWindowHeight from "../../hooks/use-window-height";
 import ExpenseForm from "./ExpenseForm";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
-import { pagesActions } from "../../store/redux/pages-slice";
-import NewExpenseButton from "../UI/NewExpenseButton";
-import expenseIcon from "../../assets/expense-icon.svg";
-import ExpensesHeader from "../Layout/ExpensesHeader";
+import ControlCenter from "../Layout/ControlCenter";
 import { filterItems } from "./util/filter";
 import { filterActions } from "../../store/redux/filter-slice";
+import FilterHeader from "../Layout/FilterHeader";
 
 let isInitial = true;
 let deleteModal;
 let editModal;
 
 const ExpensesList = (props) => {
-  const screenHeight = useWindowHeight();
-  const vh = screenHeight * 0.71;
+  // const screenHeight = useWindowHeight();
+  // const vh = screenHeight * 0.71;
 
   const expensesContext = useContext(ExpensesContext);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,11 +50,6 @@ const ExpensesList = (props) => {
     indexOfFirstRecord,
     indexOfLastRecord
   );
-
-  // useEffect(() => {
-  //   console.log("index of FIRST record:", indexOfFirstRecord);
-  //   console.log("index of LAST record:", indexOfLastRecord);
-  // }, [indexOfFirstRecord, indexOfLastRecord]);
 
   const showEditForm = useSelector((state) => state.showHide.showEditForm);
 
@@ -103,7 +96,6 @@ const ExpensesList = (props) => {
   };
 
   const showEditModalHandler = (id) => {
-    // console.log("ID", id);
     dispatch(showHideActions.setShowEditForm(true));
 
     editModal = (
@@ -198,7 +190,6 @@ const ExpensesList = (props) => {
   }, [expensesContext, dispatch]);
 
   //creates a new array of DailyExpenseItem(s)
-
   const expenses = currentRecords.map((expense) => (
     <ExpenseItem
       key={expense.id}
@@ -215,42 +206,43 @@ const ExpensesList = (props) => {
   const expenseListIsEmpty = expensesContext.items.length === 0;
   const filteredListIsEmpty = expenses.length === 0;
 
-  const showExpenseFormHandler = () => {
-    dispatch(showHideActions.setShowNewForm(true));
-  };
-
   return (
     <Fragment>
       {/* {console.log(screenHeight)} */}
 
       {showDeleteModal && deleteModal}
       {showEditForm && editModal}
-      <ExpensesHeader
-        indexOfFirstRecord={indexOfFirstRecord}
-        indexOfLastRecord={indexOfLastRecord}
-        numItems={numItems}
-        numPages={numPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        currentRecords={currentRecords}
-      />
-      {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
-        <p className={transitionText}>No expenses found.</p>
-      )}
-      {loadError && <p className={transitionText}>{loadError}</p>}
-      {sendError && <p className={transitionText}>{sendError}</p>}
-      {isLoading && !loadError && (
-        <p className={transitionText}>Loading expenses...</p>
-      )}
-      {!isLoading && (
-        <ul
-          id="expense-list"
-          className={classes["daily-expenses"]}
-          // style={{ height: `${vh}px` }}
-        >
-          {expenses}
-        </ul>
-      )}
+      <Card>
+        <ControlCenter
+          indexOfFirstRecord={indexOfFirstRecord}
+          indexOfLastRecord={indexOfLastRecord}
+          numItems={numItems}
+          numPages={numPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          currentRecords={currentRecords}
+        />
+      </Card>
+      <Card>
+        <FilterHeader title={filterState} />
+        {(expenseListIsEmpty || filteredListIsEmpty) && !isLoading && (
+          <p className={transitionText}>No expenses found.</p>
+        )}
+        {loadError && <p className={transitionText}>{loadError}</p>}
+        {sendError && <p className={transitionText}>{sendError}</p>}
+        {isLoading && !loadError && (
+          <p className={transitionText}>Loading expenses...</p>
+        )}
+        {!isLoading && (
+          <ul
+            id="expense-list"
+            className={classes["daily-expenses"]}
+            // style={{ height: `${vh}px` }}
+          >
+            {expenses}
+          </ul>
+        )}
+      </Card>
     </Fragment>
   );
 };

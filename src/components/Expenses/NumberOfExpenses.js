@@ -65,6 +65,7 @@ const NumberOfExpenses = ({
           onClick={goBackOnePage}
           disabled={onFirstPage || noExpenses}
           style={{paddingRight: "7px"}}
+          dataTooltip="Older"
         >
           <ArrowIcon
             className={`${classes.image} ${classes.left} ${
@@ -79,6 +80,7 @@ const NumberOfExpenses = ({
           onClick={goUpOnePage}
           disabled={onLastPage || noExpenses}
           style={{paddingLeft: "7px"}}
+          dataTooltip="Newer"
         >
           <ArrowIcon
             className={`${classes.image} ${classes.right} ${

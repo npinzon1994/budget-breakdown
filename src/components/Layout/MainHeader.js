@@ -22,7 +22,7 @@ const MainHeader = (props) => {
       className={classes.container}
       style={{ minHeight: `${bannerHeight}px` }}
     >
-      <div className={classes["remaining-balance"]}>
+      <div className={classes["remaining-balance"]} dataTooltip="Total Balance">
         <span className={classes["total-label"]}>Total</span>
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>

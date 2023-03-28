@@ -17,6 +17,7 @@
   font-family: "Golos Text", sans-serif;
   color: white;
   padding: 0.75rem 0.55rem;
+  user-select: none;
 }
 
 @keyframes show {

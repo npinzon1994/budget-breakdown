@@ -1,0 +1,12 @@
+.header {
+    padding-inline: 1.2rem;
+    padding-block: 0.3rem;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 1px #e8e8e8 solid;
+}
+
+.header span {
+    user-select: none;
+}
