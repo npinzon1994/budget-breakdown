@@ -17,7 +17,7 @@ const dropdownStyles = {
     ...defaultStyles,
     background: "transparent",
     width: "100%",
-    border: "1px #d3d3d3 solid",
+    border: "1px #636363 solid",
     outline: "none",
     borderRadius: "50%",
     paddingBlock: "10px",

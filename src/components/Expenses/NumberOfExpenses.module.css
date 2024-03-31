@@ -8,12 +8,12 @@
   gap: 1rem;
   font-family: "Golos Text", sans-serif;
   align-items: center;
-  background-color: #fff;
+  /* background-color: #fff; */
   /* border-top: 1px #e8e8e8 solid; */
 }
 
 .numbers {
-  color: #a5a5a5;
+  color: #636363;
   font-size: clamp(0.65rem, 2vw, 0.85rem);
   user-select: none;
 }

@@ -19,7 +19,6 @@ const App = () => {
       {newFormIsVisible && (
         <ExpenseForm
           onClose={hideExpenseFormHandler}
-          buttonText="Create Expense"
           title="New Expense"
         />
       )}

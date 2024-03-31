@@ -1,9 +1,11 @@
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("C:\workspace\react_practice\react\budget-breakdown\src\fonts\roboto.thin.ttf");
+}
+
 .header {
   display: flex;
   justify-content: space-between;
-  /* padding-block: 0.4rem; */
-  /* padding-inline: 0.8rem;
-    padding-left: 0.7rem; */
   align-items: center;
   margin: 0 auto;
   max-width: 44rem;
@@ -18,4 +20,70 @@
 .expense-icon {
   height: 1.45rem;
   width: 1.45rem;
+}
+
+.add-expense {
+  background-color: rgb(255, 136, 0);
+  color: white;
+  border: none;
+  transition: 0.4s;
+  padding: 0 3em;
+  border-radius: 38px;
+  position: relative;
+}
+
+/*Button Text -- needed because this pseudo
+element will change to a "+" on phone screens*/
+.add-expense::after {
+  content: "Add";
+}
+
+/*All hover*/
+@media (hover: hover) {
+  /*Tooltip*/
+  .add-expense::before {
+    content: attr(datatooltip);
+    position: absolute;
+    padding: 4px;
+    padding-bottom: 6px;
+    background: rgb(34, 34, 34);
+    top: -0.25rem;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: max-content;
+    max-width: 100%;
+    cursor: default;
+    pointer-events: none;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: 0.2s 0.2s;
+  }
+
+  .add-expense:hover::before {
+    opacity: 1;
+  }
+
+  .add-expense:hover {
+    background-color: rgb(241, 130, 2);
+  }
+
+  /*Resizing button on mobile screens*/
+  @media (max-width: 500px) {
+    .add-expense {
+      padding-inline: 0.85em;
+      padding-block: 0;
+    }
+
+    .add-expense::after {
+      content: "+";
+      font-size: 2rem;
+      font-family: "Roboto-thin", sans-serif;
+    }
+  }
+
+  .add-expense:active {
+    background-color: rgb(255, 174, 81);
+    transition: none;
+  }
 }

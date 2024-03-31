@@ -11,12 +11,13 @@ import { uniqueIdActions } from "../../store/redux/generate-unique-id-slice";
 import { sendingActions } from "../../store/redux/sending-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
+import Button from "../UI/Button";
 
 const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
 const dateFormatter = new Intl.DateTimeFormat("en-US", { timeZone: "UTC" });
 
 const ExpenseForm = (props) => {
-  const uniqueId = useSelector(state => state.uniqueId.uniqueId);
+  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
 
   const expensesContext = useContext(ExpensesContext);
   const currentExpenseItem = expensesContext.items.find(
@@ -102,6 +103,7 @@ const ExpenseForm = (props) => {
   const dateInputFocusHandler = () => setIsDateFocused(true);
   const dateInputBlurHandler = () => setIsDateFocused(false);
 
+  const isEditing = props.mode === "edit";
 
   return (
     <Modal
@@ -164,7 +166,9 @@ const ExpenseForm = (props) => {
                 />
                 <label
                   htmlFor="datePicker"
-                  className={`${classes["datepicker-placeholder"]} ${isDateFocused ? classes.focused : ""}`}
+                  className={`${classes["datepicker-placeholder"]} ${
+                    isDateFocused ? classes.focused : ""
+                  }`}
                 >
                   Date
                 </label>
@@ -206,22 +210,22 @@ const ExpenseForm = (props) => {
         </div>
 
         <div className={classes["button-div"]}>
-          <button
+          <Button
             type="submit"
             className={classes["add-expense-button"]}
             data-testid="submit-button"
           >
-            {props.buttonText}
-          </button>
+            {isEditing ? "Save" : "Create Expense"}
+          </Button>
 
-          {props.mode === "edit" && (
-            <button
+          {isEditing && (
+            <Button
               className={classes["remove-button"]}
               type="button"
               onClick={props.onDelete}
             >
               Delete
-            </button>
+            </Button>
           )}
         </div>
       </form>

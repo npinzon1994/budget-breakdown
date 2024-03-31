@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./ControlCenter.module.css";
-import NewExpenseButton from "../UI/NewExpenseButton";
+import Button from "../UI/Button";
 import { useDispatch } from "react-redux";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import { filterActions } from "../../store/redux/filter-slice";
@@ -31,8 +31,9 @@ const ControlCenter = ({
     <div className={classes.header}>
       <div className={classes["actions-container"]}>
         <ExpenseFilter onFilter={filterExpenses} />
-        <NewExpenseButton
-          onShowNew={showExpenseFormHandler}
+        <Button
+          className={classes["add-expense"]}
+          onClick={showExpenseFormHandler}
           tooltip="Create New Expense"
         />
       </div>

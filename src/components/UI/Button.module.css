@@ -1,0 +1,8 @@
+.button {
+    box-sizing: content-box;
+    outline-color: transparent;
+    cursor: pointer;
+    font-family: "Golos Text", sans-serif;
+    font-size: 1rem;
+    border-radius: 38px;
+}
