@@ -6,26 +6,26 @@ import dateTable from "./DateTable";
 import Date from "./Date";
 // import useWindowWidth from "../../hooks/use-window-width";
 
-const ExpenseItem = (props) => {
+const ExpenseItem = ({date, amount, isPaid, merchant, onShowEdit}) => {
   // const screenWidth = useWindowWidth();
 
-  const day = props.date.getDate();
-  const month = props.date.getMonth();
+  const day = date.getDate();
+  const month = date.getMonth();
   const formattedMonth = dateTable(month);
 
-  const year = props.date.getFullYear();
+  const year = date.getFullYear();
 
   const currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
 
-  const formattedTotal = currencyFormatter.format(props.amount);
+  const formattedTotal = currencyFormatter.format(amount);
 
   let isPaidLabel = "Unpaid";
   let isPaidImage = redX;
   let isPaidImageAltText = "Red checkmark";
-  if (props.isPaid === true) {
+  if (isPaid === true) {
     isPaidLabel = "Paid";
     isPaidImage = greenCheck;
     isPaidImageAltText = "Green checkmark";
@@ -33,10 +33,10 @@ const ExpenseItem = (props) => {
 
   return (
     <Fragment>
-      <li className={classes["daily-expense"]} onClick={props.onShowEdit}>
+      <li className={classes["daily-expense"]} onClick={onShowEdit}>
         <div className={classes["list-item-content"]}>
           <Date month={formattedMonth} day={day} year={year} />
-          <span className={classes.merchant}>{props.merchant}</span>
+          <span className={classes.merchant}>{merchant}</span>
           <div className={classes["money-container"]}>
             <span className={classes.price}>{formattedTotal}</span>
             <span className={classes["paid-off"]}>

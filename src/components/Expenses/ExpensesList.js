@@ -12,7 +12,7 @@ import { sendingActions } from "../../store/redux/sending-slice";
 import { loadingActions } from "../../store/redux/loading-slice";
 import { showHideActions } from "../../store/redux/show-hide-slice";
 import ControlCenter from "../Layout/ControlCenter";
-import { filterItems } from "./util/filter";
+import { filterItems } from "../../util/filter";
 import { filterActions } from "../../store/redux/filter-slice";
 import FilterHeader from "../Layout/FilterHeader";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -37,6 +37,10 @@ const ExpensesList = (props) => {
   const showDeleteModal = useSelector(
     (state) => state.showHide.showDeleteModal
   );
+
+  function setCurrentPageHandler(page) {
+    setCurrentPage(page);
+  }
 
   const filteredItems = filterItems(expensesContext.items, filterState);
 
@@ -219,7 +223,7 @@ const ExpensesList = (props) => {
           numItems={numItems}
           numPages={numPages}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={setCurrentPageHandler}
           currentRecords={currentRecords}
         />
       <Card

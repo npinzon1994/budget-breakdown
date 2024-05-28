@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./MainHeader.module.css";
 import { useContext } from "react";
 import ExpensesContext from "../../store/expenses-context";
-import Card from "../UI/Card";
 import useWindowHeight from "../../hooks/use-window-height";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -18,7 +17,7 @@ const MainHeader = (props) => {
   const totalBalance = currencyFormatter.format(expensesContext.totalBalance);
 
   return (
-    <Card
+    <div
       className={classes.container}
       style={{ minHeight: `${bannerHeight}px` }}
     >
@@ -26,7 +25,7 @@ const MainHeader = (props) => {
         <span className={classes["total-label"]}>Total</span>
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>
-    </Card>
+    </div>
   );
 };
 

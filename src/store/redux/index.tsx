@@ -7,7 +7,7 @@ import uniqueIdReducer from "./generate-unique-id-slice";
 import pageReducer from "./pages-slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
-import thunk from "redux-thunk";
+import { thunk } from "redux-thunk";
 
 const persistConfig = {
   key: "bbRoot",
@@ -25,7 +25,13 @@ export const store = configureStore({
     uniqueId: persistedReducer,
     pages: pageReducer,
   },
-  middleware: [thunk],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+
+// Inferred type: {loading: loadingReducer, sending: sendingReducer,showHide: showHideReducer, filter: filterReducer, uniqueId: persistedReducer, pages: pageReducer}
+export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

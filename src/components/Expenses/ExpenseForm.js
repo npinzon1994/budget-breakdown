@@ -14,7 +14,6 @@ import RadioButton from "../UI/RadioButton";
 import Button from "../UI/Button";
 
 const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
-const dateFormatter = new Intl.DateTimeFormat("en-US", { timeZone: "UTC" });
 
 const ExpenseForm = (props) => {
   const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
@@ -38,7 +37,6 @@ const ExpenseForm = (props) => {
     watch,
     getValues,
     setFocus,
-    formState: { errors },
   } = useForm({
     defaultValues: {
       amount: currentExpenseItem ? currentExpenseItem.amount : "",
@@ -57,7 +55,7 @@ const ExpenseForm = (props) => {
     watchMerchant: watch("merchant"),
   };
 
-  const { watchAmount, watchDate, watchMerchant } = inputChangeMonitors;
+  const { watchAmount } = inputChangeMonitors;
 
   const currentValues = {
     currentAmount: getValues("amount"),

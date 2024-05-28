@@ -1,10 +1,27 @@
-import React from "react";
+import { FC } from "react";
 import classes from "./ExpenseFilter.module.css";
-import Select, { components } from "react-select";
+import Select, {
+  components,
+  StylesConfig,
+  GroupBase,
+  ActionMeta,
+  SingleValueProps,
+} from "react-select";
 import { ReactComponent as FilterIcon } from "../../assets/filter-icon.svg";
+import Option from "../../models/option";
+
+//grabbing the type from SingleValue so its prop types are included
+type IconSingleValueProps = SingleValueProps<Option, false>;
+
+//type of the "style" prop in the <Select />
+type SelectStyleProps = StylesConfig<Option, false, GroupBase<Option>>;
+type ExpenseFilterProps = {
+  onFilter: (selectedOptionValue: string) => void;
+};
 
 const { SingleValue } = components;
-const IconSingleValue = (props) => {
+
+const IconSingleValue: FC<IconSingleValueProps> = (props) => {
   return (
     <SingleValue {...props}>
       <FilterIcon className={classes["filter-icon"]} />
@@ -12,7 +29,7 @@ const IconSingleValue = (props) => {
   );
 };
 
-const dropdownStyles = {
+const dropdownStyles: SelectStyleProps = {
   control: (defaultStyles) => ({
     ...defaultStyles,
     background: "transparent",
@@ -60,14 +77,16 @@ const dropdownStyles = {
       color: "#fff",
     },
   }),
+
   option: (defaultStyles, state) => ({
     ...defaultStyles,
     transition: "280ms",
     cursor: "pointer",
     fontWeight: "500",
-    background: state.isSelected && "#1167b1",
+    background: state.isSelected ? "#1167b1" : undefined,
     fontFamily: '"Golos Text", sans-serif',
   }),
+
   menu: (defaultStyles) => ({
     ...defaultStyles,
     background: "#f3f3f3",
@@ -77,23 +96,27 @@ const dropdownStyles = {
   }),
 };
 
-const options = [
-  { value: "Show All", label: "Show All" },
-  { value: "Paid Expenses", label: "Paid" },
-  { value: "Unpaid Expenses", label: "Unpaid" },
+const options: Option[] = [
+  new Option("Show All", "Show All"),
+  new Option("Paid Expenses", "Paid"),
+  new Option("Unpaid Expenses", "Unpaid"),
 ];
 
-const ExpenseFilter = (props) => {
-  const filterExpensesHandler = (selectedOption) => {
-    props.onFilter(selectedOption.value);
+const ExpenseFilter: FC<ExpenseFilterProps> = ({ onFilter }) => {
+  const filterExpensesHandler = (
+    newValue: Option | null,
+    actionMeta: ActionMeta<Option>
+  ) => {
+    if (newValue) {
+      onFilter(newValue.value);
+    }
   };
 
   return (
-    <div className={classes["filter-container"]} datatooltip="Filter">
-      {/* <FilterIcon className={classes['filter-icon']}/> */}
-      <Select
+    <div className={classes["filter-container"]} data-tooltip="Filter">
+      <Select<Option>
         options={options}
-        defaultValue={{ value: "Show All" }}
+        defaultValue={options[0]}
         onChange={filterExpensesHandler}
         isSearchable={false}
         styles={{

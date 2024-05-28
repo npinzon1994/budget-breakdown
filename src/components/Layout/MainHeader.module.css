@@ -1,11 +1,15 @@
+
+
 .container {
+  border-radius: 1rem;
+  margin: 0.8rem auto;
+  max-width: 44rem;
+  width: 90%;
   display: flex;
-  margin: 0, auto;
   align-items: center;
   justify-content: center;
-  background: #1167b1;
+  background: hsl(0, 0%, 78%);
   width: 90%;
-  user-select: none;
   position: relative;
 }
 
@@ -18,15 +22,15 @@
 }
 
 .total-label {
+  color: hsl(208, 82%, 8%);
   font-size: clamp(0.6rem, 2vw, 0.9rem);
-  color: #fff;
   font-family: "Golos Text", sans-serif;
   display: flex;
   justify-content: center;
 }
 
 .total-balance {
-  color: #fff;
+  color: hsl(208, 82%, 8%);
   font-size: clamp(1.6rem, 4vw, 2rem);
   padding-top: 3px;
   font-weight: 400;

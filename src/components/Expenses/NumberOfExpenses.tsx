@@ -1,11 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, FC } from "react";
 import classes from "./NumberOfExpenses.module.css";
 import ExpensesContext from "../../store/expenses-context";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store/redux/hooks";
 import { ReactComponent as ArrowIcon } from "../../assets/arrow-rounded-corners.svg";
-import { filterItems } from "./util/filter";
+import { filterItems } from "../../util/filter";
+import { Expense } from "../../models/expense";
 
-const NumberOfExpenses = ({
+type NumberOfExpensesProps = {
+  indexOfFirstRecord: number;
+  indexOfLastRecord: number;
+  numItems: number;
+  numPages: number;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  currentRecords: Expense[];
+}
+
+const NumberOfExpenses: FC<NumberOfExpensesProps> = ({
   indexOfFirstRecord,
   indexOfLastRecord,
   numItems,
@@ -14,7 +25,7 @@ const NumberOfExpenses = ({
   setCurrentPage,
   currentRecords,
 }) => {
-  const filterState = useSelector((state) => state.filter.filterState);
+  const filterState = useAppSelector((state) => state.filter.filterState);
   const expensesContext = useContext(ExpensesContext);
   const filteredItems = filterItems(expensesContext.items, filterState);
 
@@ -44,14 +55,6 @@ const NumberOfExpenses = ({
     console.log("GOING DOWN!!");
   };
 
-  useEffect(() => {
-    console.log("-------------------------------------------------------");
-    console.log("current page:", currentPage);
-    console.log("number of pages:", numPages);
-    console.log("# of current records", currentRecords.length);
-    console.log("Filter State:", filterState);
-  }, [currentPage, numPages, currentRecords.length, filterState]);
-
   return (
     <div className={classes.container}>
       <span className={classes.numbers}>
@@ -65,7 +68,7 @@ const NumberOfExpenses = ({
           onClick={goBackOnePage}
           disabled={onFirstPage || noExpenses}
           style={{paddingRight: "7px"}}
-          datatooltip="Older"
+          data-tooltip="Older"
         >
           <ArrowIcon
             className={`${classes.image} ${classes.left} ${
@@ -80,7 +83,7 @@ const NumberOfExpenses = ({
           onClick={goUpOnePage}
           disabled={onLastPage || noExpenses}
           style={{paddingLeft: "7px"}}
-          datatooltip="Newer"
+          data-tooltip="Newer"
         >
           <ArrowIcon
             className={`${classes.image} ${classes.right} ${
@@ -89,7 +92,6 @@ const NumberOfExpenses = ({
           />
         </button>
       </div>
-      {/* <div>{`Page ${currentPage} of ${numPages}`}</div> */}
     </div>
   );
 };

@@ -42,7 +42,7 @@ element will change to a "+" on phone screens*/
 @media (hover: hover) {
   /*Tooltip*/
   .add-expense::before {
-    content: attr(datatooltip);
+    content: attr(data-tooltip);
     position: absolute;
     padding: 4px;
     padding-bottom: 6px;

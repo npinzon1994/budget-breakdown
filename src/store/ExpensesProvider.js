@@ -8,10 +8,6 @@ const defaultExpensesState = {
   changed: false,
 };
 
-const add = (total, num) => {
-  return total + num;
-};
-
 const expensesReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalBalance = +state.totalBalance + +action.item.amount;
