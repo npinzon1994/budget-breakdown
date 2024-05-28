@@ -1,33 +1,29 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import Card from "../UI/Card";
 import ExpenseItem from "./ExpenseItem";
 import classes from "./ExpensesList.module.css";
-import ExpensesContext from "../../store/expenses-context";
+import ExpenseContext from "../../context/expense-context";
 import DeleteModal from "../UI/DeleteModal";
-// import useWindowHeight from "../../hooks/use-window-height";
 import ExpenseForm from "./ExpenseForm";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { sendingActions } from "../../store/redux/sending-slice";
-import { loadingActions } from "../../store/redux/loading-slice";
-import { showHideActions } from "../../store/redux/show-hide-slice";
-import ControlCenter from "../Layout/ControlCenter";
-import { filterItems } from "../../util/filter";
-import { filterActions } from "../../store/redux/filter-slice";
+import { sendingActions } from "../../redux-store/sending-slice";
+import { loadingActions } from "../../redux-store/loading-slice";
+import { showHideActions } from "../../redux-store/show-hide-slice";
+import { filterActions } from "../../redux-store/filter-slice";
 import FilterHeader from "../Layout/FilterHeader";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { ExpensePaginationContext } from "../../context/expense-pagination-context";
 
 let isInitial = true;
 let deleteModal;
 let editModal;
 
-const ExpensesList = (props) => {
-  // const screenHeight = useWindowHeight();
-  // const vh = screenHeight * 0.71;
-
-  const expensesContext = useContext(ExpensesContext);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(10);
+const ExpensesList = () => {
+  const expenseContext = useContext(ExpenseContext);
+  const { numPages, currentPage, setCurrentPage, currentRecords } = useContext(
+    ExpensePaginationContext
+  );
 
   const dispatch = useDispatch();
   const filterState = useSelector((state) => state.filter.filterState);
@@ -38,28 +34,10 @@ const ExpensesList = (props) => {
     (state) => state.showHide.showDeleteModal
   );
 
-  function setCurrentPageHandler(page) {
-    setCurrentPage(page);
-  }
-
-  const filteredItems = filterItems(expensesContext.items, filterState);
-
-  const numItems = filteredItems.length;
-  const numPages = Math.ceil(numItems / recordsPerPage);
-
-  //set upper bound to total unless it's not the last page
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
-  const currentRecords = filteredItems.slice(
-    indexOfFirstRecord,
-    indexOfLastRecord
-  );
-
   const showEditForm = useSelector((state) => state.showHide.showEditForm);
 
-  const removeItemHandler = (id) => {
-    expensesContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
+  const removeItemHandler = (id: string) => {
+    expenseContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
     if (
       currentPage === numPages &&
       currentPage !== 1 &&
@@ -85,7 +63,7 @@ const ExpensesList = (props) => {
     dispatch(showHideActions.setShowDeleteModal(false));
   };
 
-  const showDeleteModalHandler = (id) => {
+  const showDeleteModalHandler = (id: string) => {
     dispatch(showHideActions.setShowDeleteModal(true));
 
     deleteModal = (
@@ -100,7 +78,7 @@ const ExpensesList = (props) => {
     dispatch(showHideActions.setShowEditForm(false));
   };
 
-  const showEditModalHandler = (id) => {
+  const showEditModalHandler = (id: string) => {
     dispatch(showHideActions.setShowEditForm(true));
 
     editModal = (
@@ -146,7 +124,7 @@ const ExpensesList = (props) => {
         }
       }
 
-      expensesContext.setExpenses(loadedExpenses);
+      expenseContext.setExpenses(loadedExpenses);
 
       dispatch(loadingActions.setIsLoading(false));
     };
@@ -172,8 +150,8 @@ const ExpensesList = (props) => {
         {
           method: "PUT",
           body: JSON.stringify({
-            items: expensesContext.items,
-            totalBalance: expensesContext.totalBalance,
+            items: expenseContext.items,
+            totalBalance: expenseContext.totalBalance,
           }),
           headers: { "Content-Type": "application/json" },
         }
@@ -185,14 +163,14 @@ const ExpensesList = (props) => {
 
       dispatch(sendingActions.setIsSending(false));
     };
-    if (expensesContext.changed) {
+    if (expenseContext.changed) {
       sendExpenseData().catch((error) => {
         dispatch(sendingActions.setIsSending(false));
 
         dispatch(sendingActions.setSendError(error.message));
       });
     }
-  }, [expensesContext, dispatch]);
+  }, [expenseContext, dispatch]);
 
   //creates a new array of DailyExpenseItem(s)
   const expenses = currentRecords.map((expense) => (
@@ -208,24 +186,13 @@ const ExpensesList = (props) => {
   ));
 
   const transitionText = classes["transition-text"];
-  const expenseListIsEmpty = expensesContext.items.length === 0;
+  const expenseListIsEmpty = expenseContext.items.length === 0;
   const filteredListIsEmpty = expenses.length === 0;
 
   return (
     <Fragment>
-      {/* {console.log(screenHeight)} */}
-
-      {showDeleteModal && deleteModal}
-      {showEditForm && editModal}
-        <ControlCenter
-          indexOfFirstRecord={indexOfFirstRecord}
-          indexOfLastRecord={indexOfLastRecord}
-          numItems={numItems}
-          numPages={numPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPageHandler}
-          currentRecords={currentRecords}
-        />
+      {showDeleteModal ? deleteModal: undefined}
+      {showEditForm ? editModal : undefined}
       <Card
         className={`${isLoading && !loadError ? classes["card-padding"] : ""}`}
       >
@@ -239,11 +206,7 @@ const ExpensesList = (props) => {
         {sendError && <p className={transitionText}>{sendError}</p>}
         {isLoading && !loadError && <LoadingSpinner />}
         {!isLoading && (
-          <ul
-            id="expense-list"
-            className={classes["daily-expenses"]}
-            // style={{ height: `${vh}px` }}
-          >
+          <ul id="expense-list" className={classes["daily-expenses"]}>
             {expenses}
           </ul>
         )}

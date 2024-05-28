@@ -1,41 +1,33 @@
 import { useContext, FC } from "react";
-import classes from "./NumberOfExpenses.module.css";
-import ExpensesContext from "../../store/expenses-context";
-import { useAppSelector } from "../../store/redux/hooks";
+import classes from "./ExpensePagination.module.css";
+import ExpenseContext from "../../context/expense-context";
+import { useAppSelector } from "../../redux-store/hooks";
 import { ReactComponent as ArrowIcon } from "../../assets/arrow-rounded-corners.svg";
 import { filterItems } from "../../util/filter";
-import { Expense } from "../../models/expense";
+import { ExpensePaginationContext } from "../../context/expense-pagination-context";
 
-type NumberOfExpensesProps = {
-  indexOfFirstRecord: number;
-  indexOfLastRecord: number;
-  numItems: number;
-  numPages: number;
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
-  currentRecords: Expense[];
-}
-
-const NumberOfExpenses: FC<NumberOfExpensesProps> = ({
-  indexOfFirstRecord,
-  indexOfLastRecord,
-  numItems,
-  numPages,
-  currentPage,
-  setCurrentPage,
-  currentRecords,
-}) => {
+const ExpensePagination: FC = () => {
   const filterState = useAppSelector((state) => state.filter.filterState);
-  const expensesContext = useContext(ExpensesContext);
-  const filteredItems = filterItems(expensesContext.items, filterState);
+  const expenseContext = useContext(ExpenseContext);
+  const filteredItems = filterItems(expenseContext.items, filterState);
+
+  const {
+    firstRecordIndex,
+    lastRecordIndex,
+    numItems,
+    numPages,
+    currentPage,
+    setCurrentPage,
+    currentRecords,
+  } = useContext(ExpensePaginationContext);
 
   //index of the last record -- accounts for if page has < 10 items
-  const lastIndex = currentRecords.length < 10 ? numItems : indexOfLastRecord;
+  const lastIndex = currentRecords.length < 10 ? numItems : lastRecordIndex;
 
   const noExpenses = filteredItems.length === 0;
   const displayEmptyPageCount = "0—0 of 0";
   const displayNormalPageCount = `${
-    indexOfFirstRecord + 1
+    firstRecordIndex + 1
   }—${lastIndex} of ${numItems}`;
 
   const onFirstPage = !(numPages > 0 && currentPage !== 1);
@@ -96,4 +88,4 @@ const NumberOfExpenses: FC<NumberOfExpensesProps> = ({
   );
 };
 
-export default NumberOfExpenses;
+export default ExpensePagination;

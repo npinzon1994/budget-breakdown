@@ -1,34 +1,16 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import classes from "./ControlCenter.module.css";
 import Button from "../UI/Button";
-import { useDispatch } from "react-redux";
-import { useAppDispatch } from "../../store/redux/hooks";
-import { selectFilterState } from "../../store/redux/filter-slice";
-import { showHideActions } from "../../store/redux/show-hide-slice";
-import { filterActions } from "../../store/redux/filter-slice";
+import { useAppDispatch } from "../../redux-store/hooks";
+import { showHideActions } from "../../redux-store/show-hide-slice";
+import { filterActions } from "../../redux-store/filter-slice";
 import ExpenseFilter from "../Expenses/ExpenseFilter";
-import NumberOfExpenses from "../Expenses/NumberOfExpenses";
-import { Expense } from "../../models/expense";
+import ExpensePagination from "../Expenses/ExpensePagination";
+import { ExpensePaginationContext } from "../../context/expense-pagination-context";
 
-type ControlCenterProps = {
-  indexOfFirstRecord: number;
-  indexOfLastRecord: number;
-  numItems: number;
-  numPages: number;
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
-  currentRecords: Expense[];
-}
+const ControlCenter: FC = () => {
+  const { currentPage, setCurrentPage } = useContext(ExpensePaginationContext);
 
-const ControlCenter: FC<ControlCenterProps> = ({
-  indexOfFirstRecord,
-  indexOfLastRecord,
-  numItems,
-  numPages,
-  currentPage,
-  setCurrentPage,
-  currentRecords,
-}) => {
   const dispatch = useAppDispatch();
 
   const filterExpenses = (state: string) => {
@@ -48,17 +30,11 @@ const ControlCenter: FC<ControlCenterProps> = ({
           className={classes["add-expense"]}
           tooltip="Create New Expense"
           onClick={showExpenseFormHandler}
-        />
+        >
+          Add
+        </Button>
       </div>
-      <NumberOfExpenses
-        indexOfFirstRecord={indexOfFirstRecord}
-        indexOfLastRecord={indexOfLastRecord}
-        numItems={numItems}
-        numPages={numPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        currentRecords={currentRecords}
-      />
+      <ExpensePagination />
     </div>
   );
 };

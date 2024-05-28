@@ -34,9 +34,9 @@
 
 /*Button Text -- needed because this pseudo
 element will change to a "+" on phone screens*/
-.add-expense::after {
+/* .add-expense::after {
   content: "Add";
-}
+} */
 
 /*All hover*/
 @media (hover: hover) {
@@ -69,7 +69,7 @@ element will change to a "+" on phone screens*/
   }
 
   /*Resizing button on mobile screens*/
-  @media (max-width: 500px) {
+  /* @media (max-width: 500px) {
     .add-expense {
       padding-inline: 0.85em;
       padding-block: 0;
@@ -80,7 +80,7 @@ element will change to a "+" on phone screens*/
       font-size: 2rem;
       font-family: "Roboto-thin", sans-serif;
     }
-  }
+  } */
 
   .add-expense:active {
     background-color: rgb(255, 174, 81);

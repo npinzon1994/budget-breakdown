@@ -1,10 +1,11 @@
-import React from "react";
 import ExpensesList from "./components/Expenses/ExpensesList";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
-import ExpensesProvider from "./store/ExpensesProvider";
+import ExpenseProvider from "./context/ExpenseProvider";
 import MainHeader from "./components/Layout/MainHeader";
+import ControlCenter from "./components/Layout/ControlCenter";
 import { useDispatch, useSelector } from "react-redux";
-import { showHideActions } from "./store/redux/show-hide-slice";
+import { showHideActions } from "./redux-store/show-hide-slice";
+import { ExpensePaginationProvider } from "./context/expense-pagination-context";
 
 const App = () => {
   const newFormIsVisible = useSelector((state) => state.showHide.showNewForm);
@@ -15,16 +16,16 @@ const App = () => {
   };
 
   return (
-    <ExpensesProvider>
-      {newFormIsVisible && (
-        <ExpenseForm
-          onClose={hideExpenseFormHandler}
-          title="New Expense"
-        />
-      )}
-      <MainHeader />
-      <ExpensesList />
-    </ExpensesProvider>
+    <ExpenseProvider>
+      <ExpensePaginationProvider>
+        {newFormIsVisible && (
+          <ExpenseForm onClose={hideExpenseFormHandler} title="New Expense" />
+        )}
+        <MainHeader />
+        <ControlCenter />
+        <ExpensesList />
+      </ExpensePaginationProvider>
+    </ExpenseProvider>
   );
 };
 

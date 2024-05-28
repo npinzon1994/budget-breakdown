@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Expense } from "../../models/expense";
+import { Expense } from "../models/expense";
 import { RootState } from "./index";
 
 type InitialStateProps = {

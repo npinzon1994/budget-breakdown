@@ -1,15 +1,15 @@
 import React, { useEffect, useContext, useState } from "react";
 import classes from "./ExpenseForm.module.css";
-import ExpensesContext from "../../store/expenses-context";
+import ExpenseContext from "../../context/expense-context";
 import FormHeader from "../Layout/FormHeader";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "../UI/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { uniqueIdActions } from "../../store/redux/generate-unique-id-slice";
-import { sendingActions } from "../../store/redux/sending-slice";
-import { showHideActions } from "../../store/redux/show-hide-slice";
+import { uniqueIdActions } from "../../redux-store/generate-unique-id-slice";
+import { sendingActions } from "../../redux-store/sending-slice";
+import { showHideActions } from "../../redux-store/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
 import Button from "../UI/Button";
 
@@ -18,7 +18,7 @@ const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
 const ExpenseForm = (props) => {
   const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
 
-  const expensesContext = useContext(ExpensesContext);
+  const expensesContext = useContext(ExpenseContext);
   const currentExpenseItem = expensesContext.items.find(
     (item) => item.id === props.id
   );

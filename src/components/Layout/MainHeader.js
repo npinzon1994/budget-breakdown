@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./MainHeader.module.css";
 import { useContext } from "react";
-import ExpensesContext from "../../store/expenses-context";
+import ExpensesContext from "../../context/expense-context";
 import useWindowHeight from "../../hooks/use-window-height";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
