@@ -44,7 +44,12 @@ const expenseReducer = (state: ExpenseState, action: Action): ExpenseState => {
     const updatedTotalBalance = +state.totalBalance + +action.item.amount;
     const updatedItems = state.items.concat(action.item);
     updatedItems.sort(function (a, b) {
-      return a.date.getTime() - b.date.getTime();
+      if (a.date && b.date) {
+        return a.date.getTime() - b.date.getTime();
+      }
+      if (a.date === null || a.date === undefined) return 1;
+      if (b.date === null || b.date === undefined) return -1;
+      return 0;
     });
     updatedItems.reverse();
     return {
@@ -88,7 +93,14 @@ const expenseReducer = (state: ExpenseState, action: Action): ExpenseState => {
     console.log("Updated total balance:", updatedTotalBalance);
 
     updatedItems.sort(function (a, b) {
-      return a.date.getTime() - b.date.getTime();
+      if (a.date && b.date) {
+        return a.date.getTime() - b.date.getTime();
+      }
+
+      if(a.date === null || a.date === undefined) return 1;
+      if(b.date === null || b.date === undefined) return -1;
+      return 0;
+
     });
     updatedItems.reverse();
 
@@ -134,7 +146,10 @@ const ExpenseProvider: FC<ExpenseProviderProps> = ({ children }) => {
   };
 
   const editExpenseItemHandler = (search: { item: Expense; id: string }) => {
-    dispatchExpensesAction({ type: "EDIT", search: { item: search.item, id: search.id } });
+    dispatchExpensesAction({
+      type: "EDIT",
+      search: { item: search.item, id: search.id },
+    });
   };
 
   const setExpenses = (items: Expense[]) => {

@@ -1,11 +1,12 @@
-import React from "react";
+import {FC} from "react";
 import classes from "./DeleteModal.module.css";
 import Modal from "./Modal";
 import deleteIcon from "../../assets/modal-delete-red-x.png";
+import { DeleteModalProps } from "../../models/delete-modal";
 
-const DeleteModal = (props) => {
+const DeleteModal: FC<DeleteModalProps> = ({onClose, onRemove}) => {
   return (
-    <Modal onClose={props.onClose} className={classes.modal} backdropClassName={classes.backdrop}>
+    <Modal onClose={onClose} className={classes.modal} backdropClassName={classes.backdrop}>
       <div className={classes.container}>
         <img
           className={classes.icon}
@@ -20,8 +21,8 @@ const DeleteModal = (props) => {
           <span>This action cannot be undone</span>
         </div>
         <div className={classes.buttons}>
-          <button className={classes['close-button']} onClick={props.onClose}>Cancel</button>
-          <button className={classes['delete-button']} onClick={props.onRemove}>Delete</button>
+          <button className={classes['close-button']} onClick={onClose}>Cancel</button>
+          <button className={classes['delete-button']} onClick={onRemove}>Delete</button>
         </div>
       </div>
     </Modal>

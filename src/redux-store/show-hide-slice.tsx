@@ -1,6 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./index";
 
-const initialState = {
+type InitialStateType = {
+  showNewForm: boolean;
+  showEditForm: boolean;
+  showDeleteModal: boolean;
+};
+
+const initialState: InitialStateType = {
   showNewForm: false,
   showEditForm: false,
   showDeleteModal: false,
@@ -10,17 +17,23 @@ const showHideSlice = createSlice({
   name: "showHide",
   initialState,
   reducers: {
-    setShowNewForm(state, action) {
+    setShowNewForm(state, action: PayloadAction<boolean>) {
       state.showNewForm = action.payload;
     },
-    setShowEditForm(state, action) {
+    setShowEditForm(state, action: PayloadAction<boolean>) {
       state.showEditForm = action.payload;
     },
-    setShowDeleteModal(state, action) {
+    setShowDeleteModal(state, action: PayloadAction<boolean>) {
       state.showDeleteModal = action.payload;
     },
   },
 });
 
 export const showHideActions = showHideSlice.actions;
+export const selectShowNewForm = (state: RootState) =>
+  state.showHide.showNewForm;
+export const selectShowEditForm = (state: RootState) =>
+  state.showHide.showEditForm;
+export const selectShowDeleteModal = (state: RootState) =>
+  state.showHide.showDeleteModal;
 export default showHideSlice.reducer;

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import classes from "./MainHeader.module.css";
 import { useContext } from "react";
 import ExpensesContext from "../../context/expense-context";
@@ -9,7 +9,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-const MainHeader = (props) => {
+const MainHeader: FC = () => {
   const screenHeight = useWindowHeight();
   const bannerHeight = screenHeight * 0.115;
 
@@ -21,7 +21,7 @@ const MainHeader = (props) => {
       className={classes.container}
       style={{ minHeight: `${bannerHeight}px` }}
     >
-      <div className={classes["remaining-balance"]} datatooltip="Total Balance">
+      <div className={classes["remaining-balance"]} data-tooltip="Total Balance">
         <span className={classes["total-label"]}>Total</span>
         <span className={classes["total-balance"]}>{totalBalance}</span>
       </div>

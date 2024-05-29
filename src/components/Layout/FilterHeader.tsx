@@ -1,7 +1,7 @@
-import React from "react";
+import { FC } from "react";
 import classes from "./FilterHeader.module.css";
 
-const FilterHeader = ({ title }) => {
+const FilterHeader: FC<{ title: string }> = ({ title }) => {
   return (
     <div className={classes.header}>
       <span>{title}</span>

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef, FC } from "react";
 import classes from "./ExpenseForm.module.css";
 import ExpenseContext from "../../context/expense-context";
 import FormHeader from "../Layout/FormHeader";
@@ -6,44 +6,50 @@ import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "../UI/Modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux-store/hooks";
 import { uniqueIdActions } from "../../redux-store/generate-unique-id-slice";
 import { sendingActions } from "../../redux-store/sending-slice";
 import { showHideActions } from "../../redux-store/show-hide-slice";
 import RadioButton from "../UI/RadioButton";
 import Button from "../UI/Button";
+import { Expense } from "../../models/expense";
+import { ExpenseFormProps } from "../../models/expense-form";
 
-const checkIsValidAmount = (amount) => +amount >= 0 && +amount < 1_000_000;
 
-const ExpenseForm = (props) => {
-  const uniqueId = useSelector((state) => state.uniqueId.uniqueId);
 
-  const expensesContext = useContext(ExpenseContext);
-  const currentExpenseItem = expensesContext.items.find(
-    (item) => item.id === props.id
+const checkIsValidAmount = (amount: number) =>
+  +amount >= 0 && +amount < 1_000_000;
+
+const ExpenseForm: FC<ExpenseFormProps> = ({
+  id,
+  mode,
+  title,
+  onClose,
+  onDelete,
+}) => {
+  const uniqueId = useAppSelector((state) => state.uniqueId.uniqueId);
+
+  const expenseContext = useContext(ExpenseContext);
+  const currentExpenseItem = expenseContext.items.find(
+    (item) => item.id === id
   );
 
   const [isPaid, setIsPaid] = useState(
     currentExpenseItem ? currentExpenseItem.isPaid : false
   );
-  const [isDateFocused, setIsDateFocused] = useState(null);
+  const [isDateFocused, setIsDateFocused] = useState<boolean>(false);
+  const datePickerRef = useRef(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    getValues,
-    setFocus,
-  } = useForm({
-    defaultValues: {
-      amount: currentExpenseItem ? currentExpenseItem.amount : "",
-      date: currentExpenseItem ? currentExpenseItem.date : null,
-      merchant: currentExpenseItem ? currentExpenseItem.merchant : "",
-    },
-  });
+  const { register, control, handleSubmit, watch, getValues, setFocus } =
+    useForm({
+      defaultValues: {
+        amount: currentExpenseItem ? currentExpenseItem.amount : "",
+        date: currentExpenseItem ? currentExpenseItem.date : null,
+        merchant: currentExpenseItem ? currentExpenseItem.merchant : "",
+      },
+    });
 
   useEffect(() => {
     setFocus("amount");
@@ -65,32 +71,40 @@ const ExpenseForm = (props) => {
   const { currentAmount, currentDate, currentMerchant } = currentValues;
 
   const submitHandler = () => {
-    //object to be added -- contains all values captured from the form
     console.log("submitting...");
-    let newExpenseObject = {};
+
+    let newExpenseObject: Expense;
     dispatch(sendingActions.setIsSending(true));
     console.log("Date:", currentDate);
-    if (props.mode === "edit") {
+    if (mode === "edit") {
       //find current item and overwrite
-      newExpenseObject = {
-        id: currentExpenseItem.id,
-        date: new Date(currentDate),
-        amount: currentAmount,
-        isPaid,
-        merchant: currentMerchant,
-      };
+      if (currentExpenseItem) {
+        newExpenseObject = {
+          id: currentExpenseItem.id ?? `E${uniqueId}`, //if id is undefined (for whatever reason), create a new one.
+          date: currentDate || new Date(),
+          amount: Number(currentAmount),
+          isPaid,
+          merchant: currentMerchant,
+        };
 
-      expensesContext.onEditExpense(newExpenseObject, currentExpenseItem.id);
-      dispatch(showHideActions.setShowEditForm(false));
+        expenseContext.onEditExpense({
+          item: newExpenseObject,
+          id: currentExpenseItem.id ?? "",
+        }); //fallback in case id is still somehow undefined
+        dispatch(showHideActions.setShowEditForm(false));
+      } else {
+        console.error("Error: currentExpenseItem is undefined");
+        return;
+      }
     } else {
       newExpenseObject = {
         id: `E${uniqueId}`,
-        date: new Date(currentDate),
-        amount: currentAmount,
+        date: currentDate || new Date(),
+        amount: Number(currentAmount),
         isPaid,
         merchant: currentMerchant,
       };
-      expensesContext.onAddExpense(newExpenseObject);
+      expenseContext.onAddExpense(newExpenseObject);
       dispatch(uniqueIdActions.incrementIdCounter());
       dispatch(showHideActions.setShowNewForm(false));
     }
@@ -101,21 +115,21 @@ const ExpenseForm = (props) => {
   const dateInputFocusHandler = () => setIsDateFocused(true);
   const dateInputBlurHandler = () => setIsDateFocused(false);
 
-  const isEditing = props.mode === "edit";
+  const isEditing = mode === "edit";
 
   return (
     <Modal
-      onClose={props.onClose}
+      onClose={onClose}
       className={classes.modal}
       backdropClassName={classes.backdrop}
     >
-      <FormHeader title={props.title} onClose={props.onClose} />
+      <FormHeader title={title} onClose={onClose} />
       <form
         onSubmit={handleSubmit(submitHandler)}
         className={classes["add-expense-form"]}
         name="submit-form"
       >
-        {checkIsValidAmount(watchAmount) === false && (
+        {checkIsValidAmount(Number(watchAmount)) === false && (
           <span className={classes["error-text"]}>
             *Please enter an amount between $0 and $1,000,000
           </span>
@@ -149,7 +163,7 @@ const ExpenseForm = (props) => {
             render={({ field: { onChange, onBlur, value, ref, name } }) => (
               <div className={classes["datepicker-container"]}>
                 <DatePicker
-                  ref={(elem) => elem && ref(elem.input)}
+                  ref={datePickerRef}
                   name={name}
                   id="datePicker"
                   selected={value}
@@ -180,9 +194,8 @@ const ExpenseForm = (props) => {
             <textarea
               {...register("merchant")}
               id="merchantField"
-              type="text"
-              maxLength="100"
-              rows="3"
+              maxLength={100}
+              rows={3}
               className={`${classes.input} ${classes.textarea}`}
               data-testid="merchant-input-field"
             />
@@ -195,14 +208,10 @@ const ExpenseForm = (props) => {
           </div>
 
           <RadioButton
-            names={{ firstOption: "Paid", secondOption: "Unpaid" }}
-            defaultValue={
-              currentExpenseItem ? currentExpenseItem.isPaid : isPaid
-            }
             isPaid={(value) => {
               setIsPaid(value);
             }}
-            mode={props.mode}
+            mode={mode}
             currentExpenseItem={currentExpenseItem}
           />
         </div>
@@ -220,7 +229,7 @@ const ExpenseForm = (props) => {
             <Button
               className={classes["remove-button"]}
               type="button"
-              onClick={props.onDelete}
+              onClick={onDelete}
             >
               Delete
             </Button>

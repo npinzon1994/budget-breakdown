@@ -1,12 +1,11 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import Card from "../UI/Card";
 import ExpenseItem from "./ExpenseItem";
 import classes from "./ExpensesList.module.css";
 import ExpenseContext from "../../context/expense-context";
 import DeleteModal from "../UI/DeleteModal";
 import ExpenseForm from "./ExpenseForm";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux-store/hooks";
 import { sendingActions } from "../../redux-store/sending-slice";
 import { loadingActions } from "../../redux-store/loading-slice";
 import { showHideActions } from "../../redux-store/show-hide-slice";
@@ -16,25 +15,25 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import { ExpensePaginationContext } from "../../context/expense-pagination-context";
 
 let isInitial = true;
-let deleteModal;
-let editModal;
 
 const ExpensesList = () => {
+  const [currentItemId, setCurrentItemId] = useState("");
+
   const expenseContext = useContext(ExpenseContext);
   const { numPages, currentPage, setCurrentPage, currentRecords } = useContext(
     ExpensePaginationContext
   );
 
-  const dispatch = useDispatch();
-  const filterState = useSelector((state) => state.filter.filterState);
-  const isLoading = useSelector((state) => state.loading.isLoading);
-  const loadError = useSelector((state) => state.loading.loadError);
-  const sendError = useSelector((state) => state.sending.sendError);
-  const showDeleteModal = useSelector(
+  const dispatch = useAppDispatch();
+  const filterState = useAppSelector((state) => state.filter.filterState);
+  const isLoading = useAppSelector((state) => state.loading.isLoading);
+  const loadError = useAppSelector((state) => state.loading.loadError);
+  const sendError = useAppSelector((state) => state.sending.sendError);
+  const showDeleteModal = useAppSelector(
     (state) => state.showHide.showDeleteModal
   );
 
-  const showEditForm = useSelector((state) => state.showHide.showEditForm);
+  const showEditForm = useAppSelector((state) => state.showHide.showEditForm);
 
   const removeItemHandler = (id: string) => {
     expenseContext.onRemoveExpense(id); //id is the syntactical outline which accepts the actual item
@@ -63,15 +62,8 @@ const ExpensesList = () => {
     dispatch(showHideActions.setShowDeleteModal(false));
   };
 
-  const showDeleteModalHandler = (id: string) => {
+  const showDeleteModalHandler = () => {
     dispatch(showHideActions.setShowDeleteModal(true));
-
-    deleteModal = (
-      <DeleteModal
-        onRemove={removeItemHandler.bind(null, id)}
-        onClose={hideDeleteModalHandler}
-      />
-    );
   };
 
   const hideEditModalHandler = () => {
@@ -80,17 +72,7 @@ const ExpensesList = () => {
 
   const showEditModalHandler = (id: string) => {
     dispatch(showHideActions.setShowEditForm(true));
-
-    editModal = (
-      <ExpenseForm
-        onClose={hideEditModalHandler}
-        buttonText="Save"
-        title="Edit Expense"
-        mode="edit"
-        id={id}
-        onDelete={showDeleteModalHandler.bind(null, id)}
-      />
-    );
+    setCurrentItemId(id);
   };
 
   //gets all expenses on startup
@@ -172,10 +154,10 @@ const ExpensesList = () => {
     }
   }, [expenseContext, dispatch]);
 
-  //creates a new array of DailyExpenseItem(s)
+  //creates a new array of ExpenseItem(s)
   const expenses = currentRecords.map((expense) => (
     <ExpenseItem
-      key={expense.id}
+      id={expense.id}
       amount={expense.amount}
       date={expense.date}
       isPaid={expense.isPaid}
@@ -191,8 +173,22 @@ const ExpensesList = () => {
 
   return (
     <Fragment>
-      {showDeleteModal ? deleteModal: undefined}
-      {showEditForm ? editModal : undefined}
+      {showDeleteModal ? (
+        <DeleteModal
+          onClose={hideDeleteModalHandler}
+          onRemove={() => removeItemHandler(currentItemId)}
+        />
+      ) : undefined}
+
+      {showEditForm ? (
+        <ExpenseForm
+          id={currentItemId}
+          mode="edit"
+          title="Edit Expense"
+          onClose={hideEditModalHandler}
+          onDelete={showDeleteModalHandler}
+        />
+      ) : undefined}
       <Card
         className={`${isLoading && !loadError ? classes["card-padding"] : ""}`}
       >

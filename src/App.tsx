@@ -1,15 +1,16 @@
+import { FC } from "react";
 import ExpensesList from "./components/Expenses/ExpensesList";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
 import ExpenseProvider from "./context/ExpenseProvider";
 import MainHeader from "./components/Layout/MainHeader";
 import ControlCenter from "./components/Layout/ControlCenter";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "./redux-store/hooks";
 import { showHideActions } from "./redux-store/show-hide-slice";
 import { ExpensePaginationProvider } from "./context/expense-pagination-context";
 
-const App = () => {
-  const newFormIsVisible = useSelector((state) => state.showHide.showNewForm);
-  const dispatch = useDispatch();
+const App: FC = () => {
+  const newFormIsVisible = useAppSelector((state) => state.showHide.showNewForm);
+  const dispatch = useAppDispatch();
 
   const hideExpenseFormHandler = () => {
     dispatch(showHideActions.setShowNewForm(false));

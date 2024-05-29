@@ -16,7 +16,7 @@ export default function useWindowHeight() {
 
 
 
-export function ShowWindowDimensions(props) {
+export function ShowWindowDimensions() {
   const height = useWindowHeight();
   return <span>Window height: {height}</span>;
 }

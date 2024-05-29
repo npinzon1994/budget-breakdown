@@ -4,5 +4,5 @@ export type Expense = {
     amount: number;
     isPaid: boolean;
     merchant: string;
-    onShowEdit: (id: number) => void;
+    // onShowEdit: (id: number) => void;
 }

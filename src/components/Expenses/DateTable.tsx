@@ -1,4 +1,4 @@
-const dateTable = (month) => {
+const dateTable = (month: number) => {
   let formattedMonth = "Jan";
   switch (month) {
     

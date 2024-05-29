@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Expense } from "../models/expense";
 import { RootState } from "./index";
 
-type InitialStateProps = {
+type InitialStateType = {
   filterState: string;
   filteredItems: Expense[];
 };
 
-const initialState: InitialStateProps = {
+const initialState: InitialStateType = {
   filterState: "Show All",
   filteredItems: [],
 };

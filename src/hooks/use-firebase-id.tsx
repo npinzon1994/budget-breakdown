@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 const useFirebaseId = () => {
   const getFirebaseId = useCallback(
-    async (userId, databaseUrl) => {
+    async (userId: string, databaseUrl: string) => {
       let firebaseId = "";
 
       try {
@@ -20,7 +20,9 @@ const useFirebaseId = () => {
           }
         }
       } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
 
       return firebaseId;

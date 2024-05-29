@@ -1,13 +1,12 @@
 .close-button {
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 10px;
-  transition: 0.3s;
-  user-select: none;
-  position: relative;
-}
-
-.close-button:hover {
-  background: #0d4a80;
-}
-
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    transition: 0.3s;
+    user-select: none;
+    position: relative;
+  }
+  
+  .close-button:hover {
+    background: #0d4a80;
+  }

@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
+import { Fragment, FC } from "react";
 import classes from "./ExpenseItem.module.css";
 import redX from "../../assets/unpaid-x.svg";
 import greenCheck from "../../assets/paid-checkmark.svg";
 import dateTable from "./DateTable";
 import Date from "./Date";
-// import useWindowWidth from "../../hooks/use-window-width";
+import { Expense } from "../../models/expense";
 
-const ExpenseItem = ({date, amount, isPaid, merchant, onShowEdit}) => {
-  // const screenWidth = useWindowWidth();
+type ExpenseItemProps = Expense & { onShowEdit: () => void };
 
+const ExpenseItem: FC<ExpenseItemProps> = ({ id, date, amount, isPaid, merchant, onShowEdit }) => {
   const day = date.getDate();
   const month = date.getMonth();
   const formattedMonth = dateTable(month);
@@ -35,7 +35,7 @@ const ExpenseItem = ({date, amount, isPaid, merchant, onShowEdit}) => {
     <Fragment>
       <li className={classes["daily-expense"]} onClick={onShowEdit}>
         <div className={classes["list-item-content"]}>
-          <Date month={formattedMonth} day={day} year={year} />
+          <Date month={formattedMonth} day={day.toString()} year={year.toString()} />
           <span className={classes.merchant}>{merchant}</span>
           <div className={classes["money-container"]}>
             <span className={classes.price}>{formattedTotal}</span>

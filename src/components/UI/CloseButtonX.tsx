@@ -1,15 +1,15 @@
-import React from "react";
+import { FC } from "react";
 import classes from "./CloseButtonX.module.css";
-import closeButton from '../../assets/cross.svg';
+import closeButton from "../../assets/cross.svg";
 
-const CloseButtonX = (props) => {
+const CloseButtonX: FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
     <img
       src={closeButton}
       alt="close button"
-      onClick={props.onClose}
+      onClick={onClose}
       className={classes["close-button"]}
-      dataTooltip="Close"
+      data-tooltip="Close"
     />
   );
 };

@@ -1,4 +1,6 @@
-export function filterItems(expenses, filterState) {
+import { Expense } from "../models/expense";
+
+export function filterItems(expenses: Expense[], filterState: string) {
   let filteredExpenses = [...expenses];
 
   if (filterState === "Paid Expenses") {
