@@ -40,7 +40,7 @@ const ExpenseItem: FC<ExpenseItemProps> = ({ id, date, amount, isPaid, merchant,
           <div className={classes["money-container"]}>
             <span className={classes.price}>{formattedTotal}</span>
             <span className={classes["paid-off"]}>
-              <img src={isPaidImage} alt={isPaidImageAltText} /> {isPaidLabel}
+              <img src={isPaidImage.src} alt={isPaidImageAltText} /> {isPaidLabel}
             </span>
           </div>
         </div>

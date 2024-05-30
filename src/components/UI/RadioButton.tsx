@@ -2,7 +2,9 @@ import { useEffect, useState, FC } from "react";
 import classes from "./RadioButton.module.css";
 import { ReactComponent as ThumbsUpIcon } from "../../assets/thumbs-up-icon.svg";
 import { ReactComponent as ThumbsDownIcon } from "../../assets/thumbs-up-icon.svg";
+import thumbsUpIcon from "../../assets/thumbs-up-icon.svg";
 import { Expense } from "../../models/expense";
+import Image from "next/image";
 
 type RadioButtonProps = {
   mode?: string;
@@ -57,7 +59,8 @@ const RadioButton: FC<RadioButtonProps> = ({
         onClick={topButtonClickHandler}
       >
         <span className={classes.label}>Paid</span>
-        <ThumbsUpIcon className={classes["thumbs-up"]} />
+        {/* <ThumbsUpIcon className={classes["thumbs-up"]} /> */}
+        <Image src={thumbsUpIcon} alt="thumbs up icon" className={classes['thumbs-up']}/>
       </div>
       <div
         className={`${classes["radio-button"]} ${
@@ -66,7 +69,8 @@ const RadioButton: FC<RadioButtonProps> = ({
         onClick={bottomButtonClickHandler}
       >
         <span className={classes.label}>Unpaid</span>
-        <ThumbsDownIcon className={classes["thumbs-down"]} />
+        {/* <ThumbsDownIcon className={classes["thumbs-down"]} /> */}
+        <Image src={thumbsUpIcon} alt="thumbs down icon" className={classes['thumbs-down']}/>
       </div>
     </div>
   );

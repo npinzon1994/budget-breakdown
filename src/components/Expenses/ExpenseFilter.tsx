@@ -8,7 +8,9 @@ import Select, {
   SingleValueProps,
 } from "react-select";
 import { ReactComponent as FilterIcon } from "../../assets/filter-icon.svg";
+import filterIcon from "../../assets/filter-icon.svg";
 import Option from "../../models/option";
+import Image from "next/image";
 
 //grabbing the type from SingleValue so its prop types are included
 type IconSingleValueProps = SingleValueProps<Option, false>;
@@ -24,7 +26,8 @@ const { SingleValue } = components;
 const IconSingleValue: FC<IconSingleValueProps> = (props) => {
   return (
     <SingleValue {...props}>
-      <FilterIcon className={classes["filter-icon"]} />
+      <Image src={filterIcon} alt="filter icon" className={classes['filter-icon']}/>
+      {/* <FilterIcon className={classes["filter-icon"]} /> */}
     </SingleValue>
   );
 };

@@ -3,8 +3,10 @@ import classes from "./ExpensePagination.module.css";
 import ExpenseContext from "../../context/expense-context";
 import { useAppSelector } from "../../redux-store/hooks";
 import { ReactComponent as ArrowIcon } from "../../assets/arrow-rounded-corners.svg";
+import arrowIcon from "../../assets/arrow-rounded-corners.svg";
 import { filterItems } from "../../util/filter";
 import { ExpensePaginationContext } from "../../context/expense-pagination-context";
+import Image from "next/image";
 
 const ExpensePagination: FC = () => {
   const filterState = useAppSelector((state) => state.filter.filterState);
@@ -59,10 +61,17 @@ const ExpensePagination: FC = () => {
           }`}
           onClick={goBackOnePage}
           disabled={onFirstPage || noExpenses}
-          style={{paddingRight: "7px"}}
+          style={{ paddingRight: "7px" }}
           data-tooltip="Older"
         >
-          <ArrowIcon
+          {/* <ArrowIcon
+            className={`${classes.image} ${classes.left} ${
+              onFirstPage || noExpenses ? classes["disabled-image"] : ""
+            }`}
+          /> */}
+          <Image
+            src={arrowIcon}
+            alt="left arrow"
             className={`${classes.image} ${classes.left} ${
               onFirstPage || noExpenses ? classes["disabled-image"] : ""
             }`}
@@ -74,10 +83,17 @@ const ExpensePagination: FC = () => {
           }`}
           onClick={goUpOnePage}
           disabled={onLastPage || noExpenses}
-          style={{paddingLeft: "7px"}}
+          style={{ paddingLeft: "7px" }}
           data-tooltip="Newer"
         >
-          <ArrowIcon
+          {/* <ArrowIcon
+            className={`${classes.image} ${classes.right} ${
+              onLastPage || noExpenses ? classes["disabled-image"] : ""
+            }`}
+          /> */}
+          <Image
+            src={arrowIcon}
+            alt="right arrow"
             className={`${classes.image} ${classes.right} ${
               onLastPage || noExpenses ? classes["disabled-image"] : ""
             }`}

@@ -10,7 +10,7 @@ const DeleteModal: FC<DeleteModalProps> = ({onClose, onRemove}) => {
       <div className={classes.container}>
         <img
           className={classes.icon}
-          src={deleteIcon}
+          src={deleteIcon.src}
           alt="Red X in a circle"
         />
 
