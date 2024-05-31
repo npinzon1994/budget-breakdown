@@ -6,5 +6,7 @@ export function generateStaticParams() {
 }
  
 export default function Page() {
+  //this renders the entire app in its current state
+  
   return <ClientOnly />
 }

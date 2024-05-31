@@ -1,0 +1,17 @@
+.page {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    font-family: "Golos Text", sans-serif;
+  }
+  
+  .page-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title-container {
+    text-align: center;
+  }
+  
+  
