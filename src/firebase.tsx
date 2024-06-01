@@ -15,6 +15,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+let analytics;
+if (typeof window !== "undefined") {
+  const { getAnalytics } = require("firebase/analytics");
+  analytics = getAnalytics(app);
+}
+
+export { analytics };
 export const database = getDatabase(app);
-export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
