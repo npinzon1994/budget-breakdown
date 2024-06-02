@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function LoginForm() {
   return (
     <>
-      <h3>Login</h3>
+      <h3 className={classes.heading}>Login</h3>
       <form className={classes.form}>
         <div className={classes["input-container"]}>
           <label htmlFor="email">Email</label>
@@ -14,8 +14,9 @@ export default function LoginForm() {
           <label htmlFor="password">Password</label>
           <input type="password" id="password" />
         </div>
-        <div className={classes["button-container"]}>
-          <button className={classes["login-button"]}>Login</button>
+        <button className={classes["login-button"]}>Login</button>
+        <div className={classes["signup-container"]}>
+          <p>Don't have an account yet? Create one here:</p>
           <Link href="/signup" className={classes["signup-button"]}>
             Sign up
           </Link>

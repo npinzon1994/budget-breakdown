@@ -1,36 +1,36 @@
+.heading {
+  text-align: center;
+}
+
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.input-container label {
+}
+
+.input-container input {
+  padding: 10px;
+}
+
+.login-button {
+  padding: 0.63em 1.25em;
+  font-family: "Golos Text", sans-serif;
+  cursor: pointer;
+}
+
+.signup-container {
+  text-align: center;
+}
+
+.signup-button {
   
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-  
-  .input-container label {
-  }
-  
-  .input-container input {
-    padding: 10px;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
-  }
-  
-  .login-button {
-    padding: 0.63em 1.25em;
-    font-family: "Golos Text", sans-serif;
-    cursor: pointer;
-  }
-  
-  .signup-button {
-    padding: 0.63em 1.25em;
-    background: #eeeeee;
-  }
-  
+}

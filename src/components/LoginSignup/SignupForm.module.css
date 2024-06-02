@@ -1,7 +1,12 @@
+.heading {
+  text-align: center;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    margin-top: 1rem;
   }
   
   .input-container {
@@ -17,10 +22,8 @@
     padding: 10px;
   }
   
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
+  .login-container {
+    text-align: center;
   }
   
   .signup-button {
@@ -30,7 +33,12 @@
   }
   
   .login-button {
-    padding: 0.63em 1.25em;
-    background: #eeeeee;
+    
+  }
+
+  .error {
+    color: red;
+    margin-block: 0;
+    text-align: right;
   }
   

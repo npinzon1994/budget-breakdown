@@ -5,44 +5,48 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { createNewUser } from "src/lib/actions";
 import { useRouter } from "next/navigation";
+import { ZodErrors } from "./ZodErrors";
 
 export default function SignupForm() {
   const router = useRouter();
-  const [state, formAction] = useFormState(
-    async (prevState, formData) => {
-      const response = await createNewUser(prevState, formData);
-      if (response?.message === "User created successfully!") {
-        console.log("user created successfully!");
-        router.push("/overview");
-      }
-    },
-    { message: null }
-  );
+  const initialState = {
+    formData: null,
+    zodErrors: null,
+    message: null,
+  };
+
+  const [state, formAction] = useFormState(createNewUser, initialState);
+
+  console.log(state, "client");
 
   return (
     <>
-      <h3>Sign up</h3>
+      <h3 className={classes.heading}>Sign up</h3>
+      <ZodErrors error={state?.zodErrors?.email} />
+      <ZodErrors error={state?.zodErrors?.password} />
+      <ZodErrors error={state?.zodErrors?.confirmPassword} />
       <form className={classes.form} action={formAction}>
         <div className={classes["input-container"]}>
           <label htmlFor="email">Email</label>
-          <input name="email" type="email" id="email" required />
+          <input type="text" id="email" name="email" aria-required />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="password">Password</label>
-          <input name="password" type="password" id="password" required />
+          <input type="password" id="password" name="password" aria-required />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="confirm-password">Confirm Password</label>
           <input
-            name="confirm-password"
             type="password"
             id="confirm-password"
-            required
+            name="confirm-password"
+            aria-required
           />
         </div>
         {state?.message ? <p>{state.message}</p> : undefined}
-        <div className={classes["button-container"]}>
-          <button className={classes["signup-button"]}>Sign up</button>
+        <button className={classes["signup-button"]}>Sign up</button>
+        <div className={classes["login-container"]}>
+          <p>Already have an account? Log in here:</p>
           <Link href="/" className={classes["login-button"]}>
             Login
           </Link>
