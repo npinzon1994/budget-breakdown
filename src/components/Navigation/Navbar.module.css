@@ -1,0 +1,47 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #1167b1;
+}
+
+.navbar {
+    margin-inline: auto;
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.home {
+    font-family: "Golos Text", sans-serif;
+}
+
+.home a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 12px;
+    
+}
+
+.links {
+    display: flex;
+    gap: 2rem;
+    padding-left: 0;
+}
+
+.links a {
+    font-family: "Golos Text", sans-serif;
+    text-decoration: none;
+    color: white;
+    
+
+}
+
+.links a:hover {
+    text-decoration: underline;
+}

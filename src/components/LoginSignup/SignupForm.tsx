@@ -6,18 +6,19 @@ import { useFormState } from "react-dom";
 import { createNewUser } from "src/lib/actions";
 import { useRouter } from "next/navigation";
 import { ZodErrors } from "./ZodErrors";
+import { useEffect } from "react";
+import { signIn } from "next-auth/react";
 
 export default function SignupForm() {
   const router = useRouter();
   const initialState = {
     formData: null,
     zodErrors: null,
+    status: null,
     message: null,
   };
 
   const [state, formAction] = useFormState(createNewUser, initialState);
-
-  console.log(state, "client");
 
   return (
     <>

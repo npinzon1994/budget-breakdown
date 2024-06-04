@@ -1,10 +1,9 @@
 "use server";
 import { MongoClient } from "mongodb";
-import { redirect } from "next/navigation";
 import { z } from "zod";
+import { hash } from "bcryptjs";
 
-const DB_URL =
-  "mongodb+srv://npinzon1994:Oc9bfOtIAa1wNYEj@budget-breakdown.ilrnm2k.mongodb.net/?retryWrites=true&w=majority&appName=budget-breakdown";
+const DB_URL = process.env.MONGODB_URI;
 
 const schema = z
   .object({
@@ -46,42 +45,58 @@ export async function createNewUser(prevState: any, formData: FormData) {
     confirmPassword: formData.get("confirm-password"),
   });
 
+  if (!validatedFields.success) {
+    return {
+      ...prevState,
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to register",
+    };
+  }
+
+  const { email, password } = validatedFields.data;
+
   try {
-    if (!validatedFields.success) {
+    if (!DB_URL) {
+      throw new Error(
+        "Please define the MONGODB_URI environment variable inside .env.local"
+      );
+    }
+    const client = await MongoClient.connect(DB_URL);
+    const db = client.db();
+    const usersCollection = db.collection("users"); //a collection is like a table -- and a document is like an entry
+
+    const existingUser = await usersCollection.findOne({ email });
+    if (existingUser) {
       return {
         ...prevState,
-        zodErrors: validatedFields.error.flatten().fieldErrors,
-        message: "Missing Fields. Failed to register",
+        message: `User with email '${email}' already exists`,
       };
     }
 
-    //form data
+    const hashedPassword = await hash(password, 12);
+
     const newUser = {
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email,
+      password: hashedPassword,
       name: "",
       accounts: [],
       bills: [],
     };
 
-    const client = await MongoClient.connect(DB_URL);
-    const db = client.db();
-
-    //a collection is like a table -- and a document is like an entry
-    const usersCollection = db.collection("users");
-
-    //inserts a new user into the users collection -- documents are just JS objects
-    const result = await usersCollection.insertOne(newUser);
-
+    await usersCollection.insertOne(newUser); //inserts a new user into the users collection -- documents are just JS objects
     client.close();
+
     return {
       ...prevState,
-      formData: "ok",
+      formData: {email, password},
+      status: "ok",
       message: "User created successfully!",
     };
   } catch (error) {
     console.log(error);
+    return {
+      ...prevState,
+      message: "An error occurred. Please try again later.",
+    };
   }
-
-  redirect("/overview");
 }

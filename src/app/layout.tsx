@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import "../index.css";
+import Navbar from "src/components/Navigation/Navbar";
 
 const title = "Budget Breakdown";
 const description = "Manage your credit card expenses with ease";
@@ -17,11 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div id="modal-overlay"></div>
-        <div id="root">{children}</div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <Navbar />
+          <div id="modal-overlay"></div>
+          <div id="root">{children}</div>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

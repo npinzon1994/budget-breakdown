@@ -1,0 +1,46 @@
+.page {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.root-box {
+    
+}
+
+.card-box,
+.card {
+  border-radius: 0;
+}
+
+.social-button {
+    border-radius: 0;
+    padding-block: 10px;
+}
+
+.form-button-primary {
+  background-color: rgba(17, 103, 177, 0.95);
+  box-shadow: rgb(17, 103, 177) 0px 0px 0px 1px,
+    rgba(17, 103, 177, 0.07) 0px 1px 1px 0px inset,
+    rgba(17, 103, 177, 0.2) 0px 2px 3px 0px,
+    rgba(17, 103, 177, 0.24) 0px 1px 1px 0px;
+  border-radius: 0;
+  padding-block: 10px;
+}
+
+.form-button-primary:hover {
+  background-color: rgb(17, 103, 177);
+  box-shadow: rgb(17, 103, 177) 0px 0px 0px 1px,
+    rgba(17, 103, 177, 0.07) 0px 1px 1px 0px inset,
+    rgba(17, 103, 177, 0.2) 0px 2px 3px 0px,
+    rgba(17, 103, 177, 0.24) 0px 1px 1px 0px;
+}
+
+.input {
+    border-radius: 0;
+    padding-block: 10px;
+}
+
+.sign-up-link {
+    color: rgb(17, 103, 177);
+}

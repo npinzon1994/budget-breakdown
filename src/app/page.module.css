@@ -8,9 +8,65 @@
 .page-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .title-container {
   text-align: center;
 }
 
+.title-container h1 {
+  font-size: 4.5rem;
+  line-height: 5rem;
+  margin: 0;
+}
+
+.title-container h2 {
+  font-size: 1rem;
+  line-height: 1.3rem;
+  font-weight: 300;
+  margin-block: 0.5rem 2rem;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+}
+
+.links p {
+  text-align: center;
+  font-size: 0.75rem;
+  margin-block: 0;
+}
+
+.links a {
+  text-decoration: none;
+  padding: 1em 2em;
+  transition: 100ms;
+  flex: 1;
+  text-align: center;
+}
+
+.links a:first-of-type {
+  background: rgba(17, 103, 177, 0.9);;
+  color: white;
+}
+
+.links a:first-of-type:hover {
+  background: rgba(17, 103, 177);;
+}
+
+.links a:nth-of-type(2) {
+  background: rgba(17, 103, 177, 0.1);
+  color: #1167b1;
+}
+
+.links a:nth-of-type(2):hover {
+  background: rgba(17, 103, 177, 0.2);;
+}
