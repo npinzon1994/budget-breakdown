@@ -11,7 +11,7 @@ export default function Navbar() {
     <header className={classes.header}>
       <nav className={classes.navbar}>
         <div className={classes.home}>
-          <Link href="/">Bb</Link>
+          <Link href="/">Budget Breakdown</Link>
         </div>
         <ul className={classes.links}>
           {isLoaded && user ? (
