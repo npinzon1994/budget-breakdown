@@ -2,22 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px #e8e8e8 solid;
-  padding: 0px 14px;
+  padding: 10px 20px;
   /* margin-left: 3px; */
-  background: #1167b1;
-  border-radius: 0.7rem 0.7rem 0 0;
   /* animation: hide-then-show 800ms; */
 }
 
 .title {
-  font-size: 1rem;
+  font-size: 1.5rem;
   /* font-size: clamp(0.7rem, 4vw, 1rem); */
-  font-weight: 600;
   font-family: "Golos Text", sans-serif;
-  color: white;
-  padding: 0.75rem 0.55rem;
-  user-select: none;
 }
 
 @keyframes show {

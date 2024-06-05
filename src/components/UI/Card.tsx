@@ -1,3 +1,5 @@
+'use client';
+
 import { CSSProperties, FC, ReactNode } from "react";
 import classes from "./Card.module.css";
 

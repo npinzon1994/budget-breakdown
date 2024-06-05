@@ -15,8 +15,6 @@ import Button from "../UI/Button";
 import { Expense } from "../../models/expense";
 import { ExpenseFormProps } from "../../models/expense-form";
 
-
-
 const checkIsValidAmount = (amount: number) =>
   +amount >= 0 && +amount < 1_000_000;
 
@@ -123,7 +121,12 @@ const ExpenseForm: FC<ExpenseFormProps> = ({
       className={classes.modal}
       backdropClassName={classes.backdrop}
     >
-      <FormHeader title={title} onClose={onClose} />
+      <FormHeader
+        title={title}
+        onClose={onClose}
+        headerClasses={classes["form-header"]}
+        titleClasses={classes["form-title"]}
+      />
       <form
         onSubmit={handleSubmit(submitHandler)}
         className={classes["add-expense-form"]}

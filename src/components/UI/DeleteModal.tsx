@@ -1,3 +1,5 @@
+'use client';
+
 import {FC} from "react";
 import classes from "./DeleteModal.module.css";
 import Modal from "./Modal";

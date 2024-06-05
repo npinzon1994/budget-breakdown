@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState, FC } from "react";
 import classes from "./RadioButton.module.css";
 import { ReactComponent as ThumbsUpIcon } from "../../assets/thumbs-up-icon.svg";

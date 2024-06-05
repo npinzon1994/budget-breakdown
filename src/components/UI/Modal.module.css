@@ -9,18 +9,19 @@
 
 .modal {
   position: fixed;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
   width: 60%;
   min-width: 300px;
   /* max-width: 33rem; */
-  background-color: white;
   /* padding: 1rem; */
+  background: white;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   animation: slide-down 300ms ease-out forwards;
   -webkit-animation: slide-down 300ms ease-out forwards;
+  overflow-y: scroll;
 }
 
 @keyframes slide-down {

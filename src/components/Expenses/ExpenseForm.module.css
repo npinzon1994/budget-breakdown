@@ -8,6 +8,14 @@
   z-index: 20;
 }
 
+.form-header {
+  background: #1167b1;
+}
+
+.form-title {
+  color: white;
+}
+
 /*Form*/
 .add-expense-form {
   padding: 1rem;
@@ -100,7 +108,6 @@
   color: red;
 }
 
-
 /*Button*/
 .button-div {
   display: flex;
@@ -189,7 +196,7 @@
   .add-expense-form {
     gap: 9px;
   }
-  
+
   .button-div {
     flex-direction: column;
     gap: 9px;

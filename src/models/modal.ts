@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
 export type BackdropProps = {
-  backdropClassName: string;
+  backdropClassName?: string;
   onClose: () => void;
 };
 
 export type ModalOverlayProps = {
-  className: string;
+  className?: string;
   children: ReactNode;
 };
 

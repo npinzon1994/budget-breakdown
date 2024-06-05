@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from "react";
 import classes from "./CloseButtonX.module.css";
 import closeButton from "../../assets/cross.svg";

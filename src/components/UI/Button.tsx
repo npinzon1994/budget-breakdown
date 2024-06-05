@@ -1,8 +1,10 @@
+'use client';
+
 import classes from "./Button.module.css";
 import { FC, ReactNode } from "react";
 
 type Props = {
-  className: string;
+  className?: string;
   tooltip?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";

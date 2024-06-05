@@ -1,4 +1,6 @@
-import { Fragment, FC } from "react";
+"use client";
+
+import { FC, useEffect, useState } from "react";
 import classes from "./Modal.module.css";
 import ReactDOM from "react-dom";
 import {
@@ -24,14 +26,22 @@ const ModalOverlay: FC<ModalOverlayProps> = ({ className, children }) => {
   );
 };
 
-const modalPortal = document.getElementById("modal-overlay");
-
 const Modal: FC<ModalProps> = ({
   className,
   backdropClassName,
   onClose,
   children,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const modalPortal = isMounted
+    ? document.getElementById("modal-overlay")
+    : undefined;
+
   //ensure the portal isn't null
   if (!modalPortal) {
     console.error("Modal portal element with id 'modal-overlay' not found");
@@ -39,16 +49,23 @@ const Modal: FC<ModalProps> = ({
   }
 
   return (
-    <Fragment>
-      {ReactDOM.createPortal(
-        <Backdrop onClose={onClose} backdropClassName={backdropClassName} />,
-        modalPortal
-      )}
-      {ReactDOM.createPortal(
-        <ModalOverlay className={className}>{children}</ModalOverlay>,
-        modalPortal
-      )}
-    </Fragment>
+    <>
+      {isMounted
+        ? ReactDOM.createPortal(
+            <Backdrop
+              onClose={onClose}
+              backdropClassName={backdropClassName}
+            />,
+            modalPortal
+          )
+        : undefined}
+      {isMounted
+        ? ReactDOM.createPortal(
+            <ModalOverlay className={className}>{children}</ModalOverlay>,
+            modalPortal
+          )
+        : undefined}
+    </>
   );
 };
 

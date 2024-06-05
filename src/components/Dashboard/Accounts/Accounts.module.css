@@ -2,6 +2,23 @@
     cursor: pointer;
 }
 
-.list {
-    
+.account-list {
+    padding-left: 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.account-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(17, 103, 177, 0.1);
+    padding: 1em; 
+    border-radius: 10px;
+}
+
+.account-link {
+    text-align: center;
 }

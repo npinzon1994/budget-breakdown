@@ -4,13 +4,20 @@ import CloseButtonX from "../UI/CloseButtonX";
 
 type FormHeaderProps = {
   title: string;
+  headerClasses?: string;
+  titleClasses?: string;
   onClose: () => void;
 };
 
-const FormHeader: FC<FormHeaderProps> = ({ title, onClose }) => {
+const FormHeader: FC<FormHeaderProps> = ({
+  title,
+  headerClasses,
+  titleClasses,
+  onClose,
+}) => {
   return (
-    <div className={classes.header}>
-      <span className={classes.title}>{title}</span>
+    <div className={`${classes.header} ${headerClasses}`}>
+      <span className={`${classes.title} ${titleClasses}`}>{title}</span>
       <CloseButtonX onClose={onClose} />
     </div>
   );
