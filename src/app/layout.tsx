@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Provider } from "react-redux";
 import "../index.css";
 import Navbar from "src/components/Navigation/Navbar";
 

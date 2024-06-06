@@ -1,13 +1,15 @@
 "use client";
 
 import Modal from "src/components/UI/Modal";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { createNewAccount } from "src/lib/actions";
 import classes from "./NewAccountForm.module.css";
 import Select from "react-select";
 import Option from "src/models/option";
 import FormHeader from "src/components/Layout/FormHeader";
 import Button from "src/components/UI/Button";
+import { useFormState } from "react-dom";
+import AccountsFormSubmit from "./AccountsFormSubmit";
 
 type NewAccountFormProps = {
   onClose: () => void;
@@ -23,12 +25,28 @@ const accountOptions: Option[] = [
   new Option("Other", "Other"),
 ];
 
+type FormState = {
+  status: number | null;
+  message: string | null;
+};
+
+const defaultFormState: FormState = {
+  status: null,
+  message: null,
+};
+
 const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
+  const [state, formAction] = useFormState(createNewAccount, defaultFormState);
   const [hasDebit, setHasDebit] = useState(false);
 
   const debitCheckboxHandler = () => {
     setHasDebit((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (state.status === 200) {
+    }
+  }, [state]);
 
   return (
     <Modal
@@ -42,30 +60,46 @@ const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
         headerClasses={classes["form-header"]}
         titleClasses={classes["form-title"]}
       />
-      <form action={createNewAccount} className={classes.form}>
+      <form action={formAction} className={classes.form}>
         <div className={classes["input-container"]}>
           <label htmlFor="account-type">Account Type</label>
           <Select
             options={accountOptions}
             defaultValue={accountOptions[0]}
             id="account-type"
+            name="account-type"
           />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="account-nickname">Account Nickname</label>
-          <input type="text" className={classes.input} id="account-nickname" />
+          <input
+            type="text"
+            className={classes.input}
+            id="account-nickname"
+            name="account-nickname"
+          />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="bank">Bank</label>
-          <input type="text" className={classes.input} id="bank" />
+          <input type="text" className={classes.input} id="bank" name="bank" />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="account-number">Account #</label>
-          <input type="number" className={classes.input} id="account-number" />
+          <input
+            type="number"
+            className={classes.input}
+            id="account-number"
+            name="account-number"
+          />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="routing-number">Routing #</label>
-          <input type="number" className={classes.input} id="routing-number" />
+          <input
+            type="number"
+            className={classes.input}
+            id="routing-number"
+            name="routing-number"
+          />
         </div>
         <div className={classes["input-container"]}>
           <label htmlFor="starting-balance">Starting Balance</label>
@@ -73,6 +107,7 @@ const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
             type="number"
             className={classes.input}
             id="starting-balance"
+            name="starting-balance"
           />
         </div>
         <div className={classes["checkbox-container"]}>
@@ -95,8 +130,8 @@ const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
             <li className={`${classes["debit-card"]} ${classes.add}`}>+</li>
           </ul>
         ) : undefined}
-        <div className={classes['button-container']}>
-          <Button className={classes["submit-button"]}>Create Account</Button>
+        <div className={classes["button-container"]}>
+          <AccountsFormSubmit className={classes["submit-button"]} />
         </div>
       </form>
     </Modal>

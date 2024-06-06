@@ -64,15 +64,14 @@ export async function POST(req: Request) {
       const db = client.db();
       const usersCollection = db.collection("users");
 
-      console.log("userId", data.id);
-
       const newUser = {
         clerkId: data.id,
-        accounts: {},
-        bills: {},
+        accounts: [],
+        bills: [],
       };
 
       await usersCollection.insertOne(newUser);
+      console.log("USER ADDED TO DATABASE")
       client.close();
     }
   } catch (error) {
