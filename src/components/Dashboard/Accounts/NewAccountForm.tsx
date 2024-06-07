@@ -1,15 +1,15 @@
 "use client";
 
 import Modal from "src/components/UI/Modal";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { createNewAccount } from "src/lib/actions";
 import classes from "./NewAccountForm.module.css";
 import Select from "react-select";
 import Option from "src/models/option";
 import FormHeader from "src/components/Layout/FormHeader";
-import Button from "src/components/UI/Button";
 import { useFormState } from "react-dom";
 import AccountsFormSubmit from "./AccountsFormSubmit";
+import { useAppDispatch } from "src/lib/store/hooks";
 
 type NewAccountFormProps = {
   onClose: () => void;
@@ -38,15 +38,13 @@ const defaultFormState: FormState = {
 const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
   const [state, formAction] = useFormState(createNewAccount, defaultFormState);
   const [hasDebit, setHasDebit] = useState(false);
+  const dispatch = useAppDispatch();
 
   const debitCheckboxHandler = () => {
     setHasDebit((prev) => !prev);
   };
 
-  useEffect(() => {
-    if (state.status === 200) {
-    }
-  }, [state]);
+  
 
   return (
     <Modal
@@ -131,7 +129,7 @@ const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
           </ul>
         ) : undefined}
         <div className={classes["button-container"]}>
-          <AccountsFormSubmit className={classes["submit-button"]} />
+          <AccountsFormSubmit className={classes["submit-button"]} formState={state} />
         </div>
       </form>
     </Modal>

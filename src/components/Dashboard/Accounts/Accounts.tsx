@@ -5,8 +5,8 @@ import Link from "next/link";
 import { FC, useState } from "react";
 import NewAccountForm from "./NewAccountForm";
 import Account from "src/models/account";
-// import { useAppDispatch, useAppSelector } from "src/redux-store/hooks";
-// import { showHideActions } from "src/redux-store/show-hide-slice";
+import { useAppDispatch, useAppSelector } from "../../../lib/store/hooks";
+import { showHideActions } from "../../../lib/store/show-hide-slice";
 
 type AccountsProps = {
   params: { accountSlug: string };
@@ -15,23 +15,18 @@ type AccountsProps = {
 };
 
 const Accounts: FC<AccountsProps> = ({ accounts }) => {
-  // const showNewAccountModal = useAppSelector(
-  //   (state) => state.showHide.showNewAccountModal
-  // );
-  // const dispatchShowNewAccountModal = useAppDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showNewAccountModal = useAppSelector(
+    (state) => state.showHide.showNewAccountModal
+  );
+  const dispatch = useAppDispatch();
 
-  const toggleModalHandler = () => {
-    setIsModalOpen(prev => !prev);
-  }
+  const showModalHandler = () => {
+    dispatch(showHideActions.setShowNewAccountModal(true));
+  };
 
-  // const showModalHandler = () => {
-  //   dispatchShowNewAccountModal(showHideActions.setShowNewAccountModal(true));
-  // };
-
-  // const hideModalHandler = () => {
-  //   dispatchShowNewAccountModal(showHideActions.setShowNewAccountModal(false));
-  // };
+  const hideModalHandler = () => {
+    dispatch(showHideActions.setShowNewAccountModal(false));
+  };
 
   const loadedAccounts: Account[] = [];
   for (let i = 0; i < accounts.length; i++) {
@@ -54,11 +49,13 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
 
   return (
     <>
-      {isModalOpen ? <NewAccountForm onClose={toggleModalHandler} /> : undefined}
+      {showNewAccountModal ? (
+        <NewAccountForm onClose={hideModalHandler} />
+      ) : undefined}
       <button
         type="button"
         className={classes["new-account-button"]}
-        onClick={toggleModalHandler}
+        onClick={showModalHandler}
       >
         New Account
       </button>

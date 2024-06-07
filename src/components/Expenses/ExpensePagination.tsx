@@ -1,7 +1,7 @@
 import { useContext, FC } from "react";
 import classes from "./ExpensePagination.module.css";
 import ExpenseContext from "../../context/expense-context";
-import { useAppSelector } from "../../redux-store/hooks";
+import { useAppSelector } from "../../lib/store/hooks";
 import { ReactComponent as ArrowIcon } from "../../assets/arrow-rounded-corners.svg";
 import arrowIcon from "../../assets/arrow-rounded-corners.svg";
 import { filterItems } from "../../util/filter";

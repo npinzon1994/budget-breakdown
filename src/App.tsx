@@ -4,8 +4,8 @@ import ExpenseForm from "./components/Expenses/ExpenseForm";
 import ExpenseProvider from "./context/ExpenseProvider";
 import MainHeader from "./components/Layout/MainHeader";
 import ControlCenter from "./components/Layout/ControlCenter";
-import { useAppDispatch, useAppSelector } from "./redux-store/hooks";
-import { showHideActions } from "./redux-store/show-hide-slice";
+import { useAppDispatch, useAppSelector } from "./lib/store/hooks";
+import { showHideActions } from "./lib/store/show-hide-slice";
 import { ExpensePaginationProvider } from "./context/expense-pagination-context";
 
 const App: FC = () => {

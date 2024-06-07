@@ -1,9 +1,9 @@
 import { FC, useContext } from "react";
 import classes from "./ControlCenter.module.css";
 import Button from "../UI/Button";
-import { useAppDispatch } from "../../redux-store/hooks";
-import { showHideActions } from "../../redux-store/show-hide-slice";
-import { filterActions } from "../../redux-store/filter-slice";
+import { useAppDispatch } from "../../lib/store/hooks";
+import { showHideActions } from "../../lib/store/show-hide-slice";
+import { filterActions } from "../../lib/store/filter-slice";
 import ExpenseFilter from "../Expenses/ExpenseFilter";
 import ExpensePagination from "../Expenses/ExpensePagination";
 import { ExpensePaginationContext } from "../../context/expense-pagination-context";

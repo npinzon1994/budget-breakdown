@@ -32,15 +32,15 @@ const Modal: FC<ModalProps> = ({
   onClose,
   children,
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
+  const [modalPortal, setModalPortal] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setIsMounted(true);
+    setModalPortal(document.getElementById("modal-overlay"));
   }, []);
 
-  const modalPortal = isMounted
-    ? document.getElementById("modal-overlay")
-    : undefined;
+  if (!modalPortal) {
+    return null; // or return a fallback UI, or log an error
+  }
 
   //ensure the portal isn't null
   if (!modalPortal) {
@@ -50,21 +50,14 @@ const Modal: FC<ModalProps> = ({
 
   return (
     <>
-      {isMounted
-        ? ReactDOM.createPortal(
-            <Backdrop
-              onClose={onClose}
-              backdropClassName={backdropClassName}
-            />,
-            modalPortal
-          )
-        : undefined}
-      {isMounted
-        ? ReactDOM.createPortal(
-            <ModalOverlay className={className}>{children}</ModalOverlay>,
-            modalPortal
-          )
-        : undefined}
+      {ReactDOM.createPortal(
+        <Backdrop onClose={onClose} backdropClassName={backdropClassName} />,
+        modalPortal
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay className={className}>{children}</ModalOverlay>,
+        modalPortal
+      )}
     </>
   );
 };

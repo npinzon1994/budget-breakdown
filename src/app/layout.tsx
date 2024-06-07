@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Provider } from "react-redux";
 import "../index.css";
 import Navbar from "src/components/Navigation/Navbar";
+import StoreProvider from "./StoreProvider";
 
 const title = "Budget Breakdown";
 const description = "Manage your credit card expenses with ease";
@@ -21,13 +22,15 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body>
-          <Navbar />
-          <div id="modal-overlay"></div>
-          <div id="root">{children}</div>
-        </body>
-      </html>
+      <StoreProvider>
+        <html lang="en">
+          <body>
+            <Navbar />
+            <div id="modal-overlay" />
+            <div id="root">{children}</div>
+          </body>
+        </html>
+      </StoreProvider>
     </ClerkProvider>
   );
 }
