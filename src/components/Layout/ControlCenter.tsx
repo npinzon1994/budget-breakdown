@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import classes from "./ControlCenter.module.css";
-import Button from "../UI/Button";
+import Button from "../UI/Buttons/Button";
 import { useAppDispatch } from "../../lib/store/hooks";
 import { showHideActions } from "../../lib/store/show-hide-slice";
 import { filterActions } from "../../lib/store/filter-slice";

@@ -2,6 +2,7 @@ import classes from "./page.module.css";
 import { FC } from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { getAccountDetails } from "src/lib/accounts";
+import BackButton from "src/components/UI/Buttons/BackButton";
 
 type PageProps = {
   params: { accountSlug: string };
@@ -29,11 +30,12 @@ const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
 
   return (
     <main className={classes.page}>
-      <h1>{nickName}</h1>
+      <BackButton />
+
+      <h1 className={classes.title}>{nickName}</h1>
+      <p className={classes.id}>{`(ID — ${_id})`}</p>
       <ul>
-        <li key={_id}>ID: {_id}</li>
         <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li>
-        <li key={accountSlug}>Slug: {accountSlug}</li>
         <li key={type}>Type: {type}</li>
         <li key={nickName}>Nickname: {nickName}</li>
         <li key={bank}>Bank: {bank}</li>

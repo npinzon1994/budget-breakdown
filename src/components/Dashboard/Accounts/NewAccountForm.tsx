@@ -1,19 +1,13 @@
 "use client";
 
-import Modal from "src/components/UI/Modal";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { createNewAccount } from "src/lib/actions";
 import classes from "./NewAccountForm.module.css";
 import Select from "react-select";
 import Option from "src/models/option";
-import FormHeader from "src/components/Layout/FormHeader";
 import { useFormState } from "react-dom";
 import AccountsFormSubmit from "./AccountsFormSubmit";
-import { useAppDispatch } from "src/lib/store/hooks";
-
-type NewAccountFormProps = {
-  onClose: () => void;
-};
+import { z } from "zod";
 
 const accountOptions: Option[] = [
   new Option("Choose Account Type", "Choose Account Type"),
@@ -28,98 +22,95 @@ const accountOptions: Option[] = [
 type FormState = {
   status: number | null;
   message: string | null;
+  errors?: Record<string, string>;
 };
 
 const defaultFormState: FormState = {
   status: null,
   message: null,
+  errors: {}
 };
 
-const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
+const NewAccountForm = () => {
   const [state, formAction] = useFormState(createNewAccount, defaultFormState);
   const [hasDebit, setHasDebit] = useState(false);
-  const dispatch = useAppDispatch();
 
   const debitCheckboxHandler = () => {
     setHasDebit((prev) => !prev);
   };
 
-  
-
   return (
-    <Modal
-      onClose={onClose}
-      className={classes.modal}
-      backdropClassName={classes.backdrop}
-    >
-      <FormHeader
-        title="New Account"
-        onClose={onClose}
-        headerClasses={classes["form-header"]}
-        titleClasses={classes["form-title"]}
-      />
+    <>
+      <h1 className={classes.title}>New Account</h1>
       <form action={formAction} className={classes.form}>
-        <div className={classes["input-container"]}>
-          <label htmlFor="account-type">Account Type</label>
-          <Select
-            options={accountOptions}
-            defaultValue={accountOptions[0]}
-            id="account-type"
-            name="account-type"
-          />
+        <div className={classes["input-grid"]}>
+          <div className={classes["input-container"]}>
+            <label htmlFor="account-type">Account Type</label>
+            <Select
+              options={accountOptions}
+              defaultValue={accountOptions[0]}
+              id="account-type"
+              name="accountType"
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <label htmlFor="account-nickname">Account Nickname</label>
+            <input
+              type="text"
+              className={classes.input}
+              id="account-nickname"
+              name="accountNickname"
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <label htmlFor="bank">Bank</label>
+            <input
+              type="text"
+              className={classes.input}
+              id="bank"
+              name="bank"
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <label htmlFor="account-number">Account #</label>
+            <input
+              type="number"
+              className={classes.input}
+              id="account-number"
+              name="accountNumber"
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <label htmlFor="routing-number">Routing #</label>
+            <input
+              type="number"
+              className={classes.input}
+              id="routing-number"
+              name="routingNumber"
+            />
+          </div>
+          <div className={classes["input-container"]}>
+            <label htmlFor="starting-balance">Starting Balance</label>
+            <input
+              type="number"
+              className={classes.input}
+              id="starting-balance"
+              name="startingBalance"
+            />
+          </div>
         </div>
-        <div className={classes["input-container"]}>
-          <label htmlFor="account-nickname">Account Nickname</label>
-          <input
-            type="text"
-            className={classes.input}
-            id="account-nickname"
-            name="account-nickname"
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <label htmlFor="bank">Bank</label>
-          <input type="text" className={classes.input} id="bank" name="bank" />
-        </div>
-        <div className={classes["input-container"]}>
-          <label htmlFor="account-number">Account #</label>
-          <input
-            type="number"
-            className={classes.input}
-            id="account-number"
-            name="account-number"
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <label htmlFor="routing-number">Routing #</label>
-          <input
-            type="number"
-            className={classes.input}
-            id="routing-number"
-            name="routing-number"
-          />
-        </div>
-        <div className={classes["input-container"]}>
-          <label htmlFor="starting-balance">Starting Balance</label>
-          <input
-            type="number"
-            className={classes.input}
-            id="starting-balance"
-            name="starting-balance"
-          />
-        </div>
-        <div className={classes["checkbox-container"]}>
-          <input
-            type="checkbox"
-            id="add-debit"
-            name="add-debit"
-            value="add-debit"
-            onClick={debitCheckboxHandler}
-          />
-          <label htmlFor="add-debit">
-            I want to associate a debit card with this account
-          </label>
-        </div>
+          <div className={classes["checkbox-container"]}>
+            <input
+              type="checkbox"
+              id="add-debit"
+              name="addDebit"
+              value="add-debit"
+              onClick={debitCheckboxHandler}
+            />
+            <label htmlFor="add-debit">
+              I want to associate a debit card with this account
+            </label>
+          </div>
         {hasDebit ? (
           <ul className={classes["debit-card-list"]}>
             <li className={classes["debit-card"]}>Debit 1</li>
@@ -129,10 +120,13 @@ const NewAccountForm: FC<NewAccountFormProps> = ({ onClose }) => {
           </ul>
         ) : undefined}
         <div className={classes["button-container"]}>
-          <AccountsFormSubmit className={classes["submit-button"]} formState={state} />
+          <AccountsFormSubmit
+            className={classes["submit-button"]}
+            formState={state}
+          />
         </div>
       </form>
-    </Modal>
+    </>
   );
 };
 

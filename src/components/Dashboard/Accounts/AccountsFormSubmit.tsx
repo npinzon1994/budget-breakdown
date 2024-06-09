@@ -2,7 +2,7 @@
 
 import { FC, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import classes from "../../UI/Button.module.css";
+import classes from "../../UI/Buttons/Button.module.css";
 import { useAppDispatch } from "src/lib/store/hooks";
 import { showHideActions } from "src/lib/store/show-hide-slice";
 

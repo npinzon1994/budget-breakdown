@@ -2,11 +2,9 @@
 
 import classes from "./Accounts.module.css";
 import Link from "next/link";
-import { FC, useState } from "react";
-import NewAccountForm from "./NewAccountForm";
+import { FC } from "react";
 import Account from "src/models/account";
-import { useAppDispatch, useAppSelector } from "../../../lib/store/hooks";
-import { showHideActions } from "../../../lib/store/show-hide-slice";
+
 
 type AccountsProps = {
   params: { accountSlug: string };
@@ -15,18 +13,6 @@ type AccountsProps = {
 };
 
 const Accounts: FC<AccountsProps> = ({ accounts }) => {
-  const showNewAccountModal = useAppSelector(
-    (state) => state.showHide.showNewAccountModal
-  );
-  const dispatch = useAppDispatch();
-
-  const showModalHandler = () => {
-    dispatch(showHideActions.setShowNewAccountModal(true));
-  };
-
-  const hideModalHandler = () => {
-    dispatch(showHideActions.setShowNewAccountModal(false));
-  };
 
   const loadedAccounts: Account[] = [];
   for (let i = 0; i < accounts.length; i++) {
@@ -49,16 +35,10 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
 
   return (
     <>
-      {showNewAccountModal ? (
-        <NewAccountForm onClose={hideModalHandler} />
-      ) : undefined}
-      <button
-        type="button"
-        className={classes["new-account-button"]}
-        onClick={showModalHandler}
-      >
-        New Account
-      </button>
+      <p>
+        <Link href="/dashboard/accounts/new-account">New Account</Link>
+      </p>
+
       <ul className={classes["account-list"]}>
         {loadedAccounts.map((account) => (
           <li className={classes["account-item"]} key={account._id}>

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from "./FormHeader.module.css";
-import CloseButtonX from "../UI/CloseButtonX";
+import CloseButtonX from "../UI/Buttons/CloseButtonX";
 
 type FormHeaderProps = {
   title: string;

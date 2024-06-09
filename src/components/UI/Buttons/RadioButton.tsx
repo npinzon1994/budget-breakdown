@@ -2,10 +2,8 @@
 
 import { useEffect, useState, FC } from "react";
 import classes from "./RadioButton.module.css";
-import { ReactComponent as ThumbsUpIcon } from "../../assets/thumbs-up-icon.svg";
-import { ReactComponent as ThumbsDownIcon } from "../../assets/thumbs-up-icon.svg";
 import thumbsUpIcon from "../../assets/thumbs-up-icon.svg";
-import { Expense } from "../../models/expense";
+import { Expense } from "../../../models/expense";
 import Image from "next/image";
 
 type RadioButtonProps = {

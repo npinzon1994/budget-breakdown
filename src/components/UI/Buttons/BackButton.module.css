@@ -1,0 +1,35 @@
+.button {
+  background: transparent;
+  outline-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 150ms;
+  position: relative;
+  padding: 8px 8px 8px 0;
+}
+
+.button:hover {
+  background: hsl(208, 22%, 95%);
+}
+
+.button:active {
+  background: hsl(208, 25%, 97%);
+}
+
+.button-text {
+  font-size: 1rem;
+}
+
+.image {
+  width: 1.8em;
+  -webkit-user-drag: none;
+  /* margin-right: 4px; */
+}
+
+.image.left {
+  transform: rotate(90deg);
+}

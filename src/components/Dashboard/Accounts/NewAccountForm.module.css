@@ -1,41 +1,30 @@
-.modal {
-  max-width: 28rem;
-  max-height: 35rem;
-  min-width: 20rem;
-  z-index: 30;
-}
-
-.backdrop {
-  z-index: 20;
-}
-
-.form-header {
-  
-}
-
-.form-title {
-  
+.title {
+  margin-top: 6px;
 }
 
 .form {
   background: white;
+  max-width: 45rem;
 }
 
-.form h2 {
-  margin-top: 0;
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+  margin-bottom: 30px;
 }
 
 .input-container {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 10px 20px;
 }
 
 .checkbox-container {
   display: flex;
   gap: 10px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  margin-bottom: 10px;
 }
 
 .input {
@@ -48,7 +37,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding-left: 0;
   margin-block: 0;
 }
 
@@ -67,13 +57,13 @@
 }
 
 .button-container {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
 .submit-button {
-    padding-block: 14px;
-    background: #1167b1;
-    color: white;
+  padding-block: 14px;
+  background: #1167b1;
+  color: white;
+  margin-top: 30px;
 }

@@ -10,8 +10,8 @@ import { useAppDispatch, useAppSelector } from "../../lib/store/hooks";
 import { uniqueIdActions } from "../../lib/store/generate-unique-id-slice";
 import { sendingActions } from "../../lib/store/sending-slice";
 import { showHideActions } from "../../lib/store/show-hide-slice";
-import RadioButton from "../UI/RadioButton";
-import Button from "../UI/Button";
+import RadioButton from "../UI/Buttons/RadioButton";
+import Button from "../UI/Buttons/Button";
 import { Expense } from "../../models/expense";
 import { ExpenseFormProps } from "../../models/expense-form";
 
