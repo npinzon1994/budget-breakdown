@@ -3,6 +3,7 @@ import { FC } from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { getAccountDetails } from "src/lib/accounts";
 import BackButton from "src/components/UI/Buttons/BackButton";
+import Image from "next/image";
 
 type PageProps = {
   params: { accountSlug: string };
@@ -26,7 +27,10 @@ const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
     accountNumber,
     routingNumber,
     balance,
+    icon,
   } = await getAccountDetails(user.id, params.accountSlug);
+
+  const iconPlaceholder = nickName ? nickName.charAt(0) : bank.charAt(0);
 
   return (
     <main className={classes.page}>
@@ -34,6 +38,17 @@ const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
 
       <h1 className={classes.title}>{nickName}</h1>
       <p className={classes.id}>{`(ID — ${_id})`}</p>
+      <div className={classes.preview}>
+        {icon ? (
+          <Image
+            src={`https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`}
+            alt="account icon"
+            fill
+          />
+        ) : (
+          iconPlaceholder
+        )}
+      </div>
       <ul>
         <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li>
         <li key={type}>Type: {type}</li>

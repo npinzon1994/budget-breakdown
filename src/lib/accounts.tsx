@@ -1,9 +1,13 @@
-import { current } from "@reduxjs/toolkit";
 import { MongoClient } from "mongodb";
 import slugify from "slugify";
 import ShortUniqueId from "short-unique-id";
+import { S3 } from "@aws-sdk/client-s3";
 
 const DB_URL = process.env.MONGODB_URI;
+
+const s3 = new S3({
+  region: "us-east-2",
+});
 
 export async function getAccounts(userId: string) {
   //get accts from db
@@ -58,6 +62,24 @@ export async function saveAccount(account: any) {
     }
 
     account.accountSlug = generatedSlug;
+
+    
+    if (account.icon) {
+      const extension = account.icon.name.split(".").pop();
+      const fileName = `${generatedSlug}.${extension}`;
+      console.log("IMAGE FILE NAME: ", fileName)
+      const bufferedImage = await account.icon.arrayBuffer();
+
+      console.log("Writing image to S3 Bucket...");
+      s3.putObject({
+        Bucket: "budget-breakdown-account-images",
+        Key: fileName,
+        Body: Buffer.from(bufferedImage),
+        ContentType: account.icon.type,
+      });
+
+      account.icon = fileName;
+    }
 
     const client = await MongoClient.connect(DB_URL);
     const db = client.db();

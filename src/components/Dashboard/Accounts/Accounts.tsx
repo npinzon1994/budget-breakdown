@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FC } from "react";
 import Account from "src/models/account";
 
-
 type AccountsProps = {
   params: { accountSlug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -13,7 +12,6 @@ type AccountsProps = {
 };
 
 const Accounts: FC<AccountsProps> = ({ accounts }) => {
-
   const loadedAccounts: Account[] = [];
   for (let i = 0; i < accounts.length; i++) {
     const account_ID = accounts[i]._id.toString();
@@ -34,26 +32,20 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
   }
 
   return (
-    <>
-      <p>
-        <Link href="/dashboard/accounts/new-account">New Account</Link>
-      </p>
-
-      <ul className={classes["account-list"]}>
-        {loadedAccounts.map((account) => (
-          <li className={classes["account-item"]} key={account._id}>
-            <Link
-              href={`/dashboard/accounts/${account.accountSlug}`}
-              className={classes["account-link"]}
-            >
-              {account.nickName
-                ? account.nickName
-                : `${account.bank} ${account.type}`}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className={classes["account-list"]}>
+      {loadedAccounts.map((account) => (
+        <li className={classes["account-item"]} key={account._id}>
+          <Link
+            href={`/dashboard/accounts/${account.accountSlug}`}
+            className={classes["account-link"]}
+          >
+            {account.nickName
+              ? account.nickName
+              : `${account.bank} ${account.type}`}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 

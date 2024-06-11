@@ -10,5 +10,23 @@
   font-size: 0.9rem;
   color: gray;
   font-style: italic;
-  margin-block: 0;
+  margin-block: 0 10px;
+}
+
+.preview {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #a4abb9;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(17, 103, 177, 0.15);
+  font-size: 4rem;
+}
+
+.preview img {
+  object-fit: cover;
 }

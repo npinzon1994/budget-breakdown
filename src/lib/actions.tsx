@@ -5,10 +5,29 @@ import { saveAccount } from "./accounts";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/JPEG",
+  "image/jpg",
+  "image/JPG",
+  "image/png",
+  "image/PNG",
+  "image/webp",
+  "image/WEBP",
+  "image/heic",
+  "image/HEIC",
+];
+
 const schema = z.object({
-  accountType: z.string().min(1),
-  accountNickname: z.string().optional(),
-  bank: z.string().min(1),
+  accountType: z
+    .string()
+    .refine(
+      (string) => string !== "Choose Account Type",
+      "Please choose an account type"
+    ),
+  accountNickname: z.optional(z.string()),
+  bank: z.optional(z.string()),
   accountNumber: z.preprocess(
     (val) => Number(val),
     z.number().positive("Account number must be a positive number.")
@@ -20,6 +39,15 @@ const schema = z.object({
   startingBalance: z.preprocess(
     (val) => Number(val),
     z.number().min(0, "Starting balance must be at least 0.")
+  ),
+  icon: z.optional(
+    z
+      .any()
+      .refine((file) => file && file?.size <= MAX_FILE_SIZE, "Max image size is 5MB.")
+      .refine(
+        (file) => file && ACCEPTED_IMAGE_TYPES.includes(file?.type),
+        "Only .jpg, .jpeg, .png, .webp, and .heic formats are supported"
+      )
   ),
 });
 
@@ -40,7 +68,10 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       accountNumber: formData.get("accountNumber"),
       routingNumber: formData.get("routingNumber"),
       startingBalance: formData.get("startingBalance"),
+      icon: formData.get("icon"),
     };
+
+    console.log("Icon: ", schema.parse(formInputs).icon);
 
     //separate try/catch block for validation errors
     try {
@@ -54,6 +85,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         accountNumber: validData.accountNumber,
         routingNumber: validData.routingNumber,
         balance: validData.startingBalance,
+        icon: validData.icon,
       };
 
       await saveAccount(newAccount);
@@ -64,7 +96,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         const errors = validationError.errors.reduce(
           (acc: Record<string, string>, err) => {
             acc[err.path[0]] = err.message;
-            console.log("errors: ", acc)
+            console.log("errors: ", acc);
             return acc;
           },
           {}

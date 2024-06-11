@@ -3,6 +3,7 @@ import { FC } from "react";
 import Accounts from "src/components/Dashboard/Accounts/Accounts";
 import { getAccounts } from "src/lib/accounts";
 import { currentUser } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 type PageProps = {
   params: { accountSlug: string };
@@ -20,6 +21,9 @@ const Dashboard_AccountsPage: FC<PageProps> = async ({ params }) => {
   return (
     <main className={classes.page}>
       <h1>Accounts</h1>
+      <p>
+        <Link href="/dashboard/accounts/new-account">New Account</Link>
+      </p>
       <Accounts params={params} accounts={accounts} />
     </main>
   );

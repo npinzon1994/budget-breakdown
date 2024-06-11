@@ -1,10 +1,11 @@
 .title {
-  margin-top: 6px;
+  margin-block: 6px 8px;
 }
 
 .form {
   background: white;
   max-width: 45rem;
+  margin-top: 1rem;
 }
 
 .input-grid {
@@ -66,4 +67,11 @@
   background: #1167b1;
   color: white;
   margin-top: 30px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  list-style-type: none;
+  font-style: italic;
 }
