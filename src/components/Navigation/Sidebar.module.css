@@ -3,26 +3,35 @@
   border-right: solid 1px lightgray;
 }
 
-.links {
+.list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-block: 0;
   padding: 1rem 2rem;
+  list-style-type: none;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;  
 }
 
 .link {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  padding: 6px 12px;
+  border-radius: 4px;
   text-decoration: none;
   font-family: "Golos Text", sans-serif;
   color: hsl(208, 82%, 25%);
-  padding: 6px 12px;
-  border-radius: 4px;
 }
 
 .link:hover {
   background: rgba(17, 103, 177, 0.1);
 }
-
 
 .active {
   background: rgb(17, 103, 177);

@@ -1,10 +1,25 @@
 .container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 
-.controls {
+.preview {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #a4abb9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #a4abb9;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.preview img {
+  object-fit: cover;
 }
 
 .input {
@@ -16,31 +31,8 @@
   padding: 10px;
   height: 40px;
   width: 40px;
-  border: none;
+  border: 1px solid #a4abb9;
   cursor: pointer;
   background: rgba(17, 103, 177, 0.15);
   color: rgb(17, 103, 177);
-}
-
-.preview {
-  width: 6rem;
-  height: 6rem;
-  border: 2px solid #a4abb9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #a4abb9;
-  position: relative;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.preview p {
-  margin: 0;
-  padding: 1rem;
-}
-
-.preview img {
-  object-fit: cover;
 }

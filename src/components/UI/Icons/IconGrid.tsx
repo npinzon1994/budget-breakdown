@@ -12,9 +12,10 @@ type Props = {
 };
 
 const IconGrid: FC<Props> = ({ icons, label, name }) => {
+
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      {/* <label htmlFor={name}>{label}</label> */}
       <ul className={classes.grid}>
         {icons.map((icon, index) => (
           <li key={index}>
@@ -26,7 +27,7 @@ const IconGrid: FC<Props> = ({ icons, label, name }) => {
             <input type="radio" />
           </li>
         ))}
-        <ImagePicker name={name} />
+        {/* <ImagePicker name={name} /> */}
       </ul>
     </div>
   );

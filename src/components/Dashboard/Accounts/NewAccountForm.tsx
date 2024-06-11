@@ -10,8 +10,12 @@ import AccountsFormSubmit from "./AccountsFormSubmit";
 import { ZodIssue, z } from "zod";
 import ImagePicker from "src/components/UI/ImagePicker";
 import accountPlaceholder from "../../../assets/account-placeholder.png";
-import IconGrid from "src/components/UI/Icons/IconGrid";
-import { ListObjectsV2CommandOutput } from "@aws-sdk/client-s3";
+import Image from "next/image";
+import checkingIcon from "../../../assets/account-type-icons/checking.svg";
+import savingsIcon from "../../../assets/account-type-icons/savings.svg";
+import loanIcon from "../../../assets/account-type-icons/loan.svg";
+import creditCardIcon from "../../../assets/account-type-icons/credit.png";
+import snapIcon from "../../../assets/account-type-icons/snap.png";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -63,14 +67,27 @@ const schema = z.object({
 });
 
 const accountOptions: Option[] = [
-  new Option("Choose Account Type", "Choose Account Type"),
-  new Option("Checking", "Checking"),
-  new Option("Savings", "Savings"),
-  new Option("Loan", "Loan"),
-  new Option("Credit Card", "Credit Card"),
-  new Option("SNAP", "SNAP"),
-  new Option("Other", "Other"),
+  // new Option("Choose Account Type", "Choose Account Type"),
+  new Option("Checking", "Checking", checkingIcon),
+  new Option("Savings", "Savings", savingsIcon),
+  new Option("Loan", "Loan", loanIcon),
+  new Option("Credit Card", "Credit Card", creditCardIcon),
+  new Option("SNAP", "SNAP", snapIcon),
+  // new Option("Other", "Other"),
 ];
+
+const formatAccountOptionLabel = (option: Option) => (
+  <div className={classes["option-container"]}>
+    <div className={classes["icon-container"]}>
+      <Image
+        src={option.image || accountPlaceholder}
+        alt={`${option.label} icon`}
+        fill
+      />
+    </div>
+    <span>{option.label}</span>
+  </div>
+);
 
 type Props = {
   icons: string[];
@@ -98,6 +115,32 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
 
   const [hasDebit, setHasDebit] = useState(false);
   const [errors, setErrors] = useState<ZodIssue[] | null>();
+
+  const imageSources = icons.map(
+    (icon) =>
+      `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`
+  );
+
+  const bankOptions: Option[] = [
+    new Option("bfcu", "Bethpage Federal Credit Union", imageSources[0]),
+    new Option("boa", "Bank of America", imageSources[1]),
+    new Option("chase", "Chase", imageSources[2]),
+    new Option("citi", "Citi Bank", imageSources[3]),
+    new Option("hsbc", "HSBC", imageSources[4]),
+  ];
+
+  const formatBankOptionLabel = (option: Option) => (
+    <div className={classes["option-container"]}>
+      <div className={classes["icon-container"]}>
+        <Image
+          src={option.image || accountPlaceholder}
+          alt={`${option.label} icon`}
+          fill
+        />
+      </div>
+      <span>{option.label}</span>
+    </div>
+  );
 
   const debitCheckboxHandler = () => {
     setHasDebit((prev) => !prev);
@@ -138,30 +181,23 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
       <form action={formAction} className={classes.form}>
         <div className={classes["input-grid"]}>
           <div className={classes["input-container"]}>
-            <label htmlFor="account-type">Account Type</label>
+            <label htmlFor="account-type">Type</label>
             <Select
               options={accountOptions}
               defaultValue={accountOptions[0]}
+              isSearchable={false}
+              formatOptionLabel={formatAccountOptionLabel}
               id="account-type"
               name="accountType"
             />
           </div>
           <div className={classes["input-container"]}>
-            <label htmlFor="account-nickname">Account Nickname</label>
+            <label htmlFor="account-nickname">Name</label>
             <input
               type="text"
               className={classes.input}
               id="account-nickname"
               name="accountNickname"
-            />
-          </div>
-          <div className={classes["input-container"]}>
-            <label htmlFor="bank">Bank</label>
-            <input
-              type="text"
-              className={classes.input}
-              id="bank"
-              name="bank"
             />
           </div>
           <div className={classes["input-container"]}>
@@ -173,7 +209,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               name="accountNumber"
             />
           </div>
-          <div className={classes["input-container"]}>
+          {/* <div className={classes["input-container"]}>
             <label htmlFor="routing-number">Routing #</label>
             <input
               type="number"
@@ -181,15 +217,26 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               id="routing-number"
               name="routingNumber"
             />
-          </div>
+          </div> */}
           <div className={classes["input-container"]}>
-            <label htmlFor="starting-balance">Starting Balance</label>
+            <label htmlFor="starting-balance">Balance</label>
             <input
               type="number"
               className={classes.input}
               id="starting-balance"
               name="startingBalance"
             />
+          </div>
+          <div className={classes["input-container"]}>
+            {/* <label htmlFor="bank">Bank</label> */}
+            {/* <Select
+              options={bankOptions}
+              defaultValue={bankOptions[0]}
+              isSearchable={false}
+              id="bank"
+              name="bank"
+            /> */}
+            <ImagePicker label="Icon" name="icon" />
           </div>
           <div className={classes["checkbox-container"]}>
             <input
@@ -203,7 +250,6 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               I want to associate a debit card with this account
             </label>
           </div>
-          <IconGrid icons={icons} label="Icon" name="icon" />
         </div>
         {hasDebit ? (
           <ul className={classes["debit-card-list"]}>
