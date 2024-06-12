@@ -50,24 +50,16 @@ export async function saveAccount(account: any) {
       );
     }
 
-    let generatedSlug;
-    if (account.nickName) {
-      generatedSlug = `${slugify(account.nickName, {
-        lower: true,
-      })}-${randomUUID()}`;
-    } else {
-      generatedSlug = `${slugify(`${account.bank} ${account.type}`, {
-        lower: true,
-      })}-${randomUUID()}`;
-    }
+    const generatedSlug = `${slugify(account.nickName, {
+      lower: true,
+    })}-${randomUUID()}`;
 
     account.accountSlug = generatedSlug;
 
-    
     if (account.icon) {
       const extension = account.icon.name.split(".").pop();
       const fileName = `${generatedSlug}.${extension}`;
-      console.log("IMAGE FILE NAME: ", fileName)
+      console.log("IMAGE FILE NAME: ", fileName);
       const bufferedImage = await account.icon.arrayBuffer();
 
       console.log("Writing image to S3 Bucket...");

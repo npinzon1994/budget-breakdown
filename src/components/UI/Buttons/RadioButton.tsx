@@ -2,7 +2,7 @@
 
 import { useEffect, useState, FC } from "react";
 import classes from "./RadioButton.module.css";
-import thumbsUpIcon from "../../assets/thumbs-up-icon.svg";
+import thumbsUpIcon from "../../../assets/thumbs-up-icon.svg";
 import { Expense } from "../../../models/expense";
 import Image from "next/image";
 

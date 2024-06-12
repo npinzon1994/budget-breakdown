@@ -25,6 +25,7 @@
   overflow: hidden;
   background: rgba(17, 103, 177, 0.15);
   font-size: 4rem;
+  border: solid 1px lightgray;
 }
 
 .preview img {

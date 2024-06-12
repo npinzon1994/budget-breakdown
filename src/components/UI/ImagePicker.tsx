@@ -4,10 +4,12 @@ import classes from "./ImagePicker.module.css";
 import { ChangeEvent, FC, useRef, useState } from "react";
 import Image from "next/image";
 import accountPlaceholder from "../../assets/account-placeholder.png";
+import ImagePreview from "./ImagePreview";
 
 type Props = {
   name: string;
   label: string;
+  activeIcon: string | undefined;
 };
 
 const ImagePicker: FC<Props> = ({ name, label }) => {
@@ -40,17 +42,7 @@ const ImagePicker: FC<Props> = ({ name, label }) => {
     <>
       <label htmlFor={name}>{label}</label>
       <div className={classes.container}>
-        <div className={classes.preview}>
-          {icon ? (
-            <Image src={icon} alt="account icon selected by the user" fill />
-          ) : (
-            <Image
-              src={accountPlaceholder}
-              alt="account icon selected by the user"
-              fill
-            />
-          )}
-        </div>
+        <ImagePreview icon={icon} className={classes["icon-preview"]} />
         <div className={classes.controls}>
           <input
             type="file"

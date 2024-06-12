@@ -6,49 +6,33 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/JPEG",
-  "image/jpg",
-  "image/JPG",
-  "image/png",
-  "image/PNG",
-  "image/webp",
-  "image/WEBP",
-  "image/heic",
-  "image/HEIC",
-];
 
 const schema = z.object({
-  accountType: z
-    .string()
-    .refine(
-      (string) => string !== "Choose Account Type",
-      "Please choose an account type"
-    ),
-  accountNickname: z.optional(z.string()),
-  bank: z.optional(z.string()),
+  accountType: z.string(),
+  accountNickname: z.string().min(1, { message: "Name is required" }),
   accountNumber: z.preprocess(
     (val) => Number(val),
-    z.number().positive("Account number must be a positive number.")
+    z.number().min(1, { message: "Account Number required" })
   ),
-  routingNumber: z.preprocess(
+  startingBalance: z.preprocess((val) => Number(val), z.number()),
+  icon: z
+    .any()
+    .refine(
+      (file) => file && file.size <= MAX_FILE_SIZE,
+      "Max image size is 5MB."
+    )
+    .optional(),
+  note: z.string().optional(),
+  creditLimit: z.preprocess(
     (val) => Number(val),
-    z.number().positive("Routing number must be a positive number.")
-  ),
-  startingBalance: z.preprocess(
-    (val) => Number(val),
-    z.number().min(0, "Starting balance must be at least 0.")
-  ),
-  icon: z.optional(
     z
-      .any()
-      .refine((file) => file && file?.size <= MAX_FILE_SIZE, "Max image size is 5MB.")
-      .refine(
-        (file) => file && ACCEPTED_IMAGE_TYPES.includes(file?.type),
-        "Only .jpg, .jpeg, .png, .webp, and .heic formats are supported"
-      )
+      .number()
+      .positive({ message: "Credit limit must be above $0" })
+      .optional()
+      .or(z.literal(0))
   ),
+  billingDate: z.string().date().nullable().or(z.literal('')),
+  dueDate: z.string().date().nullable().or(z.literal('')),
 });
 
 export async function createNewAccount(prevState: any, formData: FormData) {
@@ -64,11 +48,12 @@ export async function createNewAccount(prevState: any, formData: FormData) {
     const formInputs = {
       accountType: formData.get("accountType"),
       accountNickname: formData.get("accountNickname"),
-      bank: formData.get("bank"),
       accountNumber: formData.get("accountNumber"),
-      routingNumber: formData.get("routingNumber"),
       startingBalance: formData.get("startingBalance"),
       icon: formData.get("icon"),
+      creditLimit: formData.get("creditLimit"),
+      billingDate: formData.get('billingDate'),
+      dueDate: formData.get('dueDate'),
     };
 
     console.log("Icon: ", schema.parse(formInputs).icon);
@@ -81,11 +66,12 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         associatedUser_ID: user.id,
         type: validData.accountType,
         nickName: validData.accountNickname,
-        bank: validData.bank,
         accountNumber: validData.accountNumber,
-        routingNumber: validData.routingNumber,
         balance: validData.startingBalance,
         icon: validData.icon,
+        creditLimit: validData.creditLimit,
+        billingDate: validData.billingDate,
+        dueDate: validData.dueDate,
       };
 
       await saveAccount(newAccount);

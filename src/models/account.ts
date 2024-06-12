@@ -4,10 +4,12 @@ class Account {
   accountSlug: string;
   type: string;
   nickName: string;
-  bank: string;
   accountNumber: string;
-  routingNumber: string;
   balance: string;
+  icon: string;
+  creditLimit?: number;
+  billingDate?: string;
+  dueDate?: string;
 
   constructor(
     _id: string,
@@ -15,20 +17,24 @@ class Account {
     accountSlug: string,
     type: string,
     nickName: string,
-    bank: string,
     accountNumber: string,
-    routingNumber: string,
-    balance: string
+    balance: string,
+    icon: string,
+    creditLimit?: number,
+    billingDate?: string,
+    dueDate?: string
   ) {
     this._id = _id;
     this.associatedUser_ID = associatedUser_ID;
     this.accountSlug = accountSlug;
     this.type = type;
     this.nickName = nickName;
-    this.bank = bank;
     this.accountNumber = accountNumber;
-    this.routingNumber = routingNumber;
     this.balance = balance;
+    this.icon = icon;
+    this.creditLimit = creditLimit;
+    this.billingDate = billingDate;
+    this.dueDate = dueDate;
   }
 }
 

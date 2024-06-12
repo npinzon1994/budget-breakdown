@@ -1,24 +1,97 @@
-.new-account-button {
-    cursor: pointer;
+.section {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
 }
 
-.account-list {
-    padding-left: 0;
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+.list {
+  padding-left: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  /* background: red; */
+
+  height: max-content;
 }
 
-.account-item {
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 1em;
+  flex: 1 1 auto;
+  background: rgba(17, 103, 177, 0.1);
+}
+
+.name {
+  color: black;
+  /* background: red; */
+}
+
+.link:hover {
+  background: rgba(17, 103, 177, 0.2);
+}
+
+.link:active {
+  background: rgba(17, 103, 177, 0.15);
+}
+
+.account-information {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(17, 103, 177, 0.1);
-    padding: 1em; 
-    border-radius: 10px;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.account-link {
-    text-align: center;
+.name-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: yellow; */
+}
+
+.balance-information {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* background: red; */
+}
+
+.balance-information div {
+  display: flex;
+  flex-direction: column;
+}
+
+.currency-label {
+    font-size: 0.85rem;
+}
+
+.currency {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: limegreen;
+}
+
+.account-number {
+  color: gray;
+  font-style: italic;
+}
+
+.placeholder-message {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon {
+  height: 30px;
+  width: 30px;
 }

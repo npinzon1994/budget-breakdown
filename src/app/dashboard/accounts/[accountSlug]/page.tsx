@@ -4,6 +4,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getAccountDetails } from "src/lib/accounts";
 import BackButton from "src/components/UI/Buttons/BackButton";
 import Image from "next/image";
+import iconPlaceholder from "../../../../assets/account-placeholder.png";
+import { formatCurrency } from "src/util/currency";
 
 type PageProps = {
   params: { accountSlug: string };
@@ -20,17 +22,17 @@ const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
   const {
     _id,
     associatedUser_ID,
-    accountSlug,
     type,
     nickName,
-    bank,
     accountNumber,
-    routingNumber,
     balance,
     icon,
+    creditLimit,
+    billingDate,
+    dueDate,
   } = await getAccountDetails(user.id, params.accountSlug);
 
-  const iconPlaceholder = nickName ? nickName.charAt(0) : bank.charAt(0);
+  const isCreditCard = type === "Credit Card";
 
   return (
     <main className={classes.page}>
@@ -46,17 +48,26 @@ const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
             fill
           />
         ) : (
-          iconPlaceholder
+          <Image src={iconPlaceholder} alt="account placeholder icon" fill />
         )}
       </div>
       <ul>
-        <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li>
-        <li key={type}>Type: {type}</li>
-        <li key={nickName}>Nickname: {nickName}</li>
-        <li key={bank}>Bank: {bank}</li>
-        <li key={accountNumber}>Account #: {accountNumber}</li>
-        <li key={routingNumber}>Routing #: {routingNumber}</li>
-        <li key={balance}>Balance: {balance}</li>
+        {/* <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li> */}
+        <li key="type">Type: {type}</li>
+        <li key="name">Name: {nickName}</li>
+        <li key="account-number">Account Number: {accountNumber}</li>
+        <li key="balance">Balance: {formatCurrency(balance)}</li>
+        {isCreditCard ? (
+          <li key="credit-limit">
+            Credit Limit: {formatCurrency(creditLimit)}
+          </li>
+        ) : undefined}
+        {isCreditCard && billingDate ? (
+          <li key="billing-date">Billing Date: {billingDate}</li>
+        ) : undefined}
+        {isCreditCard && dueDate ? (
+          <li key="due-date">Due Date: {dueDate}</li>
+        ) : undefined}
       </ul>
     </main>
   );
