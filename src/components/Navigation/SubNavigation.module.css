@@ -1,0 +1,41 @@
+.header {
+  /* background: red; */
+  width: 100%;
+}
+
+.sub-navigation {
+  /* background: cyan; */
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  gap: 12px;
+  margin-block: 0;
+  padding-block: 1rem;
+}
+
+.list-item {
+}
+
+.link {
+  text-decoration: none;
+  /* background: pink; */
+  padding: 0.75em 1.25em;
+  border-radius: 4px;
+  color: black;
+}
+
+.link:hover {
+  background: hsl(208, 22%, 95%);
+}
+
+.link:active {
+  background: hsl(208, 25%, 97%);
+}
+
+.right-arrow {
+  width: 1.4em;
+  -webkit-user-drag: none;
+  transform: rotate(-90deg);
+  margin-top: 7px;
+  /* background: red; */
+}

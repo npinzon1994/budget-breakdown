@@ -3,3 +3,7 @@
   width: 100%;
   display: flex;
 }
+
+.main-content-wrapper {
+  width: 100%;
+}
