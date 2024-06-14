@@ -4,6 +4,7 @@ import sendingReducer from "./sending-slice";
 import showHideReducer from "./show-hide-slice";
 import filterReducer from "./filter-slice";
 import pageReducer from "./pages-slice";
+import accountReducer from './account-slice';
 
 export const makeStore = () => {
   return configureStore({
@@ -13,6 +14,7 @@ export const makeStore = () => {
       showHide: showHideReducer,
       filter: filterReducer,
       pages: pageReducer,
+      account: accountReducer
     },
   });
 };

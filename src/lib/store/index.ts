@@ -8,6 +8,7 @@ import uniqueIdReducer from "./generate-unique-id-slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { thunk } from "redux-thunk";
+import accountReducer from "./account-slice";
 
 const persistConfig = {
   key: "bbRoot",
@@ -24,6 +25,7 @@ export const store = configureStore({
     filter: filterReducer,
     uniqueId: persistedReducer,
     pages: pageReducer,
+    account: accountReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
