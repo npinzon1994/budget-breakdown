@@ -1,34 +1,130 @@
-.page {
-    padding: 1rem 2rem;
-  }
-  
-  .title {
-    margin-block: 4px;
-  }
-  
-  .id {
-    font-size: 0.9rem;
-    color: gray;
-    font-style: italic;
-    margin-block: 0 10px;
-  }
-  
-  .preview {
-    width: 6rem;
-    height: 6rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    color: #a4abb9;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    background: rgba(17, 103, 177, 0.15);
-    font-size: 4rem;
-    border: solid 1px lightgray;
-  }
-  
-  .preview img {
-    object-fit: cover;
-  }
-  
+.wrapper {
+  background: yellow;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.main-account-info {
+  background: red;
+  padding: 1rem 2rem;
+}
+
+.transactions {
+  background: blue;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  background: hsla(208, 82%, 38%, 0.05);
+  max-width: 30rem;
+}
+
+.card .left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card .right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name-note-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: pink; */
+}
+
+.name-note-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  /* padding-bottom: 3px; */
+}
+
+.note {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: hsla(208, 22%, 38%, 0.85);
+}
+
+.icon {
+  height: 34px;
+  width: 34px;
+  margin-top: 6px;
+}
+
+.controls {
+  display: flex;
+
+  gap: 10px;
+}
+
+.button {
+  padding: 0.75em 1.5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+.add {
+  background: #1167b1;
+  color: white;
+}
+
+.add-image-wrapper {
+  height: 14px;
+  width: 14px;
+}
+
+.add-image-wrapper img {
+  height: 100%;
+  width: 100%;
+}
+
+.button-text {
+  font-size: 1rem;
+}
+
+.transfer {
+  background: hsla(208, 22%, 38%, 0.25);
+}
+
+.balance-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.balance {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.remaining-balance {
+}
+
+.title {
+  margin-block: 4px;
+}
+
+.id {
+  font-size: 0.9rem;
+  color: gray;
+  font-style: italic;
+  margin-block: 0 10px;
+}

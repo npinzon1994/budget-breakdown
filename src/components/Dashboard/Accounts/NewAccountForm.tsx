@@ -120,6 +120,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
       accountNumber: formData.get("accountNumber"),
       startingBalance: formData.get("startingBalance"),
       icon: formData.get("icon"),
+      note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
       billingDate: formData.get('billingDate'),
       dueDate: formData.get('dueDate'),

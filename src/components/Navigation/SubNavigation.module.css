@@ -1,6 +1,7 @@
 .header {
   /* background: red; */
   width: 100%;
+  border-bottom: solid 1px hsla(208, 22%, 38%, 0.25);
 }
 
 .sub-navigation {

@@ -7,9 +7,11 @@ import { FC, useEffect } from "react";
 import Account from "src/models/account";
 import iconPlaceholder from "../../../assets/account-placeholder.png";
 import { formatCurrency } from "src/util/currency";
-import { useAppDispatch } from "src/lib/store/hooks";
 import { accountActions } from "src/lib/store/account-slice";
 import { useDispatch } from "react-redux";
+import ImagePreview from "src/components/UI/ImagePreview";
+import addIcon from "../../../assets/add.svg";
+import transferIcon from "../../../assets/transfer.svg";
 
 type Props = {
   account: Account;
@@ -34,6 +36,7 @@ const AccountDetails: FC<Props> = ({ account }) => {
     accountNumber,
     balance,
     icon,
+    note,
     creditLimit,
     billingDate,
     dueDate,
@@ -42,41 +45,76 @@ const AccountDetails: FC<Props> = ({ account }) => {
   const isCreditCard = type === "Credit Card";
 
   return (
-    <>
-      <BackButton />
+    <div className={classes.wrapper}>
+      <div className={classes["main-account-info"]}>
+        <BackButton />
+        <div className={classes.card}>
+          <div className={classes.left}>
+            <div className={classes["name-note-wrapper"]}>
+              <ImagePreview icon={icon} className={classes.icon} />
+              <div className={classes["name-note-container"]}>
+                <span className={classes.name}>{nickName}</span>
+                {accountNumber ? (
+                  <span className={classes.note}>{accountNumber}</span>
+                ) : undefined}
+              </div>
+            </div>
+            <div className={classes.controls}>
+              <button
+                type="button"
+                className={`${classes.button} ${classes.add}`}
+              >
+                <div className={classes["add-image-wrapper"]}>
+                  <Image src={addIcon} alt="Add transaction icon" />
+                </div>
+                <span className={classes["button-text"]}>Transaction</span>
+              </button>
+              <button
+                type="button"
+                className={`${classes.button} ${classes.transfer}`}
+              >
+                <div className={classes["add-image-wrapper"]}>
+                  <Image src={transferIcon} alt="transfer money icon" />
+                </div>
+                <span className={classes["button-text"]}>Transfer</span>
+              </button>
+            </div>
+          </div>
+          <div className={classes.right}>
+            <div className={classes["balance-container"]}>
+              <span className={classes.balance}>
+                {formatCurrency(Number(balance))}
+              </span>
+              <span className={classes["remaining-balance"]}>
+                Rem. {formatCurrency(Number(balance))}
+              </span>
+            </div>
+          </div>
+        </div>
 
-      <h1 className={classes.title}>{nickName}</h1>
-      <p className={classes.id}>{`(ID — ${_id})`}</p>
-      <div className={classes.preview}>
-        {icon ? (
-          <Image
-            src={`https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`}
-            alt="account icon"
-            fill
-          />
-        ) : (
-          <Image src={iconPlaceholder} alt="account placeholder icon" fill />
-        )}
+        <p className={classes.id}>{`(ID — ${_id})`}</p>
+        <ul>
+          {/* <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li> */}
+          <li key="type">Type: {type}</li>
+          <li key="name">Name: {nickName}</li>
+          <li key="account-number">Account Number: {accountNumber}</li>
+          <li key="balance">Balance: {formatCurrency(Number(balance))}</li>
+          {isCreditCard ? (
+            <li key="credit-limit">
+              Credit Limit: {formatCurrency(Number(creditLimit))}
+            </li>
+          ) : undefined}
+          {isCreditCard && billingDate ? (
+            <li key="billing-date">Billing Date: {billingDate}</li>
+          ) : undefined}
+          {isCreditCard && dueDate ? (
+            <li key="due-date">Due Date: {dueDate}</li>
+          ) : undefined}
+        </ul>
       </div>
-      <ul>
-        {/* <li key={associatedUser_ID}>User ID: {associatedUser_ID}</li> */}
-        <li key="type">Type: {type}</li>
-        <li key="name">Name: {nickName}</li>
-        <li key="account-number">Account Number: {accountNumber}</li>
-        <li key="balance">Balance: {formatCurrency(Number(balance))}</li>
-        {isCreditCard ? (
-          <li key="credit-limit">
-            Credit Limit: {formatCurrency(Number(creditLimit))}
-          </li>
-        ) : undefined}
-        {isCreditCard && billingDate ? (
-          <li key="billing-date">Billing Date: {billingDate}</li>
-        ) : undefined}
-        {isCreditCard && dueDate ? (
-          <li key="due-date">Due Date: {dueDate}</li>
-        ) : undefined}
-      </ul>
-    </>
+
+      <div className={classes.transactions}></div>
+    </div>
   );
 };
 

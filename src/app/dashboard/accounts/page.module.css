@@ -1,18 +1,18 @@
 .page {
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
-    width: 100%;
 }
 
 .header {
-    flex: 0 1 auto;
-    border-bottom: solid 1px lightgray;
-    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: pink; */
+    padding: 1rem 2rem;
 }
 
 .title {
-    margin-bottom: 1.5rem;
+    margin-block: 0;
 }
 
 .new-account {

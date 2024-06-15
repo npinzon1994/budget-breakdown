@@ -56,7 +56,8 @@ export async function saveAccount(account: any) {
 
     account.accountSlug = generatedSlug;
 
-    if (account.icon) {
+    if (account.icon.size > 0) {
+      console.log("ACCOUNT ICON (user uploaded image): ", account.icon);
       const extension = account.icon.name.split(".").pop();
       const fileName = `${generatedSlug}.${extension}`;
       console.log("IMAGE FILE NAME: ", fileName);
@@ -72,6 +73,8 @@ export async function saveAccount(account: any) {
 
       account.icon = fileName;
     }
+    account.icon = null;
+    console.log("ACCOUNT ICON (no uploaded image): ", account.icon)
 
     const client = await MongoClient.connect(DB_URL);
     const db = client.db();

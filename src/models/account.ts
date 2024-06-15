@@ -7,7 +7,8 @@ class Account {
   accountNumber: string;
   balance: string;
   icon: string;
-  creditLimit?: number;
+  note?: string;
+  creditLimit?: string;
   billingDate?: string;
   dueDate?: string;
 
@@ -20,7 +21,8 @@ class Account {
     accountNumber: string,
     balance: string,
     icon: string,
-    creditLimit?: number,
+    note?: string,
+    creditLimit?: string,
     billingDate?: string,
     dueDate?: string
   ) {
@@ -32,6 +34,7 @@ class Account {
     this.accountNumber = accountNumber;
     this.balance = balance;
     this.icon = icon;
+    this.note = note;
     this.creditLimit = creditLimit;
     this.billingDate = billingDate;
     this.dueDate = dueDate;

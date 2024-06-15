@@ -31,8 +31,8 @@ const schema = z.object({
       .optional()
       .or(z.literal(0))
   ),
-  billingDate: z.string().date().nullable().or(z.literal('')),
-  dueDate: z.string().date().nullable().or(z.literal('')),
+  billingDate: z.string().date().nullable().or(z.literal("")),
+  dueDate: z.string().date().nullable().or(z.literal("")),
 });
 
 export async function createNewAccount(prevState: any, formData: FormData) {
@@ -51,9 +51,10 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       accountNumber: formData.get("accountNumber"),
       startingBalance: formData.get("startingBalance"),
       icon: formData.get("icon"),
+      note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
-      billingDate: formData.get('billingDate'),
-      dueDate: formData.get('dueDate'),
+      billingDate: formData.get("billingDate"),
+      dueDate: formData.get("dueDate"),
     };
 
     console.log("Icon: ", schema.parse(formInputs).icon);
@@ -69,6 +70,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         accountNumber: validData.accountNumber,
         balance: validData.startingBalance,
         icon: validData.icon,
+        note: validData.note,
         creditLimit: validData.creditLimit,
         billingDate: validData.billingDate,
         dueDate: validData.dueDate,

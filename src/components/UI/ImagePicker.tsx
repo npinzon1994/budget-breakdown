@@ -14,7 +14,7 @@ type Props = {
 
 const ImagePicker: FC<Props> = ({ name, label }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [icon, setIcon] = useState<string | null>("");
+  const [icon, setIcon] = useState<string | null>(null);
 
   const handleClick = () => {
     inputRef.current?.click();

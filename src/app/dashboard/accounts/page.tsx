@@ -22,14 +22,13 @@ const Dashboard_AccountsPage: FC<PageProps> = async ({ params }) => {
     <main className={classes.page}>
       <header className={classes.header}>
         <h1 className={classes.title}>Accounts</h1>
-        <p>
-          <Link
-            href="/dashboard/accounts/new-account"
-            className={classes["new-account"]}
-          >
-            New Account
-          </Link>
-        </p>
+
+        <Link
+          href="/dashboard/accounts/new-account"
+          className={classes["new-account"]}
+        >
+          New Account
+        </Link>
       </header>
       <Accounts params={params} accounts={accounts} />
     </main>

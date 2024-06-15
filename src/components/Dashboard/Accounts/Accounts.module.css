@@ -1,31 +1,36 @@
 .section {
   position: relative;
-  width: 100%;
-  flex: 1 1 auto;
+  /* width: 100%;
+  flex: 1 1 auto; */
 }
 
 .list {
   padding-left: 0;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 1fr;
   gap: 2rem;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
   /* background: red; */
-
   height: max-content;
+  margin-block: 0;
 }
 
 .item {
   display: flex;
+  
   justify-content: center;
-  align-items: stretch;
+  /* align-items: stretch; */
+  /* flex: 1 1 0; */
 }
 
 .link {
   display: flex;
   justify-content: space-between;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 1em;
   flex: 1 1 auto;
   background: rgba(17, 103, 177, 0.1);
@@ -45,9 +50,9 @@
 }
 
 .account-information {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .name-icon-container {
@@ -70,13 +75,13 @@
 }
 
 .currency-label {
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 .currency {
   font-size: 1.25rem;
   font-weight: 500;
-  color: limegreen;
+  /* color: limegreen; */
 }
 
 .account-number {

@@ -29,6 +29,7 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
         accounts[i].accountNumber,
         accounts[i].balance,
         accounts[i].icon,
+        accounts[i].note,
         accounts[i].creditLimit,
         accounts[i].billingDate,
         accounts[i].dueDate
@@ -45,7 +46,7 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
         <div className={classes["account-information"]}>
           <div className={classes["name-icon-container"]}>
             <ImagePreview
-              icon={`https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${account.icon}`}
+              icon={account.icon}
               className={classes.icon}
             />
             <span className={classes.name}>{account.nickName}</span>
@@ -63,9 +64,9 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
           </div>
           {account.creditLimit ? (
             <div>
-              <span className={classes["currency-label"]}>Remaining</span>
+              <span className={classes["currency-label"]}>Available</span>
               <span className={classes.currency}>
-                {formatCurrency(Number(account.creditLimit))}
+              {formatCurrency(Number(account.creditLimit))}
               </span>
             </div>
           ) : undefined}

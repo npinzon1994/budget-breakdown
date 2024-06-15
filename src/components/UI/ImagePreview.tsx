@@ -12,7 +12,7 @@ const ImagePreview: FC<Props> = ({ icon, className }) => {
   return (
     <div className={`${classes.preview} ${className}`}>
       {icon ? (
-        <Image src={icon} alt="account icon selected by the user" fill />
+        <Image src={`https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`} alt="account icon selected by the user" fill />
       ) : (
         <Image
           src={accountPlaceholder}
