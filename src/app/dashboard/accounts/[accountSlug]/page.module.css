@@ -1,6 +1,8 @@
 .page {
   display: flex;
   flex-direction: column;
+  /* background: pink; */
+  height: calc(100vh - 133px);
 }
 
 .title {

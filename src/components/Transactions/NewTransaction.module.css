@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 0.7rem;
   margin-top: 1rem;
+  width: 27rem;
 }
 
 .header {

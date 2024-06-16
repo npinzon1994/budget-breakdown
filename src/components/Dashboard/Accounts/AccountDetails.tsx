@@ -101,7 +101,13 @@ const AccountDetails: FC<Props> = ({ account, transactions }) => {
 
       <div className={classes.transactions}>
         <h1>Transactions</h1>
-        <TransactionsList transactions={transactions} />
+        {transactions.length > 0 ? (
+          <TransactionsList transactions={transactions} />
+        ) : (
+          <p className={classes["empty-message"]}>
+            No transactions recorded for this account.
+          </p>
+        )}
       </div>
     </div>
   );

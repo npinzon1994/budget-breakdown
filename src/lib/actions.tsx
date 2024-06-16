@@ -4,11 +4,11 @@ import { currentUser } from "@clerk/nextjs/server";
 import { saveAccount } from "./accounts";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { generateInitialTransaction } from "./transactions";
+import { generateInitialTransaction, saveExpense } from "./transactions";
 
 const MAX_FILE_SIZE = 5000000;
 
-const schema = z.object({
+const accountSchema = z.object({
   accountType: z.string(),
   accountNickname: z.string().min(1, { message: "Name is required" }),
   accountNumber: z.preprocess(
@@ -58,11 +58,11 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       dueDate: formData.get("dueDate"),
     };
 
-    console.log("Icon: ", schema.parse(formInputs).icon);
+    console.log("Icon: ", accountSchema.parse(formInputs).icon);
 
     //separate try/catch block for validation errors
     try {
-      const validData = schema.parse(formInputs);
+      const validData = accountSchema.parse(formInputs);
 
       const newAccount = {
         associatedUser_ID: user.id,
@@ -100,4 +100,28 @@ export async function createNewAccount(prevState: any, formData: FormData) {
     console.error("Something went wrong. Please try again later.", error);
     return { status: 500, message: "Internal Server Error." };
   }
+}
+
+export async function createNewExpense(prevState: any, formData: FormData) {
+  const formInputs = {
+    amount: formData.get("amount"),
+    date: formData.get("datePicker"),
+    merchant: formData.get("merchant"),
+  };
+
+  console.log("ASSOCIATED ACCOUNT ID: ", prevState.currentAccount._id);
+  console.log("AMOUNT: ", formInputs.amount);
+  console.log("DATE: ", formInputs.date);
+  console.log("MERCHANT: ", formInputs.merchant);
+
+  const transaction = {
+    associatedAccount_ID: prevState.currentAccount._id,
+    //outsideAccount_ID gonna be added later (maybe)
+    date: formInputs.date,
+    amount: formInputs.amount,
+    merchant: formInputs.merchant,
+  };
+
+  await saveExpense(transaction);
+  revalidatePath("/dashboard/accounts/[accountSlug]");
 }

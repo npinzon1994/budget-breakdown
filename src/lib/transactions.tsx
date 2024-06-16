@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import Transaction from "src/models/transaction";
 
 const DB_URL = process.env.MONGODB_URI;
@@ -31,6 +31,56 @@ export async function generateInitialTransaction(account: any) {
       "Could not create initial account. Now figure out why!",
       error
     );
+  }
+}
+
+export async function saveExpense(expense: any) {
+  try {
+    if (!DB_URL) {
+      throw new Error(
+        "Please define the MONGODB_URI environment variable inside .env.local"
+      );
+    }
+    const client = await MongoClient.connect(DB_URL);
+    const db = client.db();
+    const transactionsCollection = db.collection("transactions");
+
+    if (!expense) {
+      throw new Error("Transaction not found.");
+    }
+
+    const transaction = {
+      associatedAccount_ID: expense.associatedAccount_ID,
+      //outsideAccount_ID gonna be added later (maybe)
+      type: "expense",
+      date: new Date(expense.date),
+      amount: expense.amount,
+      merchant: expense.merchant,
+    };
+
+    await transactionsCollection.insertOne(transaction);
+    console.log("TRANSACTION SAVED TO DATABASE");
+
+    //now here we should grab the account and update its balance
+    const accountsCollection = db.collection("accounts");
+    const accountObjectId = new ObjectId(expense.associatedAccount_ID);
+
+    const updateAccount = {
+      $inc: {
+        balance: -Number(expense.amount),
+      },
+    };
+
+    //updateOne takes filter {}, updateDocument {}, and options {}
+    await accountsCollection.updateOne(
+      { _id: accountObjectId },
+      updateAccount,
+      { upsert: false }
+    );
+
+    client.close();
+  } catch (error) {
+    console.log("Could not save transaction.", error);
   }
 }
 

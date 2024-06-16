@@ -29,6 +29,7 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
         accounts[i].accountNumber,
         accounts[i].balance,
         accounts[i].icon,
+        accounts[i].transactions,
         accounts[i].note,
         accounts[i].creditLimit,
         accounts[i].billingDate,

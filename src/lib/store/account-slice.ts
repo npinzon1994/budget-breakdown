@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Account from "src/models/account";
+import Transaction from "src/models/transaction";
 import { RootState } from "./index";
 
 type InitialStateType = {
@@ -16,6 +17,11 @@ const accountSlice = createSlice({
   reducers: {
     setCurrentAccount(state, action: PayloadAction<Account | null>) {
       state.currentAccount = action.payload;
+    },
+    setTransactions(state, action: PayloadAction<Transaction[] | null>) {
+      if (state.currentAccount) {
+        state.currentAccount.transactions = action.payload;
+      }
     },
   },
 });

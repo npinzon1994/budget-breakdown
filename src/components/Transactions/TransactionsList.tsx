@@ -11,7 +11,7 @@ type Props = {
 
 const TransactionsList: FC<Props> = ({ transactions }) => {
   return (
-    <div className={classes.wrapper}>
+    <div>
       <ul id="transactions-list" className={classes.list}>
         {transactions.map((transaction) => (
           <TransactionItem

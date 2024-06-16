@@ -1,17 +1,14 @@
-import { useContext, useState, useRef, FC } from "react";
+'use client';
+
+import "react-datepicker/dist/react-datepicker.css";
+import { FC, useState } from "react";
 import classes from "./NewTransaction.module.css";
-import ExpenseContext from "../../context/expense-context";
 import FormHeader from "../Layout/FormHeader";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import Modal from "../UI/Modal";
-import { useAppDispatch } from "../../lib/store/hooks";
-import { uniqueIdActions } from "../../lib/store/generate-unique-id-slice";
-import { sendingActions } from "../../lib/store/sending-slice";
-import { showHideActions } from "../../lib/store/show-hide-slice";
-import RadioButton from "../UI/Buttons/RadioButton";
 import Button from "../UI/Buttons/Button";
-import Transaction from "src/models/transaction";
+import { useFormState } from "react-dom";
+import { createNewExpense } from "src/lib/actions";
+import { useAppSelector } from "src/lib/store/hooks";
 
 type Props = {
   id?: string;
@@ -21,13 +18,21 @@ type Props = {
   onDelete: () => void;
 };
 
-const checkIsValidAmount = (amount: number) =>
-  +amount >= 0 && +amount < 1_000_000;
-
 const NewTransaction: FC<Props> = ({ id, mode, title, onClose, onDelete }) => {
+  const currentAccount = useAppSelector(state => state.account.currentAccount);
+  const defaultState = {
+    status: null,
+    message: null,
+    currentAccount,
+  };
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  
+  const [state, formAction] = useFormState(createNewExpense, defaultState);
+  
   return (
-    <form className={classes.form} name="submit-form">
-      <FormHeader title="New Transaction" onClose={onClose} />
+    <form className={classes.form} name="submit-form" action={formAction}>
+      <FormHeader title="New Expense" onClose={onClose} />
       <div className={classes["top-container"]}>
         <div className={classes["input-container"]}>
           <input
@@ -46,7 +51,8 @@ const NewTransaction: FC<Props> = ({ id, mode, title, onClose, onDelete }) => {
           <DatePicker
             name="datePicker"
             id="datePicker"
-            onChange={() => {}}
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
             // onBlur={onBlur}
             placeholderText="MM/DD/YYYY"
             className={classes.datepicker}
