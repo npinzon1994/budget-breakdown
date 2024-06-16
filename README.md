@@ -1,11 +1,41 @@
 # Budget Breakdown
-<p>Take control of your finances 💵✊</p>
-<br> 
-<img src="https://user-images.githubusercontent.com/22157316/227803604-8d6b1cd5-db8e-415f-8c04-72b722b06dee.png" alt="Budget Breakdown screenshot" style="width: 46rem; height: 30rem;"/>
+*Take control of your finances 💵✊*
+<br /><br />
 
 ### What's currently in the works (update 6/15/24):
+<table>
+  <tr>
+     <td>
+       <p>Home Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/0adc268d-7cb9-4139-b5af-1004b16bbd29" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+    <td>
+      <p>Sign Up Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/79d23d15-3c5f-49dc-865a-d993e68c3be8" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+    <td>
+      <p>Sign In Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/92e1b855-2434-43b9-a7a5-162215468b7f" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+  </tr>
+  <tr>
+     <td>
+       <p>Accounts Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/c5002c27-5d0f-4735-9278-e625c7ae66c0" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+    <td>
+      <p>New Account Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/0762e087-4b25-4632-a526-a17d73e97245" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+    <td>
+      <p>Accounts Details Page</p>
+      <img src="https://github.com/npinzon1994/budget-breakdown/assets/22157316/29bce29d-0c5e-4220-924d-dae78b6573cf" alt="Budget Breakdown screenshot" width="850px"/>
+    </td>
+  </tr>
+</table>
+
 - Support for user authentication
-- Account Dashboard
+- User Dashboard
 - Multiple account types (Checking, Savings, Credit, Loan, etc.)
 - Recorded transactions tied to each account
 <br>
