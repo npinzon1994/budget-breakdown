@@ -17,15 +17,15 @@ const MainHeader: FC = () => {
   const totalBalance = currencyFormatter.format(expensesContext.totalBalance);
 
   return (
-    <div
-      className={classes.container}
-      style={{ minHeight: `${bannerHeight}px` }}
-    >
-      <div className={classes["remaining-balance"]} data-tooltip="Total Balance">
-        <span className={classes["total-label"]}>Total</span>
-        <span className={classes["total-balance"]}>{totalBalance}</span>
-      </div>
+    // <div
+    //   className={classes.container}
+    //   style={{ minHeight: `${bannerHeight}px` }}
+    // >
+    <div className={classes["remaining-balance"]} data-tooltip="Total Balance">
+      <span className={classes["total-label"]}>Total</span>
+      <span className={classes["total-balance"]}>{totalBalance}</span>
     </div>
+    // </div>
   );
 };
 

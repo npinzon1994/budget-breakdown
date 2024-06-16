@@ -1,24 +1,15 @@
-
-
 .container {
-  border-radius: 1rem;
-  margin: 0.8rem auto;
-  max-width: 44rem;
-  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: hsl(0, 0%, 78%);
-  width: 90%;
-  position: relative;
+  border-radius: 4px;
 }
 
 .remaining-balance {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 12px;
-  flex: 0.29 1 0px;
+  background: hsl(0, 0%, 78%);
 }
 
 .total-label {

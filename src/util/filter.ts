@@ -1,4 +1,4 @@
-import { Expense } from "../models/expense";
+import { Expense } from "../models/transaction";
 
 export function filterItems(expenses: Expense[], filterState: string) {
   let filteredExpenses = [...expenses];

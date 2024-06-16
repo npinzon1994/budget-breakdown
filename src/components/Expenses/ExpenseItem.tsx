@@ -4,7 +4,7 @@ import redX from "../../assets/unpaid-x.svg";
 import greenCheck from "../../assets/paid-checkmark.svg";
 import dateTable from "./DateTable";
 import Date from "./Date";
-import { Expense } from "../../models/expense";
+import { Expense } from "../../models/transaction";
 
 type ExpenseItemProps = Expense & { onShowEdit: () => void };
 

@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { saveAccount } from "./accounts";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { generateInitialTransaction } from "./transactions";
 
 const MAX_FILE_SIZE = 5000000;
 
@@ -77,6 +78,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       };
 
       await saveAccount(newAccount);
+      await generateInitialTransaction(newAccount);
       revalidatePath("/dashboard/accounts");
       return { status: 200, message: "Account added successfully!" };
     } catch (validationError) {

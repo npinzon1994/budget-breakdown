@@ -7,7 +7,7 @@ type DateProps = {
   year: string;
 }
 
-const Date: FC<DateProps> = ({month, day, year}) => {
+const DateElement: FC<DateProps> = ({month, day, year}) => {
   return (
     <div className={classes.container}>
       <div className={classes.date}>
@@ -19,4 +19,4 @@ const Date: FC<DateProps> = ({month, day, year}) => {
   );
 };
 
-export default Date;
+export default DateElement;

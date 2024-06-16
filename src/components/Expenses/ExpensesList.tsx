@@ -1,5 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
-import Card from "../UI/Card";
+import { useContext, useEffect, useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import classes from "./ExpensesList.module.css";
 import ExpenseContext from "../../context/expense-context";
@@ -172,7 +171,7 @@ const ExpensesList = () => {
   const filteredListIsEmpty = expenses.length === 0;
 
   return (
-    <Fragment>
+    <>
       {showDeleteModal ? (
         <DeleteModal
           onClose={hideDeleteModalHandler}
@@ -189,9 +188,7 @@ const ExpensesList = () => {
           onDelete={showDeleteModalHandler}
         />
       ) : undefined}
-      <Card
-        className={`${isLoading && !loadError ? classes["card-padding"] : ""}`}
-      >
+      <div className={classes["expense-list-container"]}>
         <FilterHeader
           title={filterState === "Show All" ? "All Expenses" : filterState}
         />
@@ -203,11 +200,34 @@ const ExpensesList = () => {
         {isLoading && !loadError && <LoadingSpinner />}
         {!isLoading && (
           <ul id="expense-list" className={classes["daily-expenses"]}>
-            {expenses}
+            <ExpenseItem
+              id="3"
+              amount={3.49}
+              date={new Date("2024-06-15")}
+              isPaid={true}
+              merchant="Blue raspberry ghost energy"
+              onShowEdit={() => {}}
+            />
+            <ExpenseItem
+              id="2"
+              amount={60}
+              date={new Date("2024-02-04")}
+              isPaid={true}
+              merchant="Used Nishiki Pueblo mountain bike"
+              onShowEdit={() => {}}
+            />
+            <ExpenseItem
+              id="1"
+              amount={15.49}
+              date={new Date("2024-01-01")}
+              isPaid={true}
+              merchant="Chicken Al pastor burrito bowl from chipotle"
+              onShowEdit={() => {}}
+            />
           </ul>
         )}
-      </Card>
-    </Fragment>
+      </div>
+    </>
   );
 };
 

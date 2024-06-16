@@ -3,7 +3,7 @@
 import { useEffect, useState, FC } from "react";
 import classes from "./RadioButton.module.css";
 import thumbsUpIcon from "../../../assets/thumbs-up-icon.svg";
-import { Expense } from "../../../models/expense";
+import { Expense } from "../../../models/transaction";
 import Image from "next/image";
 
 type RadioButtonProps = {

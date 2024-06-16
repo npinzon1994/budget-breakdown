@@ -1,6 +1,6 @@
 import { useReducer, FC, ReactNode } from "react";
 import ExpenseContext from "./expense-context";
-import { Expense } from "../models/expense";
+import { Expense } from "../models/transaction";
 
 type ExpenseState = {
   items: Expense[];

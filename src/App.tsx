@@ -22,7 +22,6 @@ const App: FC = () => {
         {newFormIsVisible && (
           <ExpenseForm onClose={hideExpenseFormHandler} title="New Expense" />
         )}
-        <MainHeader />
         <ControlCenter />
         <ExpensesList />
       </ExpensePaginationProvider>

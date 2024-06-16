@@ -4,9 +4,22 @@
   gap: 10px;
 }
 
-.icon-preview {
-  height: 40px;
+.preview {
   width: 40px;
+  height: 40px;
+  border: 1px solid #a4abb9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #a4abb9;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.preview img {
+  object-fit: cover;
 }
 
 .input {

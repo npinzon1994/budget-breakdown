@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import { Expense } from "../models/expense";
+import { Expense } from "../models/transaction";
 
 type ContextType = {
     items: Expense[];

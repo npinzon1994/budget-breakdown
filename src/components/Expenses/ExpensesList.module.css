@@ -1,6 +1,5 @@
-.card {
-    /* overflow: hidden; */
-    max-width: 44rem;
+.expense-list-container {
+  
 }
 
 .control-center-container {
@@ -42,8 +41,4 @@
   text-align: center;
   padding: 20px 0;
   margin-left: 28px;
-}
-
-.card-padding {
-  padding-bottom: 0.1rem;
 }

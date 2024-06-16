@@ -72,9 +72,10 @@ export async function saveAccount(account: any) {
       });
 
       account.icon = fileName;
+    } else {
+      account.icon = null;
+      console.log("ACCOUNT ICON (no uploaded image): ", account.icon);
     }
-    account.icon = null;
-    console.log("ACCOUNT ICON (no uploaded image): ", account.icon)
 
     const client = await MongoClient.connect(DB_URL);
     const db = client.db();
@@ -89,13 +90,13 @@ export async function saveAccount(account: any) {
 }
 
 export async function getAccountDetails(userId: string, accountSlug: string) {
-  try {
-    if (!DB_URL) {
-      throw new Error(
-        "Please define the MONGODB_URI environment variable inside .env.local"
-      );
-    }
+  if (!DB_URL) {
+    throw new Error(
+      "Please define the MONGODB_URI environment variable inside .env.local"
+    );
+  }
 
+  try {
     const client = await MongoClient.connect(DB_URL);
     const db = client.db();
     const accountsCollection = db.collection("accounts");
@@ -106,9 +107,13 @@ export async function getAccountDetails(userId: string, accountSlug: string) {
       })
       .toArray();
 
-    const currentAccountData = await currentUserAccounts.find(
+    const currentAccountData = currentUserAccounts.find(
       (account) => account.accountSlug === accountSlug
     );
+
+    if (!currentAccountData) {
+      throw new Error("Account not found.");
+    }
 
     const currentAccount = JSON.parse(JSON.stringify(currentAccountData));
     console.log("Current Account: ", currentAccount);

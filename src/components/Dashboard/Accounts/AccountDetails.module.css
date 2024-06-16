@@ -1,37 +1,62 @@
 .wrapper {
-  background: yellow;
+  /* background: yellow; */
   flex: 1 1 auto;
   display: flex;
 }
 
 .main-account-info {
-  background: red;
+  /* background: red; */
   padding: 1rem 2rem;
+  border-right: solid 1px hsla(208, 22%, 38%, 0.25);
+  flex: 0 1 auto;
 }
 
 .transactions {
-  background: blue;
+  /* background: blue; */
+  flex: 1 1 auto;
+  padding: 1rem 2rem;
+}
+
+.transactions h1 {
+  margin-block: 0;
 }
 
 .card {
   padding: 1rem;
   border-radius: 4px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
   background: hsla(208, 82%, 38%, 0.05);
-  max-width: 30rem;
+  width: 25rem;
+  margin-top: 7px;
 }
 
-.card .left {
+.top {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.card .right {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
+  /* background: yellow; */
+}
+
+.icon {
+  height: 34px;
+  width: 34px;
+  flex: 0 1 auto;
+}
+
+.text-wrapper-vertical {
+  display: flex;
+  flex-direction: column;
+  /* background: red; */
+  flex: 1 1 auto;
+}
+
+.text-wrapper-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background: cyan; */
 }
 
 .name-note-wrapper {
@@ -39,11 +64,6 @@
   align-items: center;
   gap: 10px;
   /* background: pink; */
-}
-
-.name-note-container {
-  display: flex;
-  flex-direction: column;
 }
 
 .name {
@@ -58,20 +78,16 @@
   color: hsla(208, 22%, 38%, 0.85);
 }
 
-.icon {
-  height: 34px;
-  width: 34px;
-  margin-top: 6px;
-}
-
 .controls {
   display: flex;
-
+  justify-content: flex-end;
   gap: 10px;
+  /* background: pink; */
 }
 
 .button {
-  padding: 0.75em 1.5em;
+  /* padding: 0.75em 1.5em; */
+  padding: 0.75em 1em;
   position: relative;
   display: flex;
   align-items: center;
@@ -87,8 +103,8 @@
 }
 
 .add-image-wrapper {
-  height: 14px;
-  width: 14px;
+  height: 12px;
+  width: 12px;
 }
 
 .add-image-wrapper img {

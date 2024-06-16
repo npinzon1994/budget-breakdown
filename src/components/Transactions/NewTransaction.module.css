@@ -1,0 +1,200 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-container {
+  display: flex;
+  /* margin-top: 0.25rem; */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.input-container {
+  position: relative;
+  font-size: 0.85rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.input {
+  border-radius: 4px;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  padding: 26px 10px 10px 10px;
+  box-sizing: border-box;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+.input-placeholder {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-size: small;
+  padding: 0px 5px;
+  color: #666;
+  transition: 0.3s;
+  pointer-events: none;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.input:focus {
+  outline: none;
+  border: 1px #1167b1 solid;
+}
+
+.input:focus + .input-placeholder {
+  color: #1167b1;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.input.textarea {
+  flex-grow: 1;
+  margin: 0;
+  height: 100%;
+  resize: none;
+}
+
+.textarea:focus {
+  outline: none;
+  border: 1px #1167b1 solid;
+}
+
+.textarea:focus + .textarea-placeholder {
+  color: #1167b1;
+}
+
+.paid-off-label {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  font-size: small;
+  color: red;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  flex-flow: wrap;
+}
+
+.button {
+  transition: background-color 150ms ease-in-out;
+  padding: 1em 2em;
+  flex: 1;
+}
+
+.create {
+  background-color: rgba(17, 103, 177, 0.9);
+  color: #fff;
+  /* height: 54px; */
+  /* flex: 1 1 0;
+  width: 100%; */
+  /* animation: show-button 350ms forwards; */
+}
+
+.create:hover {
+  background-color: rgba(17, 103, 177);
+}
+
+.cancel {
+  background: hsla(208, 22%, 38%, 0.25);
+  color: black;
+}
+
+.cancel:hover {
+  background: hsla(208, 22%, 38%, 0.30);
+}
+
+
+
+.datepicker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.datepicker {
+  border: 1px solid #d3d3d3;
+  padding: 26px 10px 10px 10px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+.datepicker-placeholder {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-size: medium;
+  padding: 0px 5px;
+  color: #666;
+  transition: 0.3s;
+  pointer-events: none;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.datepicker:focus {
+  outline: none;
+  border: 1px #1167b1 solid;
+}
+
+.focused {
+  color: #1167b1;
+}
+
+@media (max-width: 600px) {
+  .add-expense-form {
+    gap: 9px;
+  }
+
+  .button-div {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .add-expense-button {
+    padding-block: 1.3rem;
+  }
+
+  .remove-button {
+    padding-block: 1.3rem;
+  }
+
+  .top-container {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .bottom-container {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .input-container {
+    width: 100%;
+  }
+  .datepicker-container {
+    width: 100%;
+  }
+}

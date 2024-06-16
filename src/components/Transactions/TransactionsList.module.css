@@ -1,0 +1,11 @@
+.wrapper {
+  
+}
+
+.list {
+  margin: 0 auto;
+  padding-left: 0;
+  overflow: auto;
+  background: white;
+  border-radius: 0 0 4px 4px;
+}

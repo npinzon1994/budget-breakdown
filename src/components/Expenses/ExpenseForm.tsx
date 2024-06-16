@@ -12,7 +12,7 @@ import { sendingActions } from "../../lib/store/sending-slice";
 import { showHideActions } from "../../lib/store/show-hide-slice";
 import RadioButton from "../UI/Buttons/RadioButton";
 import Button from "../UI/Buttons/Button";
-import { Expense } from "../../models/expense";
+import { Expense } from "../../models/transaction";
 import { ExpenseFormProps } from "../../models/expense-form";
 
 const checkIsValidAmount = (amount: number) =>

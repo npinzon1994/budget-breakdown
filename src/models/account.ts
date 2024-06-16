@@ -1,3 +1,5 @@
+import Transaction from "./transaction";
+
 class Account {
   _id: string;
   associatedUser_ID: string;
@@ -7,6 +9,7 @@ class Account {
   accountNumber: string;
   balance: string;
   icon: string;
+  transactions: Transaction[] | null;
   note?: string;
   creditLimit?: string;
   billingDate?: string;
@@ -21,6 +24,7 @@ class Account {
     accountNumber: string,
     balance: string,
     icon: string,
+    transactions: Transaction[] | null,
     note?: string,
     creditLimit?: string,
     billingDate?: string,
@@ -34,6 +38,7 @@ class Account {
     this.accountNumber = accountNumber;
     this.balance = balance;
     this.icon = icon;
+    this.transactions = transactions;
     this.note = note;
     this.creditLimit = creditLimit;
     this.billingDate = billingDate;

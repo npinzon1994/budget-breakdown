@@ -2,15 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  /* margin-left: 3px; */
-  /* animation: hide-then-show 800ms; */
+
 }
 
 .title {
-  font-size: 1.5rem;
-  /* font-size: clamp(0.7rem, 4vw, 1rem); */
-  font-family: "Golos Text", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 @keyframes show {

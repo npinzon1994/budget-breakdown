@@ -1,0 +1,107 @@
+@font-face {
+  font-family: "Aileron-thinitalic";
+  src: url("../../fonts/Aileron-ThinItalic.otf");
+}
+
+/*actual list item*/
+.item {
+  list-style-type: none;
+  display: flex;
+  border-bottom: 1px #e8e8e8 solid;
+  /* padding: 0.2rem; */
+  cursor: pointer;
+}
+
+/* .item:last-of-type,
+.item:last-of-type:hover {
+  border-bottom: none;
+  border-radius: 0 0 1rem 1rem;
+} */
+
+.item:hover {
+  background: #f8f8f8;
+}
+
+.item:active {
+  background: #eeeeee;
+  transition: 100ms;
+}
+
+/*inner div*/
+.list-item-content {
+  display: flex;
+  width: 100%;
+  /* margin-right: 1.2em; */
+  /* justify-content: space-evenly; */
+  align-items: center;
+}
+
+.day-text {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: #c50;
+}
+
+.money-merchant-container-mobile {
+  display: flex;
+  flex: 1.8 1.8 0;
+  align-items: center;
+}
+
+.money-container {
+  display: flex;
+  flex-direction: column;
+  /* width: 25%; */
+  flex-basis: 40%;
+  /* background: pink; */
+}
+
+.price {
+  font-size: clamp(0.75rem, 3vw, 1rem);
+  color: #c50;
+  font-family: "Golos Text", sans-serif;
+}
+
+.paid-off {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.image-container {
+  position: relative;
+  height: clamp(10px, 1vw, 13px);
+  width: clamp(10px, 1vw, 13px);
+  user-select: none;
+}
+
+.image-container img {
+  object-fit: contain;
+}
+
+.image-container span {
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  color: rgb(100, 100, 100);
+}
+
+.merchant {
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  /* width: 100%; */
+  word-wrap: break-word;
+  font-family: "Golos Text", sans-serif;
+  flex-basis: 40%;
+  padding-block: 4px;
+  padding-inline: 30px;
+  user-select: none;
+}
+
+.button-container {
+  /* width: 15%; */
+  flex: 1 1 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.remove-button:hover {
+  opacity: 100%;
+}
