@@ -58,8 +58,8 @@ const SubNavigation = () => {
     );
   }
 
-  console.log(routes);
-  console.log(displayedRoutes);
+  // console.log(routes);
+  // console.log(displayedRoutes);
 
   return (
     <header className={classes.header}>

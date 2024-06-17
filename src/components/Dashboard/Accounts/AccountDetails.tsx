@@ -14,6 +14,8 @@ import transferIcon from "../../../assets/transfer.svg";
 import Transaction from "src/models/transaction";
 import TransactionsList from "src/components/Transactions/TransactionsList";
 import NewTransaction from "src/components/Transactions/NewTransaction";
+import { useAppSelector } from "src/lib/store/hooks";
+import { showHideActions } from "src/lib/store/show-hide-slice";
 
 type Props = {
   account: Account;
@@ -22,7 +24,8 @@ type Props = {
 
 const AccountDetails: FC<Props> = ({ account, transactions }) => {
   const dispatch = useDispatch();
-  const [formVisible, setFormVisible] = useState(false);
+  const formVisible = useAppSelector((state) => state.showHide.showNewForm);
+  // const [formVisible, setFormVisible] = useState(false);
 
   useEffect(() => {
     dispatch(accountActions.setCurrentAccount(account));
@@ -49,7 +52,9 @@ const AccountDetails: FC<Props> = ({ account, transactions }) => {
   return (
     <div className={classes.wrapper}>
       <div className={classes["main-account-info"]}>
-        <BackButton />
+        <div className={classes["back-button-container"]}>
+          <BackButton />
+        </div>
         <div className={classes.card}>
           <div className={classes.top}>
             <ImagePreview icon={accountIcon} className={classes.icon} />
@@ -73,7 +78,171 @@ const AccountDetails: FC<Props> = ({ account, transactions }) => {
             <button
               type="button"
               className={`${classes.button} ${classes.add}`}
-              onClick={() => setFormVisible(true)}
+              onClick={() => dispatch(showHideActions.setShowNewForm(true))}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={addIcon} alt="Add transaction icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transaction</span> */}
+            </button>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.transfer}`}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={transferIcon} alt="transfer money icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transfer</span> */}
+            </button>
+          </div>
+        </div>
+        <div className={classes.card}>
+          <div className={classes.top}>
+            <ImagePreview icon={accountIcon} className={classes.icon} />
+            <div className={classes["text-wrapper-vertical"]}>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.name}>{accountName}</span>
+                <span className={classes.balance}>
+                  {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.note}>{accountNumber}</span>
+                <span className={classes["remaining-balance"]}>
+                  Rem. {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className={classes.controls}>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.add}`}
+              onClick={() => dispatch(showHideActions.setShowNewForm(true))}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={addIcon} alt="Add transaction icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transaction</span> */}
+            </button>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.transfer}`}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={transferIcon} alt="transfer money icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transfer</span> */}
+            </button>
+          </div>
+        </div>
+        <div className={classes.card}>
+          <div className={classes.top}>
+            <ImagePreview icon={accountIcon} className={classes.icon} />
+            <div className={classes["text-wrapper-vertical"]}>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.name}>{accountName}</span>
+                <span className={classes.balance}>
+                  {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.note}>{accountNumber}</span>
+                <span className={classes["remaining-balance"]}>
+                  Rem. {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className={classes.controls}>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.add}`}
+              onClick={() => dispatch(showHideActions.setShowNewForm(true))}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={addIcon} alt="Add transaction icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transaction</span> */}
+            </button>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.transfer}`}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={transferIcon} alt="transfer money icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transfer</span> */}
+            </button>
+          </div>
+        </div>
+        <div className={classes.card}>
+          <div className={classes.top}>
+            <ImagePreview icon={accountIcon} className={classes.icon} />
+            <div className={classes["text-wrapper-vertical"]}>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.name}>{accountName}</span>
+                <span className={classes.balance}>
+                  {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.note}>{accountNumber}</span>
+                <span className={classes["remaining-balance"]}>
+                  Rem. {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className={classes.controls}>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.add}`}
+              onClick={() => dispatch(showHideActions.setShowNewForm(true))}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={addIcon} alt="Add transaction icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transaction</span> */}
+            </button>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.transfer}`}
+            >
+              <div className={classes["add-image-wrapper"]}>
+                <Image src={transferIcon} alt="transfer money icon" />
+              </div>
+              {/* <span className={classes["button-text"]}>Transfer</span> */}
+            </button>
+          </div>
+        </div>
+        <div className={classes.card}>
+          <div className={classes.top}>
+            <ImagePreview icon={accountIcon} className={classes.icon} />
+            <div className={classes["text-wrapper-vertical"]}>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.name}>{accountName}</span>
+                <span className={classes.balance}>
+                  {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+              <div className={classes["text-wrapper-horizontal"]}>
+                <span className={classes.note}>{accountNumber}</span>
+                <span className={classes["remaining-balance"]}>
+                  Rem. {formatCurrency(Number(accountBalance))}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className={classes.controls}>
+            <button
+              type="button"
+              className={`${classes.button} ${classes.add}`}
+              onClick={() => dispatch(showHideActions.setShowNewForm(true))}
             >
               <div className={classes["add-image-wrapper"]}>
                 <Image src={addIcon} alt="Add transaction icon" />
@@ -93,7 +262,7 @@ const AccountDetails: FC<Props> = ({ account, transactions }) => {
         </div>
         {formVisible ? (
           <NewTransaction
-            onClose={() => setFormVisible(false)}
+            onClose={() => dispatch(showHideActions.setShowNewForm(false))}
             onDelete={() => {}}
           />
         ) : undefined}

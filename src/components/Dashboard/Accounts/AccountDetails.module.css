@@ -1,21 +1,36 @@
 .wrapper {
   /* background: yellow; */
   display: flex;
-  flex: 1 1 auto;
+  height: calc(100vh - 133px);
 }
 
 .main-account-info {
   /* background: red; */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 1rem 2rem;
   border-right: solid 1px hsla(208, 22%, 38%, 0.25);
   flex: 0 1 auto;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.back-button-container {
+  /* top: 0;
+  position: sticky;
+  background: yellow; */
 }
 
 .transactions {
-  /* background: blue; */
+  /* background: cyan; */
   position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
   flex: 1 1 auto;
   padding: 1rem 2rem;
+  overflow-y: scroll;
 }
 
 .empty-message {
@@ -37,7 +52,7 @@
   gap: 12px;
   background: hsla(208, 82%, 38%, 0.05);
   width: 25rem;
-  margin-top: 7px;
+  /* margin-top: 7px; */
 }
 
 .top {
@@ -77,7 +92,6 @@
 .name {
   font-size: 1.25rem;
   font-weight: 500;
-  /* padding-bottom: 3px; */
 }
 
 .note {
@@ -94,7 +108,6 @@
 }
 
 .button {
-  /* padding: 0.75em 1.5em; */
   padding: 0.75em 1em;
   position: relative;
   display: flex;
@@ -103,10 +116,21 @@
   border-radius: 4px;
   cursor: pointer;
   border: none;
+  transition: 150ms;
 }
 
 .add {
-  background: #1167b1;
+  background: rgba(17, 103, 177, 0.9);
+  color: white;
+}
+
+.add:hover {
+  background: rgb(17, 103, 177);
+  color: white;
+}
+
+.add:active {
+  background: rgba(17, 103, 177, 0.825);
   color: white;
 }
 
@@ -128,6 +152,14 @@
   background: hsla(208, 22%, 38%, 0.25);
 }
 
+.transfer:hover {
+  background: hsla(208, 22%, 38%, 0.3);
+}
+
+.transfer:active {
+  background: hsla(208, 22%, 38%, 0.2);
+}
+
 .balance-container {
   display: flex;
   flex-direction: column;
@@ -137,9 +169,6 @@
 .balance {
   font-size: 1.5rem;
   font-weight: 500;
-}
-
-.remaining-balance {
 }
 
 .title {

@@ -14,7 +14,6 @@
 
 .top-container {
   display: flex;
-  /* margin-top: 0.25rem; */
   align-items: center;
   flex-wrap: wrap;
   gap: 0.7rem;
@@ -85,11 +84,6 @@
   font-size: 0.9rem;
 }
 
-.error-text {
-  font-size: small;
-  color: red;
-}
-
 .button-container {
   display: flex;
   gap: 10px;
@@ -105,10 +99,6 @@
 .create {
   background-color: rgba(17, 103, 177, 0.9);
   color: #fff;
-  /* height: 54px; */
-  /* flex: 1 1 0;
-  width: 100%; */
-  /* animation: show-button 350ms forwards; */
 }
 
 .create:hover {
@@ -160,6 +150,13 @@
 .datepicker:focus {
   outline: none;
   border: 1px #1167b1 solid;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-block: 0;
 }
 
 .focused {

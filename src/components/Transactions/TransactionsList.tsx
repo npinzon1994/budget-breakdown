@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import classes from "./TransactionsList.module.css";
 import TransactionItem from "./TransactionItem";
@@ -11,20 +11,18 @@ type Props = {
 
 const TransactionsList: FC<Props> = ({ transactions }) => {
   return (
-    <div>
-      <ul id="transactions-list" className={classes.list}>
-        {transactions.map((transaction) => (
-          <TransactionItem
-            id={transaction._id}
-            amount={transaction.amount }
-            isPaid={false}
-            date={transaction.date}
-            merchant={transaction.merchant}
-            onShowEdit={() => {}}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul id="transactions-list" className={classes.list}>
+      {transactions.map((transaction) => (
+        <TransactionItem
+          id={transaction._id}
+          amount={transaction.amount}
+          isPaid={false}
+          date={transaction.date}
+          merchant={transaction.merchant}
+          onShowEdit={() => {}}
+        />
+      ))}
+    </ul>
   );
 };
 

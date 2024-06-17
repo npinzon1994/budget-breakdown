@@ -116,7 +116,7 @@ export async function getAccountDetails(userId: string, accountSlug: string) {
     }
 
     const currentAccount = JSON.parse(JSON.stringify(currentAccountData));
-    console.log("Current Account: ", currentAccount);
+    console.log("Current Account (accounts.tsx): ", currentAccount);
     client.close();
     return currentAccount;
   } catch (error) {

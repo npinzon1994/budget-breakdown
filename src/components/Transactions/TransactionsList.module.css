@@ -1,7 +1,6 @@
 .list {
-  margin: 0 auto;
+  margin: 0;
   padding-left: 0;
-  overflow: auto;
-  background: white;
   border-radius: 0 0 4px 4px;
+  /* border: solid 1px lightgray; */
 }

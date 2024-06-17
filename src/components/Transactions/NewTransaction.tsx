@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import classes from "./NewTransaction.module.css";
 import FormHeader from "../Layout/FormHeader";
 import DatePicker from "react-datepicker";
@@ -19,20 +19,42 @@ type Props = {
 };
 
 const NewTransaction: FC<Props> = ({ id, mode, title, onClose, onDelete }) => {
-  const currentAccount = useAppSelector(state => state.account.currentAccount);
-  const defaultState = {
+  const currentAccount_ID = useAppSelector(
+    (state) => state.account.currentAccount?._id
+  );
+
+  const defaultFormState = {
     status: null,
     message: null,
-    currentAccount,
+    currentAccount_ID,
   };
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  
-  const [state, formAction] = useFormState(createNewExpense, defaultState);
-  
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  useEffect(() => {
+    console.log("SELECTED DATE: ", selectedDate?.toISOString().split("T")[0]);
+  }, [selectedDate]);
+
+  const [state, formAction] = useFormState(createNewExpense, defaultFormState);
+
+  if (formRef.current && state.status === 200) {
+    console.log("RESETTING TRANSACTION FORM...");
+    formRef.current.reset();
+  }
+
   return (
-    <form className={classes.form} name="submit-form" action={formAction}>
+    <form
+      className={classes.form}
+      name="submit-form"
+      action={formAction}
+      ref={formRef}
+    >
       <FormHeader title="New Expense" onClose={onClose} />
+
+      {state.status === 400 ? (
+        <p className={classes.error}>{state.message}</p>
+      ) : undefined}
       <div className={classes["top-container"]}>
         <div className={classes["input-container"]}>
           <input
@@ -56,7 +78,6 @@ const NewTransaction: FC<Props> = ({ id, mode, title, onClose, onDelete }) => {
             // onBlur={onBlur}
             placeholderText="MM/DD/YYYY"
             className={classes.datepicker}
-            isClearable
             shouldCloseOnSelect
           />
           <label

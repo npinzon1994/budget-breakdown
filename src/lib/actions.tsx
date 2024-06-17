@@ -50,7 +50,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       accountType: formData.get("accountType"),
       accountNickname: formData.get("accountNickname"),
       accountNumber: formData.get("accountNumber"),
-      startingBalance: formData.get("startingBalance"),
+      startingBalance: Number(formData.get("startingBalance")),
       icon: formData.get("icon"),
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
@@ -103,25 +103,59 @@ export async function createNewAccount(prevState: any, formData: FormData) {
 }
 
 export async function createNewExpense(prevState: any, formData: FormData) {
+  if(!prevState?.currentAccount_ID) {
+    console.log("NO ACCOUNT_ID FROM LAST SUBMISSION");
+    return;
+  }
+  const currentAccount_ID = prevState.currentAccount_ID;
+  console.log("CURRENT ACCOUNT (actions.tsx) - ", currentAccount_ID);
+
   const formInputs = {
-    amount: formData.get("amount"),
+    amount: Number(formData.get("amount")),
     date: formData.get("datePicker"),
     merchant: formData.get("merchant"),
   };
 
-  console.log("ASSOCIATED ACCOUNT ID: ", prevState.currentAccount._id);
-  console.log("AMOUNT: ", formInputs.amount);
-  console.log("DATE: ", formInputs.date);
-  console.log("MERCHANT: ", formInputs.merchant);
+  try {
+    console.log("AMOUNT: ", formInputs.amount);
+    console.log("DATE: ", formInputs.date);
+    console.log("MERCHANT: ", formInputs.merchant);
 
-  const transaction = {
-    associatedAccount_ID: prevState.currentAccount._id,
-    //outsideAccount_ID gonna be added later (maybe)
-    date: formInputs.date,
-    amount: formInputs.amount,
-    merchant: formInputs.merchant,
-  };
+    const transaction = {
+      associatedAccount_ID: currentAccount_ID,
+      //outsideAccount_ID gonna be added later (maybe)
+      date: formInputs.date,
+      amount: formInputs.amount,
+      merchant: formInputs.merchant,
+    };
 
-  await saveExpense(transaction);
-  revalidatePath("/dashboard/accounts/[accountSlug]");
+    //here check if amount is valid
+    if (transaction.amount <= 0) {
+      console.log("ERROR -- amount must be greater than zero!!!");
+      return {
+        ...prevState,
+        status: 400,
+        message: "Please enter a dollar amount greater than $0.00",
+        currentAccount_ID: prevState.currentAccount_ID,
+      };
+    }
+
+    await saveExpense(transaction);
+    revalidatePath("/[accountSlug]", "page");
+    return {
+      ...prevState,
+      status: 200,
+      message: "Account added successfully!",
+      currentAccount_ID: prevState.currentAccount_ID,
+    };
+  } catch (error) {
+    console.error("Could not create transaction! Here's why --> ", error);
+
+    return {
+      ...prevState,
+      status: 400,
+      message: "Validation failed.",
+      currentAccount_ID: prevState.currentAccount_ID,
+    };
+  }
 }

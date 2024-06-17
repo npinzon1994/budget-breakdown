@@ -1,6 +1,9 @@
 .sidebar {
   height: calc(100vh - 60px);
   border-right: solid 1px lightgray;
+  left: 0;
+  top: 133px;
+  z-index: 1000;
 }
 
 .list {
