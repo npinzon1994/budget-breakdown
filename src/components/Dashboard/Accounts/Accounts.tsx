@@ -55,6 +55,9 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
           <span className={classes["account-number"]}>
             {account.accountNumber}
           </span>
+          <span className={classes['account-type']}>
+            {account.type}
+          </span>
         </div>
         <div className={classes["balance-information"]}>
           <div>

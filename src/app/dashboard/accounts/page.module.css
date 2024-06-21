@@ -1,32 +1,50 @@
 .page {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* background: pink; */
-    padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  /* background: pink; */
+  margin: 2rem;
+  
 }
 
-.title {
-    margin-block: 0;
+.total-balance-info {
+  width: 25rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  background: rgba(17, 103, 177, 0.05);
+  align-items: center;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+.total-balance-info .label {
+  font-size: 0.85rem;
+}
+
+.total-balance-info .balance {
+  font-size: 1.25rem;
 }
 
 .new-account {
-    text-decoration: none;
-    padding: 0.75em 1.25em;
-    border-radius: 4px;
-    color: white;
-    background: rgba(17, 103, 177, 0.9);
+  text-decoration: none;
+  padding: 0.75em 1.25em;
+  border-radius: 4px;
+  color: white;
+  background: rgba(17, 103, 177, 0.9);
+  margin-top: 1rem;
+  /* font-size: 1.5rem; */
 }
 
 .new-account:hover {
-    background: rgb(17, 103, 177);
+  background: rgb(17, 103, 177);
 }
 
 .new-account:active {
-    background: hsl(208, 82%, 45%);
+  background: hsl(208, 82%, 45%);
 }
+
