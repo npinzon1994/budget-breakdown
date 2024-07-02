@@ -1,6 +1,6 @@
 import Image from "next/image";
-import classes from "./ImagePreview.module.css";
-import accountPlaceholder from "../../assets/account-placeholder.png";
+import classes from "./AccountIcon.module.css";
+import accountPlaceholder from "../../../assets/account-placeholder.png";
 import { FC } from "react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-const ImagePreview: FC<Props> = ({ icon, className }) => {
+const AccountIcon: FC<Props> = ({ icon, className }) => {
   return (
     <div className={`${classes.preview} ${className}`}>
       {icon ? (
@@ -24,4 +24,4 @@ const ImagePreview: FC<Props> = ({ icon, className }) => {
   );
 };
 
-export default ImagePreview;
+export default AccountIcon;

@@ -1,0 +1,20 @@
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: none;
+  transition: 150ms;
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview img {
+  height: 100%;
+  width: 100%;
+}

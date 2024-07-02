@@ -1,0 +1,7 @@
+.page {
+    padding: 1rem 2rem;
+}
+
+.back-button-container {
+    display: flex;
+}

@@ -25,10 +25,10 @@ const MAX_FILE_SIZE = 5000000;
 const schema = z.object({
   accountType: z.string(),
   accountNickname: z.string().min(1, { message: "Name is required" }),
-  accountNumber: z.preprocess(
-    (val) => Number(val),
-    z.number().min(1, { message: "Account Number required" })
-  ),
+  // accountNumber: z.preprocess(
+  //   (val) => Number(val),
+  //   z.number().min(1, { message: "Account Number required" })
+  // ),
   startingBalance: z.preprocess((val) => Number(val), z.number()),
   icon: z
     .any()
@@ -46,20 +46,18 @@ const schema = z.object({
       .optional()
       .or(z.literal(0))
   ),
-  billingDate: z.string().date().nullable().or(z.literal('')),
-  dueDate: z.string().date().nullable().or(z.literal('')),
+  billingDate: z.string().date().nullable().or(z.literal("")),
+  dueDate: z.string().date().nullable().or(z.literal("")),
 });
 
 const accountOptions: Option[] = [
   // new Option("Choose Account Type", "Choose Account Type"),
   new Option("Cash", "Cash", cashIcon),
-  new Option("Checking", "Checking", checkingIcon),
+  new Option("Debit", "Debit", checkingIcon),
   new Option("Savings", "Savings", savingsIcon),
-  new Option("Loan", "Loan", loanIcon),
-  new Option("Debit Card", "Debit Card", debitCardIcon),
-  new Option("Credit Card", "Credit Card", creditCardIcon),
-  new Option("SNAP", "SNAP", snapIcon),
-  // new Option("Other", "Other"),
+  // new Option("Loan", "Loan", loanIcon),
+  // new Option("Credit Card", "Credit Card", creditCardIcon),
+  // new Option("SNAP", "SNAP", snapIcon),
 ];
 
 const formatAccountOptionLabel = (option: Option) => (
@@ -117,13 +115,13 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
     const newAccount = {
       accountType: formData.get("accountType"),
       accountNickname: formData.get("accountNickname"),
-      accountNumber: formData.get("accountNumber"),
+      // accountNumber: formData.get("accountNumber"),
       startingBalance: formData.get("startingBalance"),
       icon: formData.get("icon"),
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
-      billingDate: formData.get('billingDate'),
-      dueDate: formData.get('dueDate'),
+      billingDate: formData.get("billingDate"),
+      dueDate: formData.get("dueDate"),
     };
 
     const result = schema.safeParse(newAccount);
@@ -149,9 +147,6 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
           ))
         : undefined}
       <form action={formAction} className={classes.form}>
-        <div className={classes["input-container"]}>
-          <ImagePicker label="Icon" name="icon" activeIcon={activeIcon} />
-        </div>
         <div className={classes["input-grid"]}>
           <div className={classes["input-container"]}>
             <label htmlFor="account-type">Type</label>
@@ -166,21 +161,15 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
             />
           </div>
           <div className={classes["input-container"]}>
+            <ImagePicker label="Icon" name="icon" activeIcon={activeIcon} />
+          </div>
+          <div className={classes["input-container"]}>
             <label htmlFor="account-nickname">Name</label>
             <input
               type="text"
               className={classes.input}
               id="account-nickname"
               name="accountNickname"
-            />
-          </div>
-          <div className={classes["input-container"]}>
-            <label htmlFor="account-number">Account #</label>
-            <input
-              type="number"
-              className={classes.input}
-              id="account-number"
-              name="accountNumber"
             />
           </div>
           <div className={classes["input-container"]}>
@@ -232,29 +221,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               </div>
             </>
           ) : undefined}
-          {activeIcon === "Checking" ? (
-            <div className={classes["checkbox-container"]}>
-              <input
-                type="checkbox"
-                id="add-debit"
-                name="addDebit"
-                value="add-debit"
-                onClick={debitCheckboxHandler}
-              />
-              <label htmlFor="add-debit">
-                I want to associate a debit card with this account
-              </label>
-            </div>
-          ) : undefined}
         </div>
-        {hasDebit ? (
-          <ul className={classes["debit-card-list"]}>
-            <li className={classes["debit-card"]}>Debit 1</li>
-            <li className={classes["debit-card"]}>Debit 2</li>
-            <li className={classes["debit-card"]}>Debit 3</li>
-            <li className={`${classes["debit-card"]} ${classes.add}`}>+</li>
-          </ul>
-        ) : undefined}
         <div className={classes["button-container"]}>
           <AccountsFormSubmit
             className={classes["submit-button"]}

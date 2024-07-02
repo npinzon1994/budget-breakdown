@@ -3,10 +3,12 @@
 import Image from "next/image";
 import classes from "./Accounts.module.css";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Account from "src/models/account";
-import ImagePreview from "src/components/UI/ImagePreview";
+import AccountIcon from "src/components/UI/Icons/AccountIcon";
 import { formatCurrency } from "src/util/currency";
+import { useAppDispatch, useAppSelector } from "src/lib/store/hooks";
+import { accountActions } from "src/lib/store/account-slice";
 
 type AccountsProps = {
   params: { accountSlug: string };
@@ -15,6 +17,16 @@ type AccountsProps = {
 };
 
 const Accounts: FC<AccountsProps> = ({ accounts }) => {
+  const currentAccount = useAppSelector(
+    (state) => state.account.currentAccount
+  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (currentAccount) {
+      dispatch(accountActions.setCurrentAccount(null));
+    }
+  }, []);
+
   const loadedAccounts: Account[] = [];
   for (let i = 0; i < accounts.length; i++) {
     const account_ID = accounts[i]._id.toString();
@@ -46,18 +58,11 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
       >
         <div className={classes["account-information"]}>
           <div className={classes["name-icon-container"]}>
-            <ImagePreview
-              icon={account.icon}
-              className={classes.icon}
-            />
+            <AccountIcon icon={account.icon} className={classes.icon} />
             <span className={classes.name}>{account.nickName}</span>
           </div>
-          <span className={classes["account-number"]}>
-            {account.accountNumber}
-          </span>
-          <span className={classes['account-type']}>
-            {account.type}
-          </span>
+          <span className={classes.note}>{account.note}</span>
+          <span className={classes["account-type"]}>{account.type}</span>
         </div>
         <div className={classes["balance-information"]}>
           <div>
@@ -70,7 +75,7 @@ const Accounts: FC<AccountsProps> = ({ accounts }) => {
             <div>
               <span className={classes["currency-label"]}>Available</span>
               <span className={classes.currency}>
-              {formatCurrency(Number(account.creditLimit))}
+                {formatCurrency(Number(account.creditLimit))}
               </span>
             </div>
           ) : undefined}

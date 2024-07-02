@@ -1,0 +1,20 @@
+.transactions {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 1rem 2rem;
+  border-left: solid 1px hsla(208, 22%, 38%, 0.25);
+  overflow-y: scroll;
+}
+
+.transactions h1 {
+  margin-block: 0;
+}
+
+.list {
+  margin: 0;
+  padding-left: 0;
+  border-radius: 0 0 4px 4px;
+}

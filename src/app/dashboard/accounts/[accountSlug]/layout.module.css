@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  /* background: pink; */
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  height: calc(100vh - 133px);
+}

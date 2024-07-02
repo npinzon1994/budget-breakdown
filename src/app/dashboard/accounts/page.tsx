@@ -22,7 +22,7 @@ const Dashboard_AccountsPage: FC<PageProps> = async ({ params }) => {
     <main className={classes.page}>
       <header className={classes.header}>
         <div className={classes["total-balance-info"]}>
-          <span className={classes.label}>Total Equity</span>
+          <span className={classes.label}>Total</span>
           <span className={classes.balance}>???</span>
           <Link
             href="/dashboard/accounts/new-account"

@@ -11,10 +11,10 @@ const MAX_FILE_SIZE = 5000000;
 const accountSchema = z.object({
   accountType: z.string(),
   accountNickname: z.string().min(1, { message: "Name is required" }),
-  accountNumber: z.preprocess(
-    (val) => Number(val),
-    z.number().min(1, { message: "Account Number required" })
-  ),
+  // accountNumber: z.preprocess(
+  //   (val) => Number(val),
+  //   z.number().min(1, { message: "Account Number required" })
+  // ),
   startingBalance: z.preprocess((val) => Number(val), z.number()),
   icon: z
     .any()
@@ -49,7 +49,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
     const formInputs = {
       accountType: formData.get("accountType"),
       accountNickname: formData.get("accountNickname"),
-      accountNumber: formData.get("accountNumber"),
+      // accountNumber: formData.get("accountNumber"),
       startingBalance: Number(formData.get("startingBalance")),
       icon: formData.get("icon"),
       note: formData.get("note"),
@@ -68,7 +68,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         associatedUser_ID: user.id,
         type: validData.accountType,
         nickName: validData.accountNickname,
-        accountNumber: validData.accountNumber,
+        // accountNumber: validData.accountNumber,
         balance: validData.startingBalance,
         icon: validData.icon,
         note: validData.note,

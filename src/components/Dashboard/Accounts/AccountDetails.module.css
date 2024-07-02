@@ -10,7 +10,6 @@
   flex-direction: column;
   margin-top: 1rem;
   flex: 0 1 auto;
-
   position: relative;
 }
 
@@ -70,10 +69,34 @@
   /* background: yellow; */
 }
 
-.icon {
+.account-icon {
   height: 34px;
   width: 34px;
   flex: 0 1 auto;
+}
+
+.ellipsis-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ellipsis-button {
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ellipsis-icon {
+  height: 26px;
+  width: 26px;
+}
+
+.ellipsis-button:hover {
+  background: rgb(236, 236, 236);
+}
+
+.ellipsis-button:active {
+  background: rgb(243, 243, 243);
 }
 
 .text-wrapper-vertical {
@@ -120,56 +143,39 @@
   /* background: pink; */
 }
 
-.button {
-  padding: 0.75em 1em;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.add-button {
   border-radius: 4px;
-  cursor: pointer;
-  border: none;
-  transition: 150ms;
-}
-
-.add {
+  padding: 0.75em 1em;
   background: rgba(17, 103, 177, 0.9);
   color: white;
 }
 
-.add:hover {
+.add-button:hover {
   background: rgb(17, 103, 177);
   color: white;
 }
 
-.add:active {
+.add-button:active {
   background: rgba(17, 103, 177, 0.825);
   color: white;
 }
 
-.add-image-wrapper {
+.add-image {
   height: 12px;
   width: 12px;
 }
 
-.add-image-wrapper img {
-  height: 100%;
-  width: 100%;
-}
-
-.button-text {
-  font-size: 1rem;
-}
-
-.transfer {
+.transfer-button {
+  border-radius: 4px;
+  padding: 0.75em 1em;
   background: hsla(208, 22%, 38%, 0.25);
 }
 
-.transfer:hover {
+.transfer-button:hover {
   background: hsla(208, 22%, 38%, 0.3);
 }
 
-.transfer:active {
+.transfer-button:active {
   background: hsla(208, 22%, 38%, 0.2);
 }
 

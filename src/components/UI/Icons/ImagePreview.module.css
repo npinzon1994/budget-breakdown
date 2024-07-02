@@ -1,0 +1,11 @@
+.preview {
+    text-align: center;
+    color: #a4abb9;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .preview img {
+    object-fit: cover;
+  }
