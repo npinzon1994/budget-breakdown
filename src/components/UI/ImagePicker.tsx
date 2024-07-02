@@ -8,12 +8,13 @@ import accountPlaceholder from "../../assets/account-placeholder.png";
 type Props = {
   name: string;
   label: string;
-  activeIcon: string | undefined;
+  userIcon?: string;
+  // activeIcon: string | undefined;
 };
 
-const ImagePicker: FC<Props> = ({ name, label }) => {
+const ImagePicker: FC<Props> = ({ name, label, userIcon }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [icon, setIcon] = useState<string | null>(null);
+  const [icon, setIcon] = useState<string | null>(userIcon ? `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${userIcon}` : null);
 
   const handleClick = () => {
     inputRef.current?.click();

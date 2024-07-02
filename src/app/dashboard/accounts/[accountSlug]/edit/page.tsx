@@ -1,3 +1,4 @@
+import NewAccountForm from "src/components/Dashboard/Accounts/NewAccountForm";
 import classes from "./page.module.css";
 import BackButton from "src/components/UI/Buttons/BackButton";
 
@@ -7,7 +8,7 @@ export default function EditAccountPage() {
       <div className={classes["back-button-container"]}>
         <BackButton />
       </div>
-      <h1>EDIT PAGE</h1>
+      <NewAccountForm mode="edit" />
     </main>
   );
 }

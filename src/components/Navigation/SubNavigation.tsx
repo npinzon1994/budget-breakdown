@@ -33,7 +33,12 @@ const SubNavigation = () => {
   });
   console.log("NAME SLUG INDEX: ", nameIndex);
 
-  if (currentAccount && !capitalizedRoutes.includes(currentAccount?.nickName)) {
+  //checking if we need to replace account slug with account nickname
+  if (
+    currentAccount &&
+    routesFromUrl[1] === "accounts" &&
+    !capitalizedRoutes.includes(currentAccount?.nickName)
+  ) {
     console.log("NOW REPLACING SLUG WITH NICKNAME (SPLICE)...");
     capitalizedRoutes.splice(nameIndex, 1, currentAccount?.nickName);
   }
@@ -66,8 +71,8 @@ const SubNavigation = () => {
   return (
     <header className={classes.header}>
       <ul className={classes["sub-navigation"]}>{displayedRoutes}</ul>
-      {/* <p>{`CURRENT ACCOUNT: ${currentAccount?.nickName}`}</p>
-      <p>{`NAME INDEX: ${nameIndex}`}</p> */}
+      <p className={classes['list-item']}>{`CURRENT ACCOUNT: ${currentAccount?.nickName}`}</p>
+      {/* <p>{`NAME INDEX: ${nameIndex}`}</p> */}
     </header>
   );
 };

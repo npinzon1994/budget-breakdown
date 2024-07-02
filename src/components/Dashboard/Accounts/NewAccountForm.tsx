@@ -19,16 +19,13 @@ import debitCardIcon from "../../../assets/account-type-icons/debit.svg";
 import cashIcon from "../../../assets/account-type-icons/money-icon.svg";
 import snapIcon from "../../../assets/account-type-icons/snap.png";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "src/lib/store/hooks";
 
 const MAX_FILE_SIZE = 5000000;
 
 const schema = z.object({
   accountType: z.string(),
   accountNickname: z.string().min(1, { message: "Name is required" }),
-  // accountNumber: z.preprocess(
-  //   (val) => Number(val),
-  //   z.number().min(1, { message: "Account Number required" })
-  // ),
   startingBalance: z.preprocess((val) => Number(val), z.number()),
   icon: z
     .any()
@@ -74,7 +71,7 @@ const formatAccountOptionLabel = (option: Option) => (
 );
 
 type Props = {
-  icons: string[];
+  mode?: "new" | "edit";
 };
 
 type FormState = {
@@ -89,7 +86,7 @@ const defaultFormState: FormState = {
   errors: {},
 };
 
-const NewAccountForm: FC<Props> = ({ icons }) => {
+const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
   const router = useRouter();
   const [state, formAction] = useFormState(
     async (prevState: any, formData: FormData) => {
@@ -98,18 +95,11 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
     defaultFormState
   );
 
-  const [hasDebit, setHasDebit] = useState(false);
   const [errors, setErrors] = useState<ZodIssue[] | null>();
   const [activeIcon, setActiveIcon] = useState<string | undefined>("");
-
-  const imageSources = icons.map(
-    (icon) =>
-      `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`
+  const currentAccount = useAppSelector(
+    (state) => state.account.currentAccount
   );
-
-  const debitCheckboxHandler = () => {
-    setHasDebit((prev) => !prev);
-  };
 
   async function validateClient(prevState: any, formData: FormData) {
     const newAccount = {
@@ -136,9 +126,15 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
     router.push("/dashboard/accounts");
   }
 
+  const currentAccountOption = accountOptions.find(
+    (option) => option.value === currentAccount?.type
+  );
+
   return (
     <>
-      <h1 className={classes.title}>New Account</h1>
+      <h1 className={classes.title}>{`${
+        mode === "edit" ? "Edit" : "New"
+      } Account`}</h1>
       {errors
         ? errors.map((error) => (
             <li key={error.message} className={classes.error}>
@@ -152,7 +148,9 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
             <label htmlFor="account-type">Type</label>
             <Select
               options={accountOptions}
-              defaultValue={accountOptions[0]}
+              defaultValue={
+                mode === "edit" ? currentAccountOption : accountOptions[0]
+              }
               isSearchable={false}
               formatOptionLabel={formatAccountOptionLabel}
               id="account-type"
@@ -161,7 +159,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
             />
           </div>
           <div className={classes["input-container"]}>
-            <ImagePicker label="Icon" name="icon" activeIcon={activeIcon} />
+            <ImagePicker label="Icon" name="icon" userIcon={currentAccount?.icon} />
           </div>
           <div className={classes["input-container"]}>
             <label htmlFor="account-nickname">Name</label>
@@ -170,6 +168,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               className={classes.input}
               id="account-nickname"
               name="accountNickname"
+              defaultValue={mode === 'edit' ? currentAccount?.nickName : undefined}
             />
           </div>
           <div className={classes["input-container"]}>
@@ -179,6 +178,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               className={classes.input}
               id="starting-balance"
               name="startingBalance"
+              defaultValue={mode === 'edit' ? currentAccount?.balance : undefined}
             />
           </div>
           <div className={classes["input-container"]}>
@@ -188,6 +188,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
               className={classes.input}
               id="note"
               name="note"
+              defaultValue={mode === 'edit' ? currentAccount?.note : undefined}
             />
           </div>
           {activeIcon === "Credit Card" ? (
@@ -226,6 +227,7 @@ const NewAccountForm: FC<Props> = ({ icons }) => {
           <AccountsFormSubmit
             className={classes["submit-button"]}
             formState={state}
+            mode={mode}
           />
         </div>
       </form>
