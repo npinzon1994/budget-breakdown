@@ -1,14 +1,22 @@
-import NewAccountForm from "src/components/Dashboard/Accounts/NewAccountForm";
+import EditAccountForm from "src/components/Dashboard/Accounts/Form/EditAccountForm";
 import classes from "./page.module.css";
 import BackButton from "src/components/UI/Buttons/BackButton";
+import { FC } from "react";
 
-export default function EditAccountPage() {
+type Props = {
+  params: { accountSlug: string };
+}
+
+const EditAccountPage: FC<Props> = ({params}) => {
   return (
     <main className={classes.page}>
       <div className={classes["back-button-container"]}>
         <BackButton />
       </div>
-      <NewAccountForm mode="edit" />
+      <EditAccountForm params={params}/>
     </main>
   );
 }
+
+
+export default EditAccountPage;

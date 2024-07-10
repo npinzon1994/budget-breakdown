@@ -20,6 +20,7 @@ import AccountIcon from "src/components/UI/Icons/AccountIcon";
 import ImagePreview from "src/components/UI/Icons/ImagePreview";
 import IconButton from "src/components/UI/Buttons/IconButton";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   account: Account;
@@ -61,16 +62,10 @@ const AccountDetails: FC<Props> = ({ account, transactions }) => {
         <BackButton />
       </div>
       <div className={classes["card-container"]}>
-        <div className={classes["ellipsis-wrapper"]}>
-          <IconButton
-            src={ellipsisIcon}
-            alt="view more icon"
-            onClick={() => {
-              router.push(`${url}/edit`);
-            }}
-            buttonClasses={classes["ellipsis-button"]}
-            imageClasses={classes["ellipsis-icon"]}
-          />
+        <div className={classes["edit-link-wrapper"]}>
+          <Link href={`${url}/edit`} className={classes["edit-link"]} >
+            ...
+          </Link>
         </div>
         <div className={classes.card}>
           <div className={classes.top}>

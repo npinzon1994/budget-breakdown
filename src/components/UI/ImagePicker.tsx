@@ -9,18 +9,33 @@ type Props = {
   name: string;
   label: string;
   userIcon?: string;
+  iconChanged?: boolean;
+  onIconChange?: () => void;
   // activeIcon: string | undefined;
 };
 
-const ImagePicker: FC<Props> = ({ name, label, userIcon }) => {
+const ImagePicker: FC<Props> = ({
+  name,
+  label,
+  userIcon,
+  iconChanged,
+  onIconChange,
+}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [icon, setIcon] = useState<string | null>(userIcon ? `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${userIcon}` : null);
+  const userIconURL = `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${userIcon}`;
+
+  const [icon, setIcon] = useState<string | null>(
+    userIcon ? userIconURL : null
+  );
 
   const handleClick = () => {
     inputRef.current?.click();
   };
 
   const handleIconChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (iconChanged === false && onIconChange) {
+      onIconChange();
+    }
     const target = event.target;
     if (target?.files && target.files.length > 0) {
       const file = target.files[0];
@@ -36,9 +51,6 @@ const ImagePicker: FC<Props> = ({ name, label, userIcon }) => {
         }
       };
       fileReader.readAsDataURL(file);
-    } else {
-      console.log("Resetting icon to null...");
-      setIcon(null);
     }
   };
 

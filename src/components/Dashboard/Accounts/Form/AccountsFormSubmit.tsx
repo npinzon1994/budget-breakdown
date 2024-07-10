@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { useFormStatus } from "react-dom";
-import classes from "../../UI/Buttons/Button.module.css";
+import classes from "../../../UI/Buttons/Button.module.css";
 
 type ButtonProps = {
   className?: string;

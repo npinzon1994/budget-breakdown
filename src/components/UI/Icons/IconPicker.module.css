@@ -1,0 +1,144 @@
+.wrapper {
+  /* background: red; */
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.dropdown-button {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 1.33rem;
+  padding: 0.75em;
+  border-radius: 4px;
+  background: hsl(208, 22%, 95%);
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: 150ms;
+}
+
+.dropdown-button:hover {
+  background: hsl(208, 22%, 90%);
+}
+
+.dropdown-button:active {
+  background: hsl(208, 22%, 95%);
+}
+
+.dropdown-button:hover > .arrow {
+  transform: rotate(0deg);
+}
+
+.display-icon {
+  height: 30px;
+  width: 30px;
+  border: solid 1px lightgray;
+}
+
+.arrow {
+  position: relative;
+  transform: rotate(-90deg);
+  height: 20px;
+  width: 20px;
+  transition: 150ms;
+}
+
+.arrow img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.grid-wrapper {
+  /* width: 300px; */
+  background: rgb(240, 240, 240);
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 10px;
+  width: fit-content;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 30px);
+  gap: 1rem;
+  padding-left: 0;
+  /* background: yellow; */
+  /* width: 100%; */
+  margin: 0;
+}
+
+.grid li {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  list-style-type: none;
+  border-radius: 50%;
+  overflow: hidden;
+  background: lightgray;
+  /* border: solid 5px lightgray; */
+  z-index: 1;
+  transition: 50ms;
+}
+
+.selected {
+  box-shadow: 0 0 0 4px rgb(82, 207, 82);
+  transform: scale(0.9);
+}
+
+.icon {
+  /* object-fit: contain; */
+  transition: 150ms;
+  border-radius: 50%;
+}
+
+.radio-button {
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.radio-button:active + .icon {
+}
+
+.input {
+  display: none;
+}
+
+.preview {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #a4abb9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #a4abb9;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.preview img {
+  object-fit: cover;
+}
+
+.add-button {
+  border-radius: 50%;
+  padding: 6px;
+  height: 30px;
+  width: 30px;
+  border: none;
+  cursor: pointer;
+  background: rgba(17, 103, 177, 0.15);
+  color: rgb(17, 103, 177);
+}

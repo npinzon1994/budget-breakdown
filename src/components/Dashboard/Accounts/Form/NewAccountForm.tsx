@@ -9,17 +9,18 @@ import { useFormState } from "react-dom";
 import AccountsFormSubmit from "./AccountsFormSubmit";
 import { ZodIssue, z } from "zod";
 import ImagePicker from "src/components/UI/ImagePicker";
-import accountPlaceholder from "../../../assets/account-placeholder.png";
+import accountPlaceholder from "../../../../assets/account-placeholder.png";
 import Image from "next/image";
-import checkingIcon from "../../../assets/account-type-icons/checking.svg";
-import savingsIcon from "../../../assets/account-type-icons/savings.svg";
-import loanIcon from "../../../assets/account-type-icons/loan.svg";
-import creditCardIcon from "../../../assets/account-type-icons/credit.svg";
-import debitCardIcon from "../../../assets/account-type-icons/debit.svg";
-import cashIcon from "../../../assets/account-type-icons/money-icon.svg";
-import snapIcon from "../../../assets/account-type-icons/snap.png";
+import checkingIcon from "../../../../assets/account-type-icons/checking.svg";
+import savingsIcon from "../../../../assets/account-type-icons/savings.svg";
+import loanIcon from "../../../../assets/account-type-icons/loan.svg";
+import creditCardIcon from "../../../../assets/account-type-icons/credit.svg";
+import debitCardIcon from "../../../../assets/account-type-icons/debit.svg";
+import cashIcon from "../../../../assets/account-type-icons/money-icon.svg";
+import snapIcon from "../../../../assets/account-type-icons/snap.png";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "src/lib/store/hooks";
+import IconPicker from "src/components/UI/Icons/IconPicker";
 
 const MAX_FILE_SIZE = 5000000;
 
@@ -96,7 +97,9 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
   );
 
   const [errors, setErrors] = useState<ZodIssue[] | null>();
-  const [activeIcon, setActiveIcon] = useState<string | undefined>("");
+  const [activeAccountType, setActiveAccountType] = useState<
+    string | undefined
+  >("");
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
@@ -126,9 +129,8 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
     router.push("/dashboard/accounts");
   }
 
-  const currentAccountOption = accountOptions.find(
-    (option) => option.value === currentAccount?.type
-  );
+  const fetchedBalance = Number(currentAccount?.balance).toFixed(2);
+  const balance_edit = mode === "edit" ? String(fetchedBalance) : undefined;
 
   return (
     <>
@@ -143,23 +145,28 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
           ))
         : undefined}
       <form action={formAction} className={classes.form}>
+        <IconPicker icons={[]} name="iconPicker" label="Icon" />
         <div className={classes["input-grid"]}>
+          {mode === "new" ? (
+            <div className={classes["input-container"]}>
+              <label htmlFor="account-type">Type</label>
+              <Select
+                options={accountOptions}
+                defaultValue={accountOptions[0]}
+                isSearchable={false}
+                formatOptionLabel={formatAccountOptionLabel}
+                id="account-type"
+                name="accountType"
+                onChange={(option) => setActiveAccountType(option?.value)}
+              />
+            </div>
+          ) : undefined}
           <div className={classes["input-container"]}>
-            <label htmlFor="account-type">Type</label>
-            <Select
-              options={accountOptions}
-              defaultValue={
-                mode === "edit" ? currentAccountOption : accountOptions[0]
-              }
-              isSearchable={false}
-              formatOptionLabel={formatAccountOptionLabel}
-              id="account-type"
-              name="accountType"
-              onChange={(option) => setActiveIcon(option?.value)}
+            <ImagePicker
+              label="Icon"
+              name="icon"
+              userIcon={currentAccount?.icon}
             />
-          </div>
-          <div className={classes["input-container"]}>
-            <ImagePicker label="Icon" name="icon" userIcon={currentAccount?.icon} />
           </div>
           <div className={classes["input-container"]}>
             <label htmlFor="account-nickname">Name</label>
@@ -168,7 +175,9 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
               className={classes.input}
               id="account-nickname"
               name="accountNickname"
-              defaultValue={mode === 'edit' ? currentAccount?.nickName : undefined}
+              defaultValue={
+                mode === "edit" ? currentAccount?.nickName : undefined
+              }
             />
           </div>
           <div className={classes["input-container"]}>
@@ -178,7 +187,7 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
               className={classes.input}
               id="starting-balance"
               name="startingBalance"
-              defaultValue={mode === 'edit' ? currentAccount?.balance : undefined}
+              defaultValue={balance_edit}
             />
           </div>
           <div className={classes["input-container"]}>
@@ -188,10 +197,10 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
               className={classes.input}
               id="note"
               name="note"
-              defaultValue={mode === 'edit' ? currentAccount?.note : undefined}
+              defaultValue={mode === "edit" ? currentAccount?.note : undefined}
             />
           </div>
-          {activeIcon === "Credit Card" ? (
+          {activeAccountType === "Credit Card" ? (
             <>
               <div className={classes["input-container"]}>
                 <label htmlFor="credit-limit">Credit Limit</label>

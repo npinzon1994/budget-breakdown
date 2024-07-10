@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import slugify from "slugify";
 import ShortUniqueId from "short-unique-id";
 import { S3 } from "@aws-sdk/client-s3";
+import Account from "src/models/account";
 
 const DB_URL = process.env.MONGODB_URI;
 
@@ -40,7 +41,7 @@ export async function getAccounts(userId: string) {
   }
 }
 
-export async function saveAccount(account: any) {
+export async function saveNewAccount(account: any) {
   const { randomUUID } = new ShortUniqueId({ length: 12 });
 
   try {
@@ -86,6 +87,42 @@ export async function saveAccount(account: any) {
     client.close();
   } catch (error) {
     console.error("Something went wrong. Please try again later.", error);
+  }
+}
+
+export async function overwriteAccount(slug: string, account: any) {
+  if (!DB_URL) {
+    throw new Error(
+      "Please define the MONGODB_URI environment variable inside .env.local"
+    );
+  }
+
+  try {
+    const client = await MongoClient.connect(DB_URL);
+    const db = client.db();
+    const accountsCollection = db.collection("accounts");
+
+    await accountsCollection.updateOne(
+      {
+        accountSlug: slug,
+      },
+      {
+        $set: {
+          nickName: account.nickName,
+          balance: account.balance,
+          icon: `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${account.icon}`,
+          note: account.note,
+          creditLimit: account.creditLimit,
+          billingDate: account.billingDate,
+          dueDate: account.dueDate,
+        },
+      }
+    );
+
+    console.log("OVERWRIGHT SUCCESSFUL!");
+    client.close();
+  } catch (error) {
+    console.error("Could not find account. Please try again later.", error);
   }
 }
 

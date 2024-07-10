@@ -6,12 +6,12 @@ import AccountDetails from "src/components/Dashboard/Accounts/AccountDetails";
 import { getTransactions } from "src/lib/transactions";
 import Transactions from "src/components/Transactions/Transactions";
 
-type PageProps = {
+type Props = {
   params: { accountSlug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-const AccountDetailsPage: FC<PageProps> = async ({ params }) => {
+const AccountDetailsPage: FC<Props> = async ({ params }) => {
   const user = await currentUser();
 
   if (!user) {

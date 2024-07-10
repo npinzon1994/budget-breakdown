@@ -71,7 +71,10 @@ const SubNavigation = () => {
   return (
     <header className={classes.header}>
       <ul className={classes["sub-navigation"]}>{displayedRoutes}</ul>
-      <p className={classes['list-item']}>{`CURRENT ACCOUNT: ${currentAccount?.nickName}`}</p>
+      <p className={classes["list-item"]} style={{ marginRight: 40 }}>
+        <span style={{ color: "green" }}>{`${currentAccount?.nickName} -- `}</span>
+        {`(Current Account)`}{" "}
+      </p>
       {/* <p>{`NAME INDEX: ${nameIndex}`}</p> */}
     </header>
   );

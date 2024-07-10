@@ -1,0 +1,102 @@
+.title {
+  margin-block: 6px 8px;
+}
+
+.form {
+  /* background: yellow; */
+  max-width: 45rem;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  /* background: pink; */
+}
+
+.option-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+}
+
+.icon-container {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: solid 1px lightgray;
+}
+
+.icon-container img {
+  object-fit: contain;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* background: limegreen; */
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 10px;
+  /* padding: 10px 20px; */
+  margin-bottom: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 4px;
+  border: solid 1px hsl(0, 0%, 80%);
+}
+
+.debit-card-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  /* padding: 10px 20px; */
+  padding-left: 0;
+  margin-block: 0;
+}
+
+.debit-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1.5em;
+  border-radius: 10px;
+}
+
+.debit-card.add {
+  background: rgba(17, 103, 177, 0.2);
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  padding-block: 14px;
+  background: #1167b1;
+  color: white;
+  margin-top: 30px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  list-style-type: none;
+  font-style: italic;
+}

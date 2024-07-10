@@ -1,7 +1,7 @@
 "use server";
 
 import { currentUser } from "@clerk/nextjs/server";
-import { saveAccount } from "./accounts";
+import { getAccountDetails, overwriteAccount, saveAccount } from "./accounts";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { generateInitialTransaction, saveExpense } from "./transactions";
@@ -9,7 +9,7 @@ import { generateInitialTransaction, saveExpense } from "./transactions";
 const MAX_FILE_SIZE = 5000000;
 
 const accountSchema = z.object({
-  accountType: z.string(),
+  accountType: z.string().optional(),
   accountNickname: z.string().min(1, { message: "Name is required" }),
   // accountNumber: z.preprocess(
   //   (val) => Number(val),
@@ -35,6 +35,66 @@ const accountSchema = z.object({
   billingDate: z.string().date().nullable().or(z.literal("")),
   dueDate: z.string().date().nullable().or(z.literal("")),
 });
+
+export async function editAccount(
+  accountSlug: string,
+  prevState: any,
+  formData: FormData
+) {
+  //find account in db
+  //update what was changed
+  const user = currentUser();
+  if (!user) {
+    return {
+      status: 404,
+      message: "User is not signed in.",
+    };
+  }
+
+  const formInputs = {
+    accountNickname: formData.get("accountNickname"),
+    startingBalance: Number(formData.get("startingBalance")),
+    icon: formData.get("icon"),
+    note: formData.get("note"),
+    creditLimit: formData.get("creditLimit"),
+    billingDate: formData.get("billingDate"),
+    dueDate: formData.get("dueDate"),
+  };
+
+  try {
+    const validData = accountSchema.parse(formInputs);
+
+    const modifiedAccount = {
+      nickName: validData.accountNickname,
+      balance: validData.startingBalance,
+      icon: validData.icon,
+      note: validData.note,
+      creditLimit: validData.creditLimit,
+      billingDate: validData.billingDate,
+      dueDate: validData.dueDate,
+    };
+
+    await overwriteAccount(accountSlug, modifiedAccount);
+    revalidatePath("/dashboard/accounts");
+    return { status: 200, message: "Overwrite successful!" };
+  } catch (validationError) {
+    if (validationError instanceof z.ZodError) {
+      const errors = validationError.errors.reduce(
+        (acc: Record<string, string>, err) => {
+          acc[err.path[0]] = err.message;
+          console.log("errors: ", acc);
+          return acc;
+        },
+        {}
+      );
+      return { status: 400, message: "Validation failed.", errors };
+    } else {
+      throw validationError;
+    }
+  }
+
+  
+}
 
 export async function createNewAccount(prevState: any, formData: FormData) {
   try {
@@ -103,7 +163,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
 }
 
 export async function createNewExpense(prevState: any, formData: FormData) {
-  if(!prevState?.currentAccount_ID) {
+  if (!prevState?.currentAccount_ID) {
     console.log("NO ACCOUNT_ID FROM LAST SUBMISSION");
     return;
   }
