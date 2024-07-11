@@ -41,6 +41,7 @@
   height: 20px;
   width: 20px;
   transition: 150ms;
+  user-select: none;
 }
 
 .arrow img {

@@ -1,7 +1,7 @@
 "use server";
 
 import { currentUser } from "@clerk/nextjs/server";
-import { getAccountDetails, overwriteAccount, saveAccount } from "./accounts";
+import { getAccountDetails, overwriteAccount, saveNewAccount } from "./accounts";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { generateInitialTransaction, saveExpense } from "./transactions";
@@ -54,7 +54,7 @@ export async function editAccount(
   const formInputs = {
     accountNickname: formData.get("accountNickname"),
     startingBalance: Number(formData.get("startingBalance")),
-    icon: formData.get("icon"),
+    icon: formData.get("iconButton"),
     note: formData.get("note"),
     creditLimit: formData.get("creditLimit"),
     billingDate: formData.get("billingDate"),
@@ -111,7 +111,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       accountNickname: formData.get("accountNickname"),
       // accountNumber: formData.get("accountNumber"),
       startingBalance: Number(formData.get("startingBalance")),
-      icon: formData.get("icon"),
+      icon: formData.get("iconButton"), // `iconButton${selectedIcon}`
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
       billingDate: formData.get("billingDate"),
@@ -137,7 +137,7 @@ export async function createNewAccount(prevState: any, formData: FormData) {
         dueDate: validData.dueDate,
       };
 
-      await saveAccount(newAccount);
+      await saveNewAccount(newAccount);
       await generateInitialTransaction(newAccount);
       revalidatePath("/dashboard/accounts");
       return { status: 200, message: "Account added successfully!" };
@@ -218,4 +218,8 @@ export async function createNewExpense(prevState: any, formData: FormData) {
       currentAccount_ID: prevState.currentAccount_ID,
     };
   }
+}
+
+export async function createNewIcon(formData: FormData) {
+  
 }

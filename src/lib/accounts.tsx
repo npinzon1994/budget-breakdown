@@ -6,9 +6,7 @@ import Account from "src/models/account";
 
 const DB_URL = process.env.MONGODB_URI;
 
-const s3 = new S3({
-  region: "us-east-2",
-});
+const s3 = new S3();
 
 export async function getAccounts(userId: string) {
   //get accts from db

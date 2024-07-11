@@ -21,6 +21,7 @@ import snapIcon from "../../../../assets/account-type-icons/snap.png";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "src/lib/store/hooks";
 import IconPicker from "src/components/UI/Icons/IconPicker";
+import { User } from "@clerk/nextjs/dist/types/server";
 
 const MAX_FILE_SIZE = 5000000;
 
@@ -73,6 +74,8 @@ const formatAccountOptionLabel = (option: Option) => (
 
 type Props = {
   mode?: "new" | "edit";
+  userID?: string;
+  uploadedIcons: (string | undefined)[];
 };
 
 type FormState = {
@@ -87,7 +90,7 @@ const defaultFormState: FormState = {
   errors: {},
 };
 
-const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
+const NewAccountForm: FC<Props> = ({ mode = "new", userID, uploadedIcons }) => {
   const router = useRouter();
   const [state, formAction] = useFormState(
     async (prevState: any, formData: FormData) => {
@@ -110,7 +113,7 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
       accountNickname: formData.get("accountNickname"),
       // accountNumber: formData.get("accountNumber"),
       startingBalance: formData.get("startingBalance"),
-      icon: formData.get("icon"),
+      icon: formData.get("iconPicker"),
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
       billingDate: formData.get("billingDate"),
@@ -145,7 +148,13 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
           ))
         : undefined}
       <form action={formAction} className={classes.form}>
-        <IconPicker icons={[]} name="iconPicker" label="Icon" />
+        <IconPicker
+          uploadedIcons={uploadedIcons}
+          name="iconPicker"
+          label="Icon"
+          userID={userID ? userID : ""}
+          onGetSelectedIcon={() => {}}
+        />
         <div className={classes["input-grid"]}>
           {mode === "new" ? (
             <div className={classes["input-container"]}>
@@ -161,13 +170,13 @@ const NewAccountForm: FC<Props> = ({ mode = "new" }) => {
               />
             </div>
           ) : undefined}
-          <div className={classes["input-container"]}>
+          {/* <div className={classes["input-container"]}>
             <ImagePicker
               label="Icon"
               name="icon"
               userIcon={currentAccount?.icon}
             />
-          </div>
+          </div> */}
           <div className={classes["input-container"]}>
             <label htmlFor="account-nickname">Name</label>
             <input

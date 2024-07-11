@@ -22,14 +22,17 @@ import tdBankIcon from "../../../assets/bank-icons/td-bank.webp";
 import wellsFargoIcon from "../../../assets/bank-icons/wells-fargo.svg";
 import ImagePreview from "./ImagePreview";
 import rightArrow from "../../../assets/arrow-rounded-corners.svg";
+import { saveIcon } from "src/lib/icons";
 
 type Props = {
-  icons?: string[];
   name: string;
   label: string;
-  userIcon?: string;
+  userID: string;
+  uploadedIcons?: (string | undefined)[];
+  currentIcon?: string;
   iconChanged?: boolean;
   onIconChange?: () => void;
+  onGetSelectedIcon?: (icon: any) => void;
 };
 
 const bankIcons = [
@@ -50,25 +53,22 @@ const bankIcons = [
 ];
 
 const IconPicker: FC<Props> = ({
-  icons,
   name,
   label,
-  userIcon,
+  userID,
+  uploadedIcons,
+  currentIcon,
   iconChanged,
   onIconChange,
+  onGetSelectedIcon,
 }) => {
-  const defaultIcon =
-    "https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/account-placeholder.png";
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const currentIconURL = `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${currentIcon}`;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [displayIcon, setDisplayIcon] = useState(defaultIcon);
   const [selectedIcon, setSelectedIcon] = useState(amexIcon);
-
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const userIconURL = `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${userIcon}`;
-
   const [uploadedIcon, setUploadedIcon] = useState<string | null>(
-    userIcon ? userIconURL : null
+    currentIcon ? currentIconURL : null
   );
 
   const handleOpen = () => {
@@ -79,6 +79,7 @@ const IconPicker: FC<Props> = ({
   };
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
+    console.log("UPLOADED ICONS -- ", uploadedIcons);
   };
 
   const handleAddNewIconButtonClick = () => {
@@ -90,9 +91,19 @@ const IconPicker: FC<Props> = ({
       onIconChange();
     }
     const target = event.target;
+
     if (target?.files && target.files.length > 0) {
       const file = target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const form = new FormData();
+      form.append("uploadedImage", file);
+
       console.log("Current File: ", file);
+      console.log("FILE NAME: ", file.name);
 
       const fileReader = new FileReader();
       fileReader.onload = () => {
@@ -104,6 +115,10 @@ const IconPicker: FC<Props> = ({
         }
       };
       fileReader.readAsDataURL(file);
+      //trigger server action that will save icon to S3
+
+      console.log("Triggering icon save...");
+      saveIcon(form, userID);
     }
   };
 
@@ -124,34 +139,37 @@ const IconPicker: FC<Props> = ({
         <div className={classes["grid-wrapper"]}>
           <label htmlFor="custom-icon">Custom</label>
           <ul id="user-icons" className={classes.grid}>
-            {icons
-              ? icons.map((icon, index) => (
+            {uploadedIcons
+              ? uploadedIcons.map((icon, index) => (
                   <li
                     key={icon}
                     className={
-                      icon === selectedIcon ? classes.selected : undefined
+                      `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}` ===
+                      selectedIcon
+                        ? classes.selected
+                        : undefined
                     }
                   >
-                    <Image src={icon} alt={`${icon} icon`} fill />
+                    <Image
+                      src={`https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`}
+                      alt={`${icon} icon`}
+                      fill
+                    />
                     <input
                       type="radio"
-                      name="radioButton"
+                      name="iconButton"
                       id="custom-icon"
                       className={classes["radio-button"]}
-                      onClick={() => setSelectedIcon(icon)}
+                      onClick={() =>
+                        setSelectedIcon(
+                          `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}`
+                        )
+                      }
                     />
                   </li>
                 ))
               : undefined}
-            {uploadedIcon ? (
-              <li key="preview" className={classes.preview}>
-                <Image
-                  src={uploadedIcon}
-                  alt="account icon selected by the user"
-                  fill
-                />
-              </li>
-            ) : undefined}
+
             <li key="add-new-icon-button">
               <input
                 type="file"
@@ -182,8 +200,8 @@ const IconPicker: FC<Props> = ({
               >
                 <input
                   type="radio"
-                  name="radioButton"
-                  id="stock-icon"
+                  name={icon}
+                  id={icon}
                   className={classes["radio-button"]}
                   onClick={() => setSelectedIcon(icon)}
                 />
