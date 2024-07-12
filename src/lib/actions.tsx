@@ -111,14 +111,14 @@ export async function createNewAccount(prevState: any, formData: FormData) {
       accountNickname: formData.get("accountNickname"),
       // accountNumber: formData.get("accountNumber"),
       startingBalance: Number(formData.get("startingBalance")),
-      icon: formData.get("iconButton"), // `iconButton${selectedIcon}`
+      icon: formData.get("selectedIcon"), // `iconButton${selectedIcon}`
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
       billingDate: formData.get("billingDate"),
       dueDate: formData.get("dueDate"),
     };
 
-    console.log("Icon: ", accountSchema.parse(formInputs).icon);
+    console.log("Icon: ", formInputs.icon);
 
     //separate try/catch block for validation errors
     try {
@@ -218,8 +218,4 @@ export async function createNewExpense(prevState: any, formData: FormData) {
       currentAccount_ID: prevState.currentAccount_ID,
     };
   }
-}
-
-export async function createNewIcon(formData: FormData) {
-  
 }

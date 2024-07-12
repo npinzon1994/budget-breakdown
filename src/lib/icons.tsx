@@ -36,12 +36,24 @@ export async function saveIcon(imageFile: FormData, userID: string) {
     const command = new PutObjectCommand(params);
     await client.send(command);
     revalidatePath("/dashboard/accounts/new-account");
+    return params.Key;
   } catch (error) {
     console.error(
       "There was a problem uploading the image. Please try again later.",
       error
     );
+    return error;
   }
+}
+
+function swapIcons(a: any, b: any) {
+  if (a.dateModified && b.dateModified) {
+    return a.dateModified.getTime() - b.dateModified.getTime();
+  }
+
+  if (a.dateModified === null || a.dateModified === undefined) return 1;
+  if (b.dateModified === null || b.dateModified === undefined) return -1;
+  return 0;
 }
 
 export async function getIcons(userID: string) {
@@ -57,10 +69,20 @@ export async function getIcons(userID: string) {
       throw new Error("Failed to fetch contents.");
     }
 
-    const icons = contents.map((icon) => icon.Key);
+    //need to extract out VALUE and DATE MODIFIED
+    //sort by date modified
+    //store in new array and return
 
-    console.log(icons);
-    return icons;
+    const loadedIcons = contents.map((icon) => {
+      return { key: icon.Key, dateModified: icon.LastModified };
+    });
+
+    loadedIcons.sort(swapIcons);
+
+    const sortedIcons = loadedIcons.map(icon => icon.key);
+
+    console.log(sortedIcons);
+    return sortedIcons;
   } catch (error) {
     console.error("Trouble fetching icons", error);
   }

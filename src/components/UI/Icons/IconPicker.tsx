@@ -3,7 +3,7 @@
 import Image from "next/image";
 import classes from "./IconPicker.module.css";
 import ImagePicker from "../ImagePicker";
-import { FC, useState, useRef, ChangeEvent } from "react";
+import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
 import accountPlaceholder from "../../../assets/account-placeholder.png";
 
 import amexIcon from "../../../assets/bank-icons/amex.png";
@@ -32,7 +32,7 @@ type Props = {
   currentIcon?: string;
   iconChanged?: boolean;
   onIconChange?: () => void;
-  onGetSelectedIcon?: (icon: any) => void;
+  onGetSelectedIcon: (icon: FormData) => void;
 };
 
 const bankIcons = [
@@ -71,12 +71,14 @@ const IconPicker: FC<Props> = ({
     currentIcon ? currentIconURL : null
   );
 
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const iconData = new FormData();
+    iconData.append("selectedIcon", selectedIcon);
+    if (selectedIcon) {
+      onGetSelectedIcon(iconData);
+    }
+  }, [selectedIcon]);
+
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
     console.log("UPLOADED ICONS -- ", uploadedIcons);
@@ -105,27 +107,29 @@ const IconPicker: FC<Props> = ({
       console.log("Current File: ", file);
       console.log("FILE NAME: ", file.name);
 
-      const fileReader = new FileReader();
-      fileReader.onload = () => {
-        //onLoad gets triggered once readAsDataURL is finished executing
-        const URL = fileReader.result;
-        if (typeof URL === "string") {
-          console.log("icon URL: ", URL);
-          setUploadedIcon(URL);
-        }
-      };
-      fileReader.readAsDataURL(file);
-      //trigger server action that will save icon to S3
-
       console.log("Triggering icon save...");
-      saveIcon(form, userID);
+
+      //using then/catch so I don't need to use async/await
+      saveIcon(form, userID)
+        .then((savedIconURL) => {
+          setSelectedIcon(
+            `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${savedIconURL}`
+          );
+        })
+        .catch((error) => {
+          console.error("ERROR -- ", error);
+        });
     }
   };
 
   return (
     <div className={classes.wrapper}>
-      <label htmlFor={name}>{label}</label>
-      <div className={classes["dropdown-button"]} onClick={handleToggle}>
+      <label htmlFor={label}>{label}</label>
+      <div
+        className={classes["dropdown-button"]}
+        onClick={handleToggle}
+        id={label}
+      >
         <ImagePreview
           icon={selectedIcon}
           alt={`${selectedIcon} icon`}
@@ -157,7 +161,12 @@ const IconPicker: FC<Props> = ({
                     />
                     <input
                       type="radio"
-                      name="iconButton"
+                      name={
+                        `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}` ===
+                        selectedIcon
+                          ? name
+                          : "iconButton"
+                      }
                       id="custom-icon"
                       className={classes["radio-button"]}
                       onClick={() =>
@@ -200,7 +209,12 @@ const IconPicker: FC<Props> = ({
               >
                 <input
                   type="radio"
-                  name={icon}
+                  name={
+                    `https://budget-breakdown-account-images.s3.us-east-2.amazonaws.com/${icon}` ===
+                    selectedIcon
+                      ? name
+                      : "iconButton"
+                  }
                   id={icon}
                   className={classes["radio-button"]}
                   onClick={() => setSelectedIcon(icon)}

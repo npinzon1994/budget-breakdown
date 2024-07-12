@@ -107,18 +107,22 @@ const NewAccountForm: FC<Props> = ({ mode = "new", userID, uploadedIcons }) => {
     (state) => state.account.currentAccount
   );
 
+  const [iconFormData, setIconFormData] = useState<FormData>();
+
   async function validateClient(prevState: any, formData: FormData) {
     const newAccount = {
       accountType: formData.get("accountType"),
       accountNickname: formData.get("accountNickname"),
       // accountNumber: formData.get("accountNumber"),
       startingBalance: formData.get("startingBalance"),
-      icon: formData.get("iconPicker"),
+      icon: iconFormData?.get("selectedIcon"),
       note: formData.get("note"),
       creditLimit: formData.get("creditLimit"),
       billingDate: formData.get("billingDate"),
       dueDate: formData.get("dueDate"),
     };
+
+    console.log("ICON FORM DATA -- ", newAccount.icon);
 
     const result = schema.safeParse(newAccount);
     if (!result.success) {
@@ -135,6 +139,11 @@ const NewAccountForm: FC<Props> = ({ mode = "new", userID, uploadedIcons }) => {
   const fetchedBalance = Number(currentAccount?.balance).toFixed(2);
   const balance_edit = mode === "edit" ? String(fetchedBalance) : undefined;
 
+  //will get called any time selectedIcon changes (in iconPicker)
+  const getSelectedIcon = (icon: FormData) => {
+    setIconFormData(icon);
+  }
+
   return (
     <>
       <h1 className={classes.title}>{`${
@@ -150,10 +159,10 @@ const NewAccountForm: FC<Props> = ({ mode = "new", userID, uploadedIcons }) => {
       <form action={formAction} className={classes.form}>
         <IconPicker
           uploadedIcons={uploadedIcons}
-          name="iconPicker"
+          name="selectedIcon"
           label="Icon"
           userID={userID ? userID : ""}
-          onGetSelectedIcon={() => {}}
+          onGetSelectedIcon={getSelectedIcon}
         />
         <div className={classes["input-grid"]}>
           {mode === "new" ? (
